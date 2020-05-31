@@ -32,11 +32,14 @@
     bind:input="setPassword"
   />
   <van-radio-group value="{{ identity }}" bind:change="onChange">
-      <view style="float:left;margin-right:200rpx;margin-left:40rpx">
+      <view style="float:left;margin-right:40rpx;margin-left:40rpx">
         <van-radio name="student" class="radio"> 学生</van-radio>
       </view>
-      <view style="float:left ">
+      <view style="float:left;margin-right:40rpx;margin-left:80rpx">
         <van-radio name="teacher" class="radio"> 老师</van-radio>
+      </view>
+      <view style="float:right;margin-right40rpx;margin-left:40rpx ">
+        <van-radio name="administrator" class="radio"> 管理员</van-radio>
       </view>
   </van-radio-group>
   <view class="btn">

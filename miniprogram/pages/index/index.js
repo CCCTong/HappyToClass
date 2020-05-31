@@ -78,14 +78,7 @@ Page({
       var password = this.data.password
       var identity = this.data.identity
       var page = this
-      if(identity=="teacher"){
-        this.data.disable = true
-        wx.showModal({
-          title: '提示',
-          content: '教师不可以注册',
-        })
-        return 
-      }
+      
       console.log(username, password)
 
       if (page.judge(uid, username, password, identity) == false) {
@@ -109,7 +102,12 @@ Page({
                 identity: identity,
                 courses: []
               }
+              
             })
+            wx.showModal({
+              title: '恭喜',
+              content: '注册成功'
+          })
           }
         })
       }
@@ -139,9 +137,21 @@ Page({
           }
           else {
             console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
+            if(identity=="student"){
             wx.redirectTo({
-              url: '../user/user',
+              url: '../stuPage/stuPage',
             })
+          }
+          if(identity=="teacher"){
+            wx.redirectTo({
+              url: '../teaPage/teaPage',
+            })
+          }
+          if(identity=="administrator"){
+            wx.redirectTo({
+              url: '../adminPage/adminPage',
+            })
+          }
           }
         }).catch(err => {
           console.log(err)
