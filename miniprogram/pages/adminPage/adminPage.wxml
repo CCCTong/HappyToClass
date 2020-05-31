@@ -1,0 +1,9 @@
+<!--miniprogram/pages/adminPage/adminPage.wxml-->
+<view>
+adminPage
+</view>
+<van-cell size="large" is-link icon="setting" title="管理账号" bind:click="manageID"/>
+
+<van-cell size="large" is-link icon="bars" title="管理课程" bind:click="myCourse"/>
+
+<van-cell size="large" is-link icon="eye" title="其他" />

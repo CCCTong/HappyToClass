@@ -1,0 +1,9 @@
+<!--pages/chooseLib/chooseLib.wxml-->
+<view>
+stuPage
+</view>
+<van-cell size="large" is-link icon="add" title="开始选课" bind:click="select"/>
+
+<van-cell size="large" is-link icon="bars" title="我的课程" bind:click="myCourse"/>
+
+<van-cell size="large" is-link icon="eye" title="其他" />
