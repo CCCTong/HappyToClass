@@ -1,140 +1,163 @@
 //index.js
-const app = getApp()
+
+const db = wx.cloud.database()
+const userCollection = db.collection("user")
+var app = getApp()
 
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: ''
+    username:"",
+    uid:"",
+    password:"",
+    identity:"",
+    disable:false
   },
 
-  // 页面跳转测试：学生界面
-  toStuPage: function() {
-    wx.navigateTo({
-      url: '../stuPage/stuPage',
-    })
-  },
-    // 页面跳转测试：学生界面
-    toTeaPage: function() {
-      wx.navigateTo({
-        url: '../teaPage/teaPage',
-      })
+    /**
+   * 设置姓名，账号，密码，身份
+   */
+    setName: function (e) {
+      this.setData({ username: e.detail })
+      app.globalData.username = this.data.username
     },
+    setUid: function (e) {
+      this.setData({ uid: e.detail })
+      app.globalData.uid = this.data.uid
 
-    // 页面跳转测试：管理员界面
-    toAdminPage: function() {
-      wx.navigateTo({
-        url: '../adminPage/adminPage',
-      })
     },
-    
-  onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
-      }
-    })
-  },
-
-  onGetUserInfo: function(e) {
-    if (!this.data.logged && e.detail.userInfo) {
+    setPassword: function (e) {
+      this.setData({ password: e.detail })
+      app.globalData.password = this.data.password
+    },
+    onChange: function (e) {
       this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
+        identity: e.detail
       })
-    }
-  },
-
-  onGetOpenid: function() {
-    // 调用云函数
-    wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
+      app.globalData.identity = this.data.identity
+    },
+    /**
+     * 检查信息是否完整
+     */
+    judge: function (uid, username, password, identity) {
+      var flag = false
+      if (username == "") {
+        wx.showModal({
+          title: '提示',
+          content: '请输入姓名',
         })
-      },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
+        flag = true
       }
-    })
-  },
-
-  // 上传图片
-  doUpload: function () {
-    // 选择图片
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-
-        wx.showLoading({
-          title: '上传中',
+      else if (uid == "") {
+        wx.showModal({
+          title: '提示',
+          content: '请输入账号',
         })
+        flag = true
+      }
+      else if (password == "") {
+        wx.showModal({
+          title: '提示',
+          content: '请输入密码',
+        })
+        flag = true
+      }
+      else if (identity == "") {
+        wx.showModal({
+          title: '提示',
+          content: '请选择身份',
+        })
+        flag = true
+      }
+      return flag
+    },
+    /**
+     * 注册
+     */
+    handleReg: function () {
+      var username = this.data.username
+      var uid = this.data.uid
+      var password = this.data.password
+      var identity = this.data.identity
+      var page = this
+      
+      console.log(username, password)
 
-        const filePath = res.tempFilePaths[0]
-        
-        // 上传图片
-        const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        wx.cloud.uploadFile({
-          cloudPath,
-          filePath,
-          success: res => {
-            console.log('[上传文件] 成功：', res)
-
-            app.globalData.fileID = res.fileID
-            app.globalData.cloudPath = cloudPath
-            app.globalData.imagePath = filePath
-            
-            wx.navigateTo({
-              url: '../storageConsole/storageConsole'
+      if (page.judge(uid, username, password, identity) == false) {
+        userCollection.where({
+          uid: uid,
+          username:username
+        }).count().then(res => {
+          console.log(res.total)
+          if (res.total != 0) {
+            wx.showModal({
+              title: '提示',
+              content: '用户已存在',
             })
-          },
-          fail: e => {
-            console.error('[上传文件] 失败：', e)
-            wx.showToast({
-              icon: 'none',
-              title: '上传失败',
+          }
+          else {
+            userCollection.add({
+              data: {
+                uid: uid,
+                username: username,
+                password: password,
+                identity: identity,
+                courses: []
+              }
+              
             })
-          },
-          complete: () => {
-            wx.hideLoading()
+            wx.showModal({
+              title: '恭喜',
+              content: '注册成功'
+          })
           }
         })
-
-      },
-      fail: e => {
-        console.error(e)
       }
-    })
-  },
-
-})
+    },
+    /**
+     * 登录
+     */
+    handleLogin: function () {
+      var username = this.data.username
+      var uid = this.data.uid
+      var password = this.data.password
+      var identity = this.data.identity
+      var page = this
+      console.log(username, password)
+      if (page.judge(uid, username, password, identity) == false) {
+        userCollection.where({
+          uid: uid,
+          username: username,
+          password: password,
+          identity: identity
+        }).get().then(res => {
+          if (res.data.length == 0) {
+            wx.showModal({
+              title: '提示',
+              content: '登录失败',
+            })
+          }
+          else {
+            console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
+            if(identity=="student"){
+            wx.redirectTo({
+              url: '../stuPage/stuPage',
+            })
+          }
+          if(identity=="teacher"){
+            wx.redirectTo({
+              url: '../teaPage/teaPage',
+            })
+          }
+          if(identity=="administrator"){
+            wx.redirectTo({
+              url: '../adminPage/adminPage',
+            })
+          }
+          }
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
+  }
+)

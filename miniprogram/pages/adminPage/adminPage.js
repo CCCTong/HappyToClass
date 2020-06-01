@@ -1,5 +1,4 @@
 // miniprogram/pages/adminPage/adminPage.js
-// 管理员页面
 Page({
 
   /**

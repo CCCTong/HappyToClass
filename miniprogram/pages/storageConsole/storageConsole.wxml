@@ -1,4 +1,3 @@
-<!--pages/storageConsole/storageConsole.wxml-->
 <view class="container">
 
   <view class="list">

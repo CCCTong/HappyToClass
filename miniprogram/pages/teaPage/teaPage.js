@@ -1,5 +1,3 @@
-// miniprogram/pages/teaPage/teaPage.js
-// 老师界面
 Page({
 
   /**

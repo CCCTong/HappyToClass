@@ -1,5 +1,4 @@
-// miniprogram/pages/test/test.js
-// 学生界面
+
 Page({
 
   /**
@@ -23,7 +22,7 @@ Page({
    */
   myCourse: function() {
     wx.navigateTo({
-      url: '../myCourse/myCourse',
+      url: '../myCourses/myCourses',
     })
   },
   /**

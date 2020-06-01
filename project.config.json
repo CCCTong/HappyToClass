@@ -10,6 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
@@ -22,11 +23,10 @@
 			"outputPath": ""
 		},
 		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false,
-		"nodeModules": true
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
-	"appid": "wx5aa32024f586d80c",
-	"projectname": "TestProject",
+	"appid": "wx5f57ffac184a6f71",
+	"projectname": "HappyToClass",
 	"libVersion": "2.8.1",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

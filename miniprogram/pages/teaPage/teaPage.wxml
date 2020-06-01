@@ -1,5 +1,4 @@
 <!--miniprogram/pages/teaPage/teaPage.wxml-->
-<!--pages/chooseLib/chooseLib.wxml-->
 
 <van-cell size="large" is-link icon="bars" title="创建课程" bind:click="createCourse"/>
 

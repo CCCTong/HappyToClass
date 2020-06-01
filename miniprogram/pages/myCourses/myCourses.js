@@ -1,19 +1,38 @@
-// miniprogram/pages/myCourse/myCourse.js
-// 我的课程界面
+// miniprogram/pages/myCourses/myCourses.js
+// import DataBaseManager from /miniprogram/dbModule.js;
+var app = getApp()
+var dbModule = require('../../my_modules/dataBaseManager.js')
+var db = new dbModule.DataBaseManager()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    courses: [{
+      courseName: '软件工程',
+      teacherName: 'admin',
+      time: '2017.10.10',
+      scores: '10',
+      num: '10'
+    }],
   },
+
+
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  async onLoad(options) {
+    var stuName = app.globalData.username;
+    var courseName = await db.getMyCoursesName(stuName);
+    var info = await db.getCousreInfo(courseName)
+    Promise.all(info).then(res=>{
+      this.setData({
+        courses:res
+      })
+    })
   },
 
   /**
