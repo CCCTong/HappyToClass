@@ -1,4 +1,4 @@
-// miniprogram/pages/stuPage/stuPage.js
+
 Page({
 
   /**
@@ -8,6 +8,23 @@ Page({
 
   },
 
+  /**
+   * 选课操作
+   */
+  select: function() {
+    wx.navigateTo({
+      url: '../select/select',
+    })
+  },
+
+    /**
+   * 查看我的课程
+   */
+  myCourse: function() {
+    wx.navigateTo({
+      url: '../myCourses/myCourses',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

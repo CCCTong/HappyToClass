@@ -1,4 +1,3 @@
-// miniprogram/pages/teaPage/teaPage.js
 Page({
 
   /**
@@ -8,6 +7,23 @@ Page({
 
   },
 
+  /**
+   * 创建课程页面
+   */
+  createCourse: function() {
+    wx.navigateTo({
+      url: '../createCourse/createCourse',
+    })
+  },
+
+    /**
+   * 创建课程页面
+   */
+  manageCourse: function() {
+    // wx.navigateTo({
+    //   url: '../manageCourse/manageCourse',
+    // })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

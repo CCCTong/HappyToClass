@@ -1,4 +1,5 @@
 //index.js
+
 const db = wx.cloud.database()
 const userCollection = db.collection("user")
 var app = getApp()
@@ -158,5 +159,5 @@ Page({
         })
       }
     }
-  
-})
+  }
+)

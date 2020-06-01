@@ -1,4 +1,4 @@
-// miniprogram/pages/adminPage/adminPage.js
+// miniprogram/pages/manageCourse/manageCourse.js
 Page({
 
   /**
@@ -8,14 +8,6 @@ Page({
 
   },
 
-    /**
-   * 管理账号，这算作教务功能
-   */
-  manageID: function() {
-    wx.navigateTo({
-      url: '../manageID/manageID',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
