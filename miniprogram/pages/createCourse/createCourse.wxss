@@ -1,2 +1,20 @@
-/* miniprogram/pages/createCourse/createCourse.wxss */
-@import "../../style/guide.wxss";
+/**createCourse.wxss**/
+
+image{
+
+  height: 500rpx;
+  width: 100%;
+  
+}
+.btn{
+  text-align: center;
+  margin: 10rpx;
+  padding: 10rpx;
+}
+.reg,.log{
+  margin: 20rpx;
+}
+.radio{
+  width: 50%;
+  padding: 40rpx;
+}

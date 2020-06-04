@@ -1,2 +1,75 @@
-<!--miniprogram/pages/createCourse/createCourse.wxml-->
-<text>创建课程页面</text>
+<!--createCourse.wxml-->
+<view class="container1">
+  <van-cell-group>
+  <van-field
+    value="{{ coursename }}"
+    label="课程名"
+    left-icon="course-o"
+    placeholder="请输入课程名"
+    bind:input="setcourseName"
+  />
+
+  
+
+  <van-field
+    value="{{ cid }}"
+    label="课程号"
+    left-icon="course-circle-o"
+    placeholder="请输入课程号"
+    bind:input="setCid"
+  />
+  <van-field
+    value="{{ username }}"
+    label="授课老师"
+    disabled
+    border="{{ false }}"
+  />
+  <van-field
+    value="{{ uid }}"
+    label="授课老师号"
+    disabled
+    border="{{ false }}"
+  />
+
+  <van-field
+    value="{{ credit }}"
+    type="credit"
+    label="学分"
+    placeholder="请输入学分"
+    left-icon="course-circle-o"
+    bind:input="setCredit"
+  />
+  <van-field
+    value="{{ category }}"
+    type="category"
+    label="类型"
+    left-icon="course-circle-o"
+    placeholder="输入课程类型"
+    bind:input="setCategory"
+  >
+  </van-field>
+
+  <van-field
+    value="{{ precourse }}"
+    type="precourse"
+    label="先修课"
+    placeholder="请输入先修课(没有则不填)"
+    left-icon="course-circle-o"
+    bind:input="setPrecourse"
+  />
+  <van-field
+    value="{{ Num }}"
+    type="Num"
+    label="人数"
+    placeholder="请输入人数上限"
+    left-icon="course-circle-o"
+    bind:input="setNum"
+  />
+
+  <view class="btn">
+    <view class="btn reg">
+      <van-button color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="handleReg">创建</van-button>
+    </view>
+  </view>
+  </van-cell-group>
+</view>
