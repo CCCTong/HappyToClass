@@ -122,11 +122,6 @@ Page({
       var password = this.data.password
       var identity = this.data.identity
       var page = this
-      var user = {
-        username : this.data.username,
-        uid : this.data.uid
-      }
-      wx.setStorageSync('user', user)
       console.log(username, password)
       if (page.judge(uid, username, password, identity) == false) {
         userCollection.where({
@@ -142,7 +137,11 @@ Page({
             })
           }
           else {
-            
+            var user = {
+              username : this.data.username,
+              uid : this.data.uid
+            }
+            wx.setStorageSync('user', user)
             console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
             if(identity=="student"){
             wx.redirectTo({

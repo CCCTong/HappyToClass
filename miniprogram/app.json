@@ -7,6 +7,7 @@
     "pages/stuPage/stuPage",
     "pages/teaPage/teaPage",
     "pages/select/select",
+    "pages/myCourses/myCourses",
     "pages/createCourse/createCourse",
     "pages/manageCourse/manageCourse",
     "pages/adminPage/adminPage"
