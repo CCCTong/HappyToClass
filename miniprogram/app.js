@@ -15,7 +15,7 @@ App({
   },
   globalData:{
     username: "SE",
-    uid:"",
+    uid:"1",
     password:"",
     identity:"",
     courses:[],

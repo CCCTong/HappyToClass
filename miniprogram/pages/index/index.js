@@ -137,6 +137,11 @@ Page({
             })
           }
           else {
+            var user = {
+              username : this.data.username,
+              uid : this.data.uid
+            }
+            wx.setStorageSync('user', user)
             console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
             if(identity=="student"){
             wx.redirectTo({
@@ -158,6 +163,7 @@ Page({
           console.log(err)
         })
       }
-    }
+    },
+    
   }
 )
