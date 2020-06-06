@@ -63,12 +63,10 @@ export class DataBaseManager {
   }
   async getMyCoursesName(stuName) {
     var courseName = [];
-    stuName = "CT";
     var p = await new Promise((resolve,reject)=>{
-      student_course.where({
-        StudentName: stuName
+      list.where({
+        stuName: stuName
       }).get().then(res => {
-        console.log(res.data)
         courseName = res.data[0].CourseName
         resolve(courseName)
       })

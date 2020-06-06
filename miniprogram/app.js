@@ -6,11 +6,11 @@ App({
         env:"my-object-xttai",
         traceUser:true
       })
-      // wx.cloud.callFunction({
-      //   name:"getOpenId"
-      // }).then(res=>{
-      //   this.globalData.openid = res.result.openid
-      // })
+      wx.cloud.callFunction({
+        name:"getOpenId"
+      }).then(res=>{
+        this.globalData.openid = res.result.openid
+      })
     }
   },
   globalData:{

@@ -1,6 +1,0 @@
-
-@import "../../style/guide.wxss";
-
-.black {
-  color: black;
-}
