@@ -1,5 +1,4 @@
 {
-  
     
   "usingComponents": {
     "van-row": "vant-weapp/row",
@@ -15,8 +14,5 @@
     "van-picker": "vant-weapp/picker",
     "van-popup": "vant-weapp/popup"
   }
-
-
-
 
 }

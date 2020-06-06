@@ -1,6 +1,11 @@
-
-<view class="header">
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
   <view class="word">我的课程</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+  </view>
 </view>
 
 <scroll-view 
@@ -38,7 +43,7 @@
       <text> 剩余名额 : {{item.num}}</text>
     </view>
     <view class="btn">
-      <van-button id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="quit">退选</van-button>
+      <van-button id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="dropCourse">退选</van-button>
     </view>
   </van-cell>
   </block>
