@@ -1,4 +1,12 @@
 <!--miniprogram/pages/teaPage/teaPage.wxml-->
+<view class="today">
+  <view class="info">
+    <view class="temp">  {{today.wendu}}℃</view>
+    <view class="weather">{{today.todayInfo.type}} {{today.todayInfo.fengxiang}}</view>
+    <view >友情提示：{{today.ganmao}}</view>
+    <view class="city">{{city}}</view>
+  </view>
+</view>
 
 <van-cell size="large" is-link icon="bars" title="创建课程" bind:click="createCourse"/>
 

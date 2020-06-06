@@ -1,6 +1,11 @@
-
-<view class="header">
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
   <view class="word">我的课程</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+  </view>
 </view>
 
 <scroll-view 

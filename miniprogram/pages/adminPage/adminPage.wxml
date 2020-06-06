@@ -1,9 +1,15 @@
 <!--miniprogram/pages/adminPage/adminPage.wxml-->
-<view>
-adminPage
+<view class="today">
+  <view class="info">
+    <view class="temp">  {{today.wendu}}℃</view>
+    <view class="weather">{{today.todayInfo.type}} {{today.todayInfo.fengxiang}}</view>
+    <view >友情提示：{{today.ganmao}}</view>
+    <view class="city">{{city}}</view>
+  </view>
 </view>
+
 <van-cell size="large" is-link icon="setting" title="管理账号" bind:click="manageID"/>
 
-<van-cell size="large" is-link icon="bars" title="管理课程" bind:click="myCourse"/>
+<van-cell size="large" is-link icon="bars" title="管理课程" bind:click="manageCourse"/>
 
 <van-cell size="large" is-link icon="eye" title="其他" />

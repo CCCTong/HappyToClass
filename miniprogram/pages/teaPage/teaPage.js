@@ -4,7 +4,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    city: "",
+    today: {},
   },
 
   /**
@@ -17,12 +18,12 @@ Page({
   },
 
     /**
-   * 创建课程页面
+   * 管理课程页面
    */
   manageCourse: function() {
-    // wx.navigateTo({
-    //   url: '../manageCourse/manageCourse',
-    // })
+    wx.navigateTo({
+      url: '../manageCourse/manageCourse',
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -78,5 +79,52 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  loadInfo: function () {
+    var page = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        console.log(latitude, longitude);
+        page.loadCity(latitude, longitude);
+      }
+    })
+  },
+  loadCity: function (latitude, longitude) {
+    var page = this;
+    wx.request({
+      url: 'https://api.map.baidu.com/geocoder/v2/?ak=D6WOzHaymzVVKvgiy8UbhQEznkgeK6BD&location='
+        + latitude + ',' + longitude + '&output=json',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res.data)
+        var city = res.data.result.addressComponent.city;
+        city = city.replace("市", "");
+        page.setData({ city: city });
+        page.loadWeather(city);
+      }
+    })
+  },
+  loadWeather: function (city) {
+    var page = this;
+    wx.request({
+      url: 'http://wthrcdn.etouch.cn/weather_mini?city=' + city,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        console.log(res)
+        var future = res.data.data.forecast;
+        var todayInfo = future.shift();
+        var today = res.data.data;
+        today.todayInfo = todayInfo;
+        page.setData({ today: today});
+        console.log(today.wendu);
+      }
+    });
   }
 })
