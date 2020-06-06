@@ -3,7 +3,7 @@ App({
   onLaunch: function () {
     if(wx.cloud){
       wx.cloud.init({
-        env:"zyx-cloud-yp4i4",
+        env:"xuanke-lkg7q",
         traceUser:true
       })
       wx.cloud.callFunction({

@@ -10,15 +10,22 @@
     "pages/select/select",
     "pages/createCourse/createCourse",
     "pages/manageCourse/manageCourse",
-    "pages/adminPage/adminPage"
+    "pages/adminPage/adminPage",
+    "pages/myCourses/myCourses",
+    "pages/manageID/manageID"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#0061CC",
     "navigationBarTitleText": "云开发 QuickStart",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
-  "style": "v2"
+  "style": "v2",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于获取天气信息"
+    }
+  }
 }
