@@ -9,9 +9,7 @@
     "pages/myCourses/myCourses",
     "pages/select/select",
     "pages/createCourse/createCourse",
-    "pages/manageCourse/manageCourse",
     "pages/adminPage/adminPage",
-    "pages/myCourses/myCourses",
     "pages/manageID/manageID"
   ],
   "window": {

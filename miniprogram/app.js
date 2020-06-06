@@ -3,14 +3,14 @@ App({
   onLaunch: function () {
     if(wx.cloud){
       wx.cloud.init({
-        env:"xuanke-lkg7q",
+        env:"my-object-xttai",
         traceUser:true
       })
-      wx.cloud.callFunction({
-        name:"getOpenId"
-      }).then(res=>{
-        this.globalData.openid = res.result.openid
-      })
+      // wx.cloud.callFunction({
+      //   name:"getOpenId"
+      // }).then(res=>{
+      //   this.globalData.openid = res.result.openid
+      // })
     }
   },
   globalData:{
