@@ -137,6 +137,8 @@ Page({
               data: {
                 cid: cid,
                 coursename: coursename,
+                teachername: user.username,
+                teacherid: user.uid,
                 categor:category,
                 credit:credit,
                 precourse:precourse,

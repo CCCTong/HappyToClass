@@ -75,6 +75,7 @@ export class DataBaseManager {
     })
     return courseName
   }
+  
   async getCousreInfo(coursesName) {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {

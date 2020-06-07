@@ -11,6 +11,7 @@
   font-size: 27rpx;
 }
 .btn {
+  text-align: center;
   padding:5rpx;
   display: flex;
   margin-bottom: 50rpx;

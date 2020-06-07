@@ -14,7 +14,7 @@
   refresher-enabled="true" 
   bindrefresherrefresh="refresh" 
   bindrefresherabort="refreshAbort">
-  <block wx:for="{{courses}}">
+  <block wx:for="{{courses}}" wx:key="key">
     <van-cell  
     icon="label-o" 
     use-label-slot="true" 
@@ -42,9 +42,8 @@
       <van-icon name="friends" size="25rpx"/>
       <text> 剩余名额 : {{item.num}}</text>
     </view>
-    <view class="btn">
-      <van-button id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="quit">退选</van-button>
-    </view>
+      <van-button class="btn" id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="quit">退选</van-button>
+      
   </van-cell>
   </block>
 
