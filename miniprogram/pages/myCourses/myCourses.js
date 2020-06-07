@@ -26,7 +26,6 @@ Page({
     var courseName = await db.getMyCoursesName(stuName);
     console.log(courseName)
     var info = await db.getCousreInfo(courseName)
-    console.log(info)
     Promise.all(info).then(res=>{
       this.setData({
         courses:res

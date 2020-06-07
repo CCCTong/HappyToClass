@@ -112,7 +112,7 @@ Page({
     var preNum = this.data.preNum
     var time = this.data.time
     var location = this.location
-    var num = this.data.Num
+    var num = this.data.num
     var page = this
 
 

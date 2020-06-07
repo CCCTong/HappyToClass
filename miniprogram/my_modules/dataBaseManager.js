@@ -59,6 +59,7 @@ export const student_course = db.collection("STUDENT_COURSE")
 var courseCollection = db.collection("course")
 var courseListCollection = db.collection("list")
 var stuListListCollection = db.collection("stuList")
+
 var _ = db.command
 
 export class DataBaseManager {
@@ -68,8 +69,8 @@ export class DataBaseManager {
   async getMyCoursesName(stuName) {
     var courseName = [];
     var p = await new Promise((resolve,reject)=>{
-      courseListCollection.where({
-        stuName: stuName
+      student_course.where({
+        StudentName: stuName
       }).get().then(res => {
         courseName = res.data[0].courseName
         resolve(courseName)
@@ -81,8 +82,8 @@ export class DataBaseManager {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve,reject)=>{
-        courseCollection.where({
-          coursename: coursesName[i]
+        course_list.where({
+          CourseName: coursesName[i]
         }).get().then(res => {
           resolve(res.data[0])
         })
@@ -93,33 +94,22 @@ export class DataBaseManager {
   }
   dropCourse(e){
     let courseName = e.target.id
-    courseCollection.where({
-      courseName:courseName
+    course_list.where({
+      CourseName:courseName
     }).update({
       data:{
         num:_.inc(1),
       }
     })
-    courseListCollection.where({
-      stuName:app.globalData.username
+    student_course.where({
+      StudentName: app.globalData.username
     }).update({
       data:{
         courseName:_.pull(courseName)
       }
     })
-    stuListCollection.where({
-      courseName:courseName
-    }).update({
-      data:{
-        stuName:_.pull(app.globalData.username)
-      }
-    })
     wx.showToast({
       title: '退选成功',
     })
-  }
-  getName() {
-    console.log(1)
-    return;
   }
 }
