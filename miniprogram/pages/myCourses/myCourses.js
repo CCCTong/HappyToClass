@@ -10,34 +10,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courses: [{
-      courseName: '软件工程',
-      teacherName: 'admin',
-      time: '2017.10.10',
-      scores: '10',
-      num: '10'
-    }],
+    courses: [],
   },
 
-
+  dropCourse(e){
+    console.log(app.globalData.openid);
+    db.dropCourse(e);
+    wx.showToast({
+      title: '退选成功',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
     var stuName = app.globalData.username;
+    console.log(stuName)
     var courseName = await db.getMyCoursesName(stuName);
     var info = await db.getCousreInfo(courseName)
+    console.log(info)
     Promise.all(info).then(res=>{
       this.setData({
         courses:res
       })
     })
-  },
-  dropCourse(e){
-    var courseName = e.target.id;
-    var courseInfo = db.getCousreInfo(courseName)
-    console.log(courseInfo)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -7,7 +7,8 @@
     "pages/myCourses/myCourses",
     "pages/select/select",
     "pages/createCourse/createCourse",
-    "pages/adminPage/adminPage",
+    "pages/manageCourse/manageCourse",
+    "pages/adminPage/adminPage", 
     "pages/manageID/manageID"
   ],
   "window": {

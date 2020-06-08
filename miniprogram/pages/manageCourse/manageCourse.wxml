@@ -8,3 +8,36 @@
     <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
   </view>
 </view>
+
+<scroll-view 
+  scroll-y="true" 
+  class="scroll"  >
+  <block wx:for="{{courseList}}" wx:key="key">
+    <van-cell  
+    icon="label-o" 
+    use-label-slot="true" 
+    size="large" 
+    >
+    <view slot="title"> 
+      <view class="titleview">
+        <view>
+          <text> {{item.courseName}} </text>
+        </view>
+      </view>
+    </view>
+
+    <view slot="label" 
+      data-courseName="{{item.courseName}}"
+      data-index="{{index}}"
+      bindtap="into_coursePage"
+      class="detail">
+      <van-icon name="manager" size="25rpx"/>
+      <text> 上课人数: {{item.cnt}}\n </text>
+    </view>
+
+      <van-button class="btn" id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" >管理</van-button>
+      
+  </van-cell>
+  </block>
+
+</scroll-view>

@@ -18,7 +18,7 @@ Page({
     })
   },
       /**
-   * 管理课程页面
+   * 管理课程页面, 与老师的管理课程有区别，要先选定哪个老师，然后进行课程管理
    */
   manageCourse: function() {
     wx.navigateTo({
