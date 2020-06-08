@@ -1,10 +1,14 @@
 //index.js
+/**
+ * 登录界面，登录功能单用一个数据库，账号为学号、工号，
+ * 记录：账号、密码
+ */
 
 const db = wx.cloud.database()
 const stuList = db.collection("STUDENT_LIST")
 const teaList = db.collection("TEACHER_LIST")
 const adminList = db.collection("ADMIN_LIST")
-var userCollection;
+var userList = db.collection("user");
 var app = getApp()
 
 Page({
@@ -79,29 +83,19 @@ Page({
       return flag
     },
     /**
-     * 注册
+     * 注册,向用户数据库中上传用户的账号、密码
      */
     handleReg: function () {
-      var username = this.data.username
       var uid = this.data.uid
       var password = this.data.password
-      var identity = this.data.identity
       var page = this
-      if(identity=="student"){
-        userCollection = stuList
-      }
-      else if(identity == "teacher"){
-        userCollection = teaList
-      }
-      else{
-        userCollection = adminList
-      }
+      var username = this.data.username
+      var identity = this.data.identity
       console.log(username, password)
 
       if (page.judge(uid, username, password, identity) == false) {
-        userCollection.where({
+        userList.where({
           uid: uid,
-          username:username
         }).count().then(res => {
           console.log(res.total)
           if (res.total != 0) {
@@ -111,14 +105,11 @@ Page({
             })
           }
           else {
-            userCollection.add({
+            userList.add({
               data: {
                 uid: uid,
-                username: username,
                 password: password,
-                courses: []
               }
-              
             })
             wx.showModal({
               title: '恭喜',
@@ -128,53 +119,8 @@ Page({
         })
       }
     },
-    /**
-     * 登录
-     */
-    handleLogin: function () {
-      var username = this.data.username
-      var uid = this.data.uid
-      var password = this.data.password
-      var identity = this.data.identity
-      var page = this
-      console.log(username, password)
-      // 根据身份选择对应的数据库
-      if(identity=="student"){ 
-        userCollection = stuList
-      }
-      else if(identity == "teacher"){
-        userCollection = teaList
-      }
-      else{
-        userCollection = adminList
-      }
-      if (page.judge(uid, username, password, identity) == false) {
-        userCollection.where({
-          uid: uid,
-          username: username,
-          password: password,
-        }).get().then(res => {
-          if (res.data.length == 0) {
-            wx.showModal({
-              title: '提示',
-              content: '登录失败',
-            })
-          }
-          else {
-            var user = {
-              username : this.data.username,
-              uid : this.data.uid
-            }
-          wx.showModal({
-            title: '恭喜',
-            content: '注册成功'
-          })
-        }
-      })
-    }
-  },
   /**
-   * 登录
+   * 登录，跳转到相应的个人界面
    */
   handleLogin: function () {
     var username = this.data.username
@@ -184,11 +130,10 @@ Page({
     var page = this
     console.log(username, password)
     if (page.judge(uid, username, password, identity) == false) {
-      userCollection.where({
+      // 检查该用户是否在数据库中
+      userList.where({
         uid: uid,
-        username: username,
         password: password,
-        identity: identity
       }).get().then(res => {
         if (res.data.length == 0) {
           wx.showModal({
@@ -196,8 +141,8 @@ Page({
             content: '登录失败',
           })
         } else {
+          // 保存用户相关信息，用做页面跳转之后使用
           var user = {
-            username: this.data.username,
             uid: this.data.uid
           }
           wx.setStorageSync('user', user)

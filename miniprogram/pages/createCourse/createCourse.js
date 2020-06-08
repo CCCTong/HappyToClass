@@ -140,7 +140,9 @@ Page({
               PreNum: preNum,
               Time: time,
               Location: location,
-              Num: num
+              Num: num,
+              teacherNum:page.teacherNum,
+              teacherName:page.teacherName
             }
           })
           wx.showModal({

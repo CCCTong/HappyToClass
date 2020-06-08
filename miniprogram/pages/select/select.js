@@ -48,7 +48,7 @@ Page({
               if (res.total == 0) {
                 student_course.add({
                   data: {
-                    StudentName: app.globalData.username,
+                    StudentNum: app.globalData.uid,
                     CourseName: new Array(courseName)
                   }
                 })

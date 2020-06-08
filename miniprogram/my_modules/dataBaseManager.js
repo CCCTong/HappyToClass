@@ -61,7 +61,7 @@ export const course_list = db.collection("COURSE_LIST");
 /*
   STUDENT_COURSE{
     StudentName	名称	CHAR(10)	PK
-    CourseName	课程名称	CHAR(10)	PK
+    CourseNum	课程号	CHAR(10)	PK
     Grade	成绩	CHAR(3)	  
   }
 */
