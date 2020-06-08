@@ -15,12 +15,7 @@ Page({
     identity: "",
     disable: false
   },
-<<<<<<< HEAD
     /**
-=======
-
-  /**
->>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
    * 设置姓名，账号，密码，身份
    */
   setName: function (e) {
@@ -48,37 +43,6 @@ Page({
     })
     app.globalData.identity = this.data.identity
   },
-  /**
-   * 检查信息是否完整
-   */
-  judge: function (uid, username, password, identity) {
-    var flag = false
-    if (username == "") {
-      wx.showModal({
-        title: '提示',
-        content: '请输入姓名',
-      })
-      flag = true
-    } else if (uid == "") {
-      wx.showModal({
-        title: '提示',
-        content: '请输入账号',
-      })
-      flag = true
-    } else if (password == "") {
-      wx.showModal({
-        title: '提示',
-        content: '请输入密码',
-      })
-      flag = true
-    } else if (identity == "") {
-      wx.showModal({
-        title: '提示',
-        content: '请选择身份',
-      })
-<<<<<<< HEAD
-      app.globalData.identity = this.data.identity
-    },
     /**
      * 检查信息是否完整
      */
@@ -200,46 +164,7 @@ Page({
             var user = {
               username : this.data.username,
               uid : this.data.uid
-=======
-      flag = true
-    }
-    return flag
-  },
-  /**
-   * 注册
-   */
-  handleReg: function () {
-    var username = this.data.username
-    var uid = this.data.uid
-    var password = this.data.password
-    var identity = this.data.identity
-    var page = this
-
-    console.log(username, password)
-
-    if (page.judge(uid, username, password, identity) == false) {
-      userCollection.where({
-        uid: uid,
-        username: username
-      }).count().then(res => {
-        console.log(res.total)
-        if (res.total != 0) {
-          wx.showModal({
-            title: '提示',
-            content: '用户已存在',
-          })
-        } else {
-          userCollection.add({
-            data: {
-              uid: uid,
-              username: username,
-              password: password,
-              identity: identity,
-              courses: []
->>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
             }
-
-          })
           wx.showModal({
             title: '恭喜',
             content: '注册成功'

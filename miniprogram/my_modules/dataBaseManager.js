@@ -65,16 +65,9 @@ export const course_list = db.collection("COURSE_LIST");
     Grade	成绩	CHAR(3)	  
   }
 */
-<<<<<<< HEAD
 export const student_course = db.collection("STUDENT_COURSE");
 export const list = db.collection("list");
 var courseCollection = db.collection("COURSE_LIST");
-=======
-export const student_course = db.collection("STUDENT_COURSE")
-
-
-var _ = db.command
->>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
 
 export class DataBaseManager {
   constructor() {
@@ -106,11 +99,7 @@ export class DataBaseManager {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve,reject)=>{
-<<<<<<< HEAD
         courseCollection.where({
-=======
-        course_list.where({
->>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
           CourseName: coursesName[i]
         }).get().then(res => {
           resolve(res.data[0])
