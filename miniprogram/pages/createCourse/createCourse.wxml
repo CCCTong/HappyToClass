@@ -3,6 +3,7 @@
   <van-cell-group>
   <van-field
     value="{{ courseName }}"
+    required
     label="课程名"
     left-icon="course-o"
     placeholder="请输入课程名"
@@ -13,6 +14,7 @@
 
   <van-field
     value="{{ courseNum }}"
+    required
     label="课程号"
     left-icon="course-circle-o"
     placeholder="请输入课程号"
@@ -21,19 +23,21 @@
   <van-field
     value="{{ teacherName }}"
     label="授课老师"
-    disabled
+    required
     border="{{ false }}"
   />
   <van-field
     value="{{ teacherNum }}"
     label="授课老师号"
-    disabled
+    required
     border="{{ false }}"
   />
 
   <van-field
     value="{{ credit }}"
-    type="credit"
+    v-model="number"
+    type="number"
+    required
     label="学分"
     placeholder="请输入学分"
     left-icon="course-circle-o"
@@ -41,7 +45,7 @@
   />
   <van-field
     value="{{ category }}"
-    type="category"
+    required
     label="类型"
     left-icon="course-circle-o"
     placeholder="输入课程类型"
@@ -51,7 +55,6 @@
 
   <van-field
     value="{{ preCourse }}"
-    type="precourse"
     label="先修课"
     placeholder="请输入先修课(没有则不填)"
     left-icon="course-circle-o"
@@ -59,7 +62,9 @@
   />
   <van-field
     value="{{ Num }}"
-    type="Num"
+    v-model="Number"
+    type="Number"
+    required
     label="人数"
     placeholder="请输入人数上限"
     left-icon="course-circle-o"

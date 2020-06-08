@@ -21,7 +21,7 @@ Page({
     preNum: "",
     time: "",
     location: "",
-    num: "",
+    num: 0,
     categoryList: ['选修课', '必修课'],
     show: false
   },
@@ -128,6 +128,8 @@ Page({
             content: '课程已存在',
           })
         } else {
+          num = parseInt(num);
+          console.log(typeof num)
           course_list.add({
             data: {
               CourseNum: courseNum,
@@ -135,7 +137,7 @@ Page({
               Categor: category,
               Credit: credit,
               PreCourse: preCourse,
-              preNum: preNum,
+              PreNum: preNum,
               Time: time,
               Location: location,
               Num: num
