@@ -1,8 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/userConsole/userConsole",
-    "pages/storageConsole/storageConsole",
     "pages/detail/detail",
     "pages/stuPage/stuPage",
     "pages/teaPage/teaPage",
@@ -17,7 +15,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0061CC",
-    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTitleText": "HappyToClass",
     "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",

@@ -14,7 +14,7 @@
   padding:5rpx;
   display: flex;
   margin-bottom: 50rpx;
-  margin-left: 140rpx;
+  margin-left: 40rpx;
 }
 .titlescore {
   margin-right: 10rpx;
@@ -27,11 +27,11 @@
 }
 .word{
   margin: 30rpx;
-  font-size: 45rpx;
+  font-size: 37rpx;
   font-style: bold;
-  background: #0061CC;
+  background: #116ec0;
   color: #fff;
-  text-align: center;
+
 }
 /**
 *波浪
@@ -117,7 +117,7 @@ page {
   position: relative;
   height: 150rpx;
   width: 100%;
-  background: #0061CC
+  background: #116ec0
 }
 
 .waveWrapperInner {
