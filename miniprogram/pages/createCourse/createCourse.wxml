@@ -16,10 +16,17 @@
     label="课程号"
     left-icon="course-circle-o"
     placeholder="请输入课程号"
+<<<<<<< HEAD
     bind:input="setCourseNum"
   />
   <van-field
     value="{{ userName }}"
+=======
+    bind:input="setcourseNum"
+  />
+  <van-field
+    value="{{ teacherName }}"
+>>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
     label="授课老师"
     disabled
     border="{{ false }}"
@@ -51,11 +58,19 @@
 
   <van-field
     value="{{ preCourse }}"
+<<<<<<< HEAD
     type="preCourse"
     label="先修课"
     placeholder="请输入先修课(没有则不填)"
     left-icon="course-circle-o"
     bind:input="setPreCourse"
+=======
+    type="precourse"
+    label="先修课"
+    placeholder="请输入先修课(没有则不填)"
+    left-icon="course-circle-o"
+    bind:input="setpreCourse"
+>>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
   />
   <van-field
     value="{{ Num }}"
@@ -63,7 +78,7 @@
     label="人数"
     placeholder="请输入人数上限"
     left-icon="course-circle-o"
-    bind:input="setNum"
+    bind:input="setnum"
   />
 
   <view class="btn">

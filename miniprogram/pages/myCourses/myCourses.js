@@ -10,16 +10,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courses: [{
-      courseName: '软件工程',
-      teacherName: 'admin',
-      time: '2017.10.10',
-      scores: '10',
-      num: '10'
-    }],
+    courses: [],
   },
 
-
+  dropCourse(e){
+    console.log(app.globalData.openid);
+    db.dropCourse(e)
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -27,6 +24,7 @@ Page({
   async onLoad(options) {
     var stuName = app.globalData.username;
     var courseName = await db.getMyCoursesName(stuName);
+    console.log(courseName)
     var info = await db.getCousreInfo(courseName)
     Promise.all(info).then(res=>{
       this.setData({
@@ -34,7 +32,6 @@ Page({
       })
     })
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -65,9 +65,20 @@ export const course_list = db.collection("COURSE_LIST");
     Grade	成绩	CHAR(3)	  
   }
 */
+<<<<<<< HEAD
 export const student_course = db.collection("STUDENT_COURSE");
 export const list = db.collection("list");
 var courseCollection = db.collection("COURSE_LIST");
+=======
+export const student_course = db.collection("STUDENT_COURSE")
+
+
+var courseCollection = db.collection("course")
+var courseListCollection = db.collection("list")
+var stuListListCollection = db.collection("stuList")
+
+var _ = db.command
+>>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
 
 export class DataBaseManager {
   constructor() {
@@ -75,13 +86,11 @@ export class DataBaseManager {
   }
   async getMyCoursesName(stuName) {
     var courseName = [];
-    stuName = "CT";
     var p = await new Promise((resolve,reject)=>{
       student_course.where({
         StudentName: stuName
       }).get().then(res => {
-        console.log(res.data)
-        courseName = res.data[0].CourseName
+        courseName = res.data[0].courseName
         resolve(courseName)
       })
     })
@@ -92,7 +101,11 @@ export class DataBaseManager {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve,reject)=>{
+<<<<<<< HEAD
         courseCollection.where({
+=======
+        course_list.where({
+>>>>>>> 259df650d2b519303c4ca0d70fe91dfe0017e66f
           CourseName: coursesName[i]
         }).get().then(res => {
           resolve(res.data[0])
@@ -102,8 +115,24 @@ export class DataBaseManager {
     }
     return prom;
   }
-  getName() {
-    console.log(1)
-    return;
+  dropCourse(e){
+    let courseName = e.target.id
+    course_list.where({
+      CourseName:courseName
+    }).update({
+      data:{
+        num:_.inc(1),
+      }
+    })
+    student_course.where({
+      StudentName: app.globalData.username
+    }).update({
+      data:{
+        courseName:_.pull(courseName)
+      }
+    })
+    wx.showToast({
+      title: '退选成功',
+    })
   }
 };

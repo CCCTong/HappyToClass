@@ -14,7 +14,7 @@
   padding:5rpx;
   display: flex;
   margin-bottom: 50rpx;
-  margin-left: 140rpx;
+  margin-left: 40rpx;
 }
 .titlescore {
   margin-right: 10rpx;

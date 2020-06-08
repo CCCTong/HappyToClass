@@ -7,5 +7,7 @@
     "van-cell": "vant-weapp/cell",
     "van-picker": "vant-weapp/picker",
     "van-icon": "vant-weapp/icon"
-  }
+  },
+  "enablePullDownRefresh": true
+  
 }
