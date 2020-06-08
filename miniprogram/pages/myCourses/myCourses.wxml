@@ -14,7 +14,7 @@
   refresher-enabled="true" 
   bindrefresherrefresh="refresh" 
   bindrefresherabort="refreshAbort">
-  <block wx:for="{{courses}}">
+  <block wx:for="{{courses}}" wx:key="key">
     <van-cell  
     icon="label-o" 
     use-label-slot="true" 

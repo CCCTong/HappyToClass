@@ -140,7 +140,6 @@ Page({
               Location: location,
               Num: num
             }
-
           })
           wx.showModal({
             title: '恭喜',
