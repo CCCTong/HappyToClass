@@ -15,7 +15,10 @@ Page({
 
   dropCourse(e){
     console.log(app.globalData.openid);
-    db.dropCourse(e)
+    db.dropCourse(e);
+    wx.showToast({
+      title: '退选成功',
+    })
   },
 
   /**
@@ -23,9 +26,10 @@ Page({
    */
   async onLoad(options) {
     var stuName = app.globalData.username;
+    console.log(stuName)
     var courseName = await db.getMyCoursesName(stuName);
-    console.log(courseName)
     var info = await db.getCousreInfo(courseName)
+    console.log(info)
     Promise.all(info).then(res=>{
       this.setData({
         courses:res
