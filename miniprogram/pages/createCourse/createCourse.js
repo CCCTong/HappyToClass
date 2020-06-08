@@ -2,7 +2,7 @@
 
 const db = wx.cloud.database()
 const course_list = db.collection("COURSE_LIST")
-var user = (wx.getStorageSync('user') || [])
+var app = getApp()
 
 Page({
 
@@ -13,8 +13,8 @@ Page({
   data: {
     courseName: "",
     courseNum: "",
-    teacherName: user.username,
-    teacherNum: user.uid,
+    teacherName: "",
+    teacherNum: "",
     category: "",
     credit: "",
     preCourse: "",
@@ -25,7 +25,10 @@ Page({
     categoryList: ['选修课', '必修课'],
     show: false
   },
-
+  onLoad: function () {
+    this.setData({teacherName : app.globalData.username})
+    this.setData({teacherNum : app.globalData.uid})
+  },
 
   /*** 
    * 设置课程名，课程号，种类，学分，，先修课程，人数
@@ -113,9 +116,11 @@ Page({
     var time = this.data.time
     var location = this.location
     var num = this.data.num
+    var teacherName = this.data.teacherName
+    var teacherNum = this.data.teacherNum
     var page = this
 
-
+    console.log(page.data)
     if (page.judge(courseName, courseNum, credit, category, preCourse, num) == false) {
       course_list.where({
         courseNum: courseNum,
@@ -141,8 +146,8 @@ Page({
               Time: time,
               Location: location,
               Num: num,
-              teacherNum:page.teacherNum,
-              teacherName:page.teacherName
+              TeacherNum:teacherNum,
+              TeacherName:teacherName
             }
           })
           wx.showModal({

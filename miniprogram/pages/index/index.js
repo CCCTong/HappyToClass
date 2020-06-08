@@ -11,6 +11,9 @@ const adminList = db.collection("ADMIN_LIST")
 var userList = db.collection("user");
 var app = getApp()
 
+var dbModule = require('../../my_modules/dataBaseManager.js')
+var dbClass = new dbModule.DataBaseManager()
+
 Page({
   data: {
     username: "",
@@ -92,8 +95,10 @@ Page({
       var username = this.data.username
       var identity = this.data.identity
       console.log(username, password)
-
+      
+      // 检测信息是否填写完整
       if (page.judge(uid, username, password, identity) == false) {
+        // 信息填写完整
         userList.where({
           uid: uid,
         }).count().then(res => {
@@ -111,6 +116,16 @@ Page({
                 password: password,
               }
             })
+            // 向学生or教师or管理员数据库中添加该用户的数据
+            if(identity == "teacher"){
+              dbClass.addTeacherData(uid)
+            }
+            else if(identity == "student"){
+              dbClass.addStudentData(uid)
+            }
+            else{
+              dbClass.addAdminData(uid)
+            }
             wx.showModal({
               title: '恭喜',
               content: '注册成功'
@@ -143,10 +158,12 @@ Page({
         } else {
           // 保存用户相关信息，用做页面跳转之后使用
           var user = {
-            uid: this.data.uid
+            uid: app.globalData.uid,
+            name: app.globalData.username
           }
           wx.setStorageSync('user', user)
           console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
+          console.log(page.data)
           if (identity == "student") {
             wx.redirectTo({
               url: '../stuPage/stuPage',

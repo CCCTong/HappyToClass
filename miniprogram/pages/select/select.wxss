@@ -29,8 +29,9 @@
   margin: 30rpx;
   font-size: 37rpx;
   font-style: bold;
-  background: #116ec0;
+  background: #0061CC;
   color: #fff;
+  text-align: center;
 
 }
 /**
@@ -117,7 +118,7 @@ page {
   position: relative;
   height: 150rpx;
   width: 100%;
-  background: #116ec0
+  background: #0061CC
 }
 
 .waveWrapperInner {
