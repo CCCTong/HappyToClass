@@ -14,7 +14,7 @@ export const db = wx.cloud.database();
     Email	电子邮件	VARCHAR	NOT NULL
   }
 */
-export const student_list = db.collection("STUDENT_LIST")
+export const student_list = db.collection("STUDENT_LIST");
 /*
   TEACHER_LIST {
     TeacherNum	教师工号	CHAR(10)	主码
@@ -26,7 +26,19 @@ export const student_list = db.collection("STUDENT_LIST")
     Phione	电话	CHAR(11)	NOT NULL  
   }
 */
-export const teahcer_list = db.collection("TEACHER_LIST")
+export const teahcer_list = db.collection("TEACHER_LIST");
+/*
+  管理员列表
+  ADMIN_LIST { 
+    AdminNum	教师工号	CHAR(10)	主码
+    DeptNum	院系号码	CHAR(10)	NOT NULL
+    AdminName	姓名	VARCHAR(10)	NOT NULL
+    AdminSex	性别	CHAR(2)	NOT NULL 取”男”或”女”
+    Phione	电话	CHAR(11)	NOT NULL  
+    Email 电子邮箱 VARCHAR(40) NOT NULL
+  }
+*/
+export const admin_list = db.collection("ADMIN_LIST");
 /*
   COURSE_LIST {
     CourseNum	课程号	CHAR(10)	PK
@@ -43,7 +55,7 @@ export const teahcer_list = db.collection("TEACHER_LIST")
 
   }
 */
-export const course_list = db.collection("COURSE_LIST")
+export const course_list = db.collection("COURSE_LIST");
 
 
 /*
@@ -53,9 +65,9 @@ export const course_list = db.collection("COURSE_LIST")
     Grade	成绩	CHAR(3)	  
   }
 */
-export const student_course = db.collection("STUDENT_COURSE")
-export const list = db.collection("list")
-var courseCollection = db.collection("course")
+export const student_course = db.collection("STUDENT_COURSE");
+export const list = db.collection("list");
+var courseCollection = db.collection("COURSE_LIST");
 
 export class DataBaseManager {
   constructor() {
@@ -81,7 +93,7 @@ export class DataBaseManager {
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve,reject)=>{
         courseCollection.where({
-          courseName: coursesName[i]
+          CourseName: coursesName[i]
         }).get().then(res => {
           resolve(res.data[0])
         })
@@ -94,4 +106,4 @@ export class DataBaseManager {
     console.log(1)
     return;
   }
-}
+};

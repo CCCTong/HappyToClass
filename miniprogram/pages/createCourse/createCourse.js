@@ -1,7 +1,7 @@
 // miniprogram/pages/createCourse/createCourse.js
 
 const db = wx.cloud.database()
-const courseCollection = db.collection("course")
+const courseCollection = db.collection("COURSE_LIST")
 var user = (wx.getStorageSync('user')||[])
 
 Page({
@@ -11,14 +11,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    coursename:"",
-    cid:"",
-    username:user.username,
-    uid:user.uid,
+    courseName:"",
+    courseNum:"",
+    userName:user.username,
+    teacherNum:user.uid, // 用户账号
     category:"",
     credit:"",
-    precourse:"",
-    preid:"",
+    preCourse:"",
+    preNum:"",
     time:"",
     location:"",
     Num:"",
@@ -30,12 +30,12 @@ Page({
   /*** 
    * 设置课程名，课程号，种类，学分，，先修课程，人数
    */
-  setcourseName: function (e) {
-    this.setData({ coursename: e.detail })
+  setCourseName: function (e) {
+    this.setData({ courseName: e.detail })
    
   },
-  setCid: function (e) {
-    this.setData({ cid: e.detail })
+  setCourseNum: function (e) {
+    this.setData({ courseNum: e.detail })
     
   },
   setCredit: function (e) {
@@ -46,12 +46,12 @@ Page({
     this.setData({category: e.detail})
 
   },
-  setPrecourse: function (e) {
-    this.setData({precourse: e.detail})
+  setPreCourse: function (e) {
+    this.setData({preCourse: e.detail})
     
   },
   setPrecourse: function (e) {
-    this.setData({preid: e.detail})
+    this.setData({preNum: e.detail})
     
   },
   setPrecourse: function (e) {
@@ -62,7 +62,7 @@ Page({
     this.setData({location: e.detail})
     
   },
-  setNum: function (e) {
+  setNum: function (e) { // 设置选课学生上限
     this.setData({Num: e.detail})
     
   },
@@ -70,9 +70,9 @@ Page({
   /**
      * 检查信息是否完整
      */
-    judge: function ( coursename, cid,credit,category,precourse,preid,Num) {
+    judge: function ( courseName, courseNum,credit,category,preCourse,preNum,Num) {
       var flag = false
-      if (coursename == "") {
+      if (courseName == "") {
         wx.showModal({
           title: '提示',
           content: '请输入课程名',
@@ -107,23 +107,21 @@ Page({
      * 创建课表
      */
     handleReg: function () {
-      var coursename = this.data.coursename
-      var cid = this.data.cid
+      var courseName = this.data.courseName
+      var courseNum = this.data.courseNum
       var credit = this.data.credit
       var category = this.data.category
-      var precourse = this.data.precourse
-      var preid = this.data.preid
+      var preCourse = this.data.preCourse
+      var preNum = this.data.preNum
       var time = this.data.time
       var location = this.location
       var Num = this.data.Num
       var page = this
-      
-      console.log(coursename, cid)
 
-      if (page.judge(coursename, cid,credit,category,precourse,Num) == false) {
+      if (page.judge(courseName, courseNum,credit,category,preCourse,Num) == false) {
         courseCollection.where({
-          cid: cid,
-          coursename:coursename
+          CourseNum: courseNum,
+          CourseName:courseName
         }).count().then(res => {
           console.log(res.total)
           if (res.total != 0) {
@@ -135,19 +133,18 @@ Page({
           else {
             courseCollection.add({
               data: {
-                cid: cid,
-                coursename: coursename,
-                teachername: user.username,
-                teacherid: user.uid,
-                categor:category,
-                credit:credit,
-                precourse:precourse,
-                preid:preid,
-                time:time,
-                location:location,
-                Num:Num
+                CourseNum: courseNum,
+                CourseName: courseName, // 课程名称
+                TeacherName: user.username, // 教师姓名
+                TeacherNum: user.uid, // 教师工号
+                Category:category, // 课程类别
+                Credit:credit, // 学分
+                PreCourse:preCourse, // 先修课
+                PreNum:preNum, // 先修课程号
+                Time:time, // 上课时间
+                Location:location, // 上课地点
+                Num:Num // 选课人数上限
               }
-              
             })
             wx.showModal({
               title: '恭喜',

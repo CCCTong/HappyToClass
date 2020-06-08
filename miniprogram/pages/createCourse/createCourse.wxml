@@ -2,30 +2,30 @@
 <view class="container1">
   <van-cell-group>
   <van-field
-    value="{{ coursename }}"
+    value="{{ courseName }}"
     label="课程名"
     left-icon="course-o"
     placeholder="请输入课程名"
-    bind:input="setcourseName"
+    bind:input="setCourseName"
   />
 
   
 
   <van-field
-    value="{{ cid }}"
+    value="{{ courseNum }}"
     label="课程号"
     left-icon="course-circle-o"
     placeholder="请输入课程号"
-    bind:input="setCid"
+    bind:input="setCourseNum"
   />
   <van-field
-    value="{{ username }}"
+    value="{{ userName }}"
     label="授课老师"
     disabled
     border="{{ false }}"
   />
   <van-field
-    value="{{ uid }}"
+    value="{{ teacherNum }}"
     label="授课老师号"
     disabled
     border="{{ false }}"
@@ -50,12 +50,12 @@
   </van-field>
 
   <van-field
-    value="{{ precourse }}"
-    type="precourse"
+    value="{{ preCourse }}"
+    type="preCourse"
     label="先修课"
     placeholder="请输入先修课(没有则不填)"
     left-icon="course-circle-o"
-    bind:input="setPrecourse"
+    bind:input="setPreCourse"
   />
   <van-field
     value="{{ Num }}"

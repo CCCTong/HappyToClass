@@ -1,7 +1,10 @@
 //index.js
 
 const db = wx.cloud.database()
-const userCollection = db.collection("user")
+const stuList = db.collection("STUDENT_LIST")
+const teaList = db.collection("TEACHER_LIST")
+const adminList = db.collection("ADMIN_LIST")
+var userCollection;
 var app = getApp()
 
 Page({
@@ -12,7 +15,6 @@ Page({
     identity:"",
     disable:false
   },
-
     /**
    * 设置姓名，账号，密码，身份
    */
@@ -79,7 +81,15 @@ Page({
       var password = this.data.password
       var identity = this.data.identity
       var page = this
-      
+      if(identity=="student"){
+        userCollection = stuList
+      }
+      else if(identity == "teacher"){
+        userCollection = teaList
+      }
+      else{
+        userCollection = adminList
+      }
       console.log(username, password)
 
       if (page.judge(uid, username, password, identity) == false) {
@@ -100,7 +110,6 @@ Page({
                 uid: uid,
                 username: username,
                 password: password,
-                identity: identity,
                 courses: []
               }
               
@@ -123,12 +132,21 @@ Page({
       var identity = this.data.identity
       var page = this
       console.log(username, password)
+      // 根据身份选择对应的数据库
+      if(identity=="student"){ 
+        userCollection = stuList
+      }
+      else if(identity == "teacher"){
+        userCollection = teaList
+      }
+      else{
+        userCollection = adminList
+      }
       if (page.judge(uid, username, password, identity) == false) {
         userCollection.where({
           uid: uid,
           username: username,
           password: password,
-          identity: identity
         }).get().then(res => {
           if (res.data.length == 0) {
             wx.showModal({
