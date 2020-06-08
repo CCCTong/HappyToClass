@@ -6,26 +6,31 @@
   display: flex;
   justify-content: space-between;
 }
-.detail{
-  padding:7rpx;
+
+.detail {
+  padding: 7rpx;
   font-size: 27rpx;
 }
+
 .btn {
-  padding:5rpx;
+  padding: 5rpx;
   display: flex;
   margin-bottom: 50rpx;
   margin-left: 40rpx;
 }
+
 .titlescore {
   margin-right: 10rpx;
   font-weight: bold;
   color: #FF7256;
 }
-.scroll{
+
+.scroll {
   width: 100%;
   height: 1100rpx;
 }
-.word{
+
+.word {
   margin: 30rpx;
   font-size: 45rpx;
   font-style: bold;
@@ -33,6 +38,7 @@
   color: #fff;
   text-align: center;
 }
+
 /**
 *波浪
 */
@@ -58,8 +64,8 @@ page {
   margin: auto;
   position: absolute;
   z-index: 999;
-  top:310rpx;
-  left:40%;
+  top: 310rpx;
+  left: 40%;
 }
 
 @keyframes head_float {

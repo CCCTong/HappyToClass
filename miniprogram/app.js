@@ -1,25 +1,25 @@
 //app.js
 App({
   onLaunch: function () {
-    if(wx.cloud){
+    if (wx.cloud) {
       wx.cloud.init({
-        env:"my-object-xttai",
-        traceUser:true
+        env: "my-object-xttai",
+        traceUser: true
       })
       wx.cloud.callFunction({
-        name:"getOpenId"
-      }).then(res=>{
+        name: "getOpenId"
+      }).then(res => {
         this.globalData.openid = res.result.openid
       })
     }
   },
-  globalData:{
+  globalData: {
     username: "SE",
-    uid:"1",
-    password:"",
-    identity:"",
-    courses:[],
-    courseName:"",
-    openid:""
+    uid: "1",
+    password: "",
+    identity: "",
+    courses: [],
+    courseName: "",
+    openid: ""
   }
 })

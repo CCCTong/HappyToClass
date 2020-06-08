@@ -1,4 +1,3 @@
-
 Page({
 
   /**
@@ -12,16 +11,16 @@ Page({
   /**
    * 选课操作
    */
-  select: function() {
+  select: function () {
     wx.navigateTo({
       url: '../select/select',
     })
   },
 
-    /**
+  /**
    * 查看我的课程
    */
-  myCourse: function() {
+  myCourse: function () {
     wx.navigateTo({
       url: '../myCourses/myCourses',
     })
@@ -99,8 +98,8 @@ Page({
   loadCity: function (latitude, longitude) {
     var page = this;
     wx.request({
-      url: 'https://api.map.baidu.com/geocoder/v2/?ak=D6WOzHaymzVVKvgiy8UbhQEznkgeK6BD&location='
-        + latitude + ',' + longitude + '&output=json',
+      url: 'https://api.map.baidu.com/geocoder/v2/?ak=D6WOzHaymzVVKvgiy8UbhQEznkgeK6BD&location=' +
+        latitude + ',' + longitude + '&output=json',
       header: {
         'content-type': 'application/json' // 默认值
       },
@@ -108,7 +107,9 @@ Page({
         console.log(res.data)
         var city = res.data.result.addressComponent.city;
         city = city.replace("市", "");
-        page.setData({ city: city });
+        page.setData({
+          city: city
+        });
         page.loadWeather(city);
       }
     })
@@ -126,7 +127,9 @@ Page({
         var todayInfo = future.shift();
         var today = res.data.data;
         today.todayInfo = todayInfo;
-        page.setData({ today: today});
+        page.setData({
+          today: today
+        });
         console.log(today.wendu);
       }
     });

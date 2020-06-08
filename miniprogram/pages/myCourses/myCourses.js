@@ -13,7 +13,7 @@ Page({
     courses: [],
   },
 
-  dropCourse(e){
+  dropCourse(e) {
     console.log(app.globalData.openid);
     db.dropCourse(e);
     wx.showToast({
@@ -30,9 +30,9 @@ Page({
     var courseName = await db.getMyCoursesName(stuName);
     var info = await db.getCousreInfo(courseName)
     console.log(info)
-    Promise.all(info).then(res=>{
+    Promise.all(info).then(res => {
       this.setData({
-        courses:res
+        courses: res
       })
     })
   },
