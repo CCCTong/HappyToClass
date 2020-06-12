@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList:{},
+    courseList: {},
     myID: ""
   },
 
@@ -19,7 +19,7 @@ Page({
    */
   async getCourse(myID) {
     var page = this;
-    
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,22 +29,24 @@ Page({
     var page = this;
     var myID = app.globalData.username;
     var coursesName;
-    page.setData({myID:myID})
-    var p = await new Promise((resolve,reject)=>{
+    page.setData({
+      myID: myID
+    })
+    var p = await new Promise((resolve, reject) => {
       courseCollection.where({
         TeacherNum: myID
       }).get().then(res => {
         coursesName = res.data
         resolve(coursesName)
-      }) 
+      })
     })
     console.log(coursesName)
 
     // 根据列表中的课程号在选课数据库中统计有多少学生选取该课程
     var mycars=new Array(coursesName.length)
     console.log(mycars)
-    for(var i=0; i<coursesName.length; i++){
-      var p = await new Promise((resolve,reject)=>{
+    for (var i = 0; i < coursesName.length; i++) {
+      var p = await new Promise((resolve, reject) => {
         s_c_List.where({
           CourseNum: coursesName[i].CourseNum
         }).count().then(res => {
@@ -56,7 +58,9 @@ Page({
       })
     }
     console.log(mycars)
-    page.setData({courseList:mycars})
+    page.setData({
+      courseList: mycars
+    })
   },
 
   /**

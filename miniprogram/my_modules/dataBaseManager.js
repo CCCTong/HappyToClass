@@ -1,4 +1,3 @@
-
 export const db = wx.cloud.database();
 /*
   数据库表单命名
@@ -67,6 +66,7 @@ export const course_list = db.collection("COURSE_LIST");
 export const student_course = db.collection("STUDENT_COURSE");
 export const list = db.collection("list");
 var courseCollection = db.collection("COURSE_LIST");
+var _ = db.command
 
 export class DataBaseManager {
   constructor() {
@@ -128,17 +128,17 @@ export class DataBaseManager {
   async getMyCoursesName(stuName) {
     var courseName = [];
     console.log(stuName)
-    var p = await new Promise((resolve,reject)=>{
+    var p = await new Promise((resolve, reject) => {
       student_course.where({
         StudentName: stuName
       }).get().then(res => {
         console.log(res);
-        if (res.data[0] == undefined){
+        if (res.data[0] == undefined) {
           wx.showModal({
             title: '提示',
             content: '您还没有选课',
           })
-        }else{
+        } else {
           courseName = res.data[0].CourseName
           resolve(courseName)
         }
@@ -146,12 +146,12 @@ export class DataBaseManager {
     })
     return courseName
   }
-  
+
   async getCousreInfo(coursesName) {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
-      var p = new Promise((resolve,reject)=>{
-        courseCollection.where({
+      var p = new Promise((resolve, zreject) => {
+        course_list.where({
           CourseName: coursesName[i]
         }).get().then(res => {
           resolve(res.data[0])
@@ -161,14 +161,14 @@ export class DataBaseManager {
     }
     return prom;
   }
-  dropCourse(e){
+  dropCourse(e) {
     let courseName = e.target.id
     console.log(e);
     wx.cloud.callFunction({
-      name:"dropCourse",
+      name: "dropCourse",
       data: {
-        globalData : getApp().globalData,
-        courseName : courseName
+        globalData: getApp().globalData,
+        courseName: courseName
       }
     })
   }

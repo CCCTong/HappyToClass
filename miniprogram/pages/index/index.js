@@ -22,7 +22,7 @@ Page({
     identity: "",
     disable: false
   },
-    /**
+  /**
    * 设置姓名，账号，密码，身份
    */
   setName: function (e) {
@@ -134,6 +134,7 @@ Page({
         })
       }
     },
+
   /**
    * 登录，跳转到相应的个人界面
    */
