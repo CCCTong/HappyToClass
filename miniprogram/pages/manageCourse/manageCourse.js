@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList:{},
+    courseList: {},
     myID: ""
   },
 
@@ -19,7 +19,7 @@ Page({
    */
   async getCourse(myID) {
     var page = this;
-    
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,14 +29,16 @@ Page({
     var page = this;
     var myID = app.globalData.username;
     var coursesName;
-    page.setData({myID:myID})
-    var p = await new Promise((resolve,reject)=>{
+    page.setData({
+      myID: myID
+    })
+    var p = await new Promise((resolve, reject) => {
       courseCollection.where({
         TeacherNum: myID
       }).get().then(res => {
         coursesName = res.data
         resolve(coursesName)
-      }) 
+      })
     })
     console.log(coursesName)
 
@@ -44,20 +46,24 @@ Page({
     // 注：此处使用user数据库，正常情况下为COURSE_LIST
     var mycars=new Array(coursesName.length)
     console.log(mycars)
-    for(var i=0; i<coursesName.length; i++){
-      var p = await new Promise((resolve,reject)=>{
+    for (var i = 0; i < coursesName.length; i++) {
+      var p = await new Promise((resolve, reject) => {
         s_c_List.where({
           uid: coursesName[i].Num
         }).count().then(res => {
-          mycars[i] = {num:coursesName[i].Num,
-                      courseName:coursesName[i].CourseName,
-                      cnt:res.total}
+          mycars = {
+            num: coursesName[i].Num,
+            courseName: coursesName[i].coursename,
+            cnt: res.total
+          }
           resolve(res.total)
         })
       })
     }
     console.log(mycars)
-    page.setData({courseList:mycars})
+    page.setData({
+      courseList: mycars
+    })
   },
 
   /**
