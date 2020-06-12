@@ -25,9 +25,11 @@ Page({
     categoryList: ['选修课', '必修课'],
     show: false
   },
-  onLoad: function () {
-    this.setData({teacherName : app.globalData.username})
-    this.setData({teacherNum : app.globalData.uid})
+  onShow(){
+    var user=(wx.getStorageSync('user')||[])
+    console.log(user.teacherName,user.teacherNum)
+    this.setData({ teacherName: user.teacherName })
+    this.setData({ teacherNum: user.teacherNum })
   },
 
   /*** 
@@ -149,6 +151,10 @@ Page({
               TeacherNum:teacherNum,
               TeacherName:teacherName
             }
+          })
+          
+          wx.redirectTo({
+            url: '../createCourse/createCourse',
           })
           wx.showModal({
             title: '恭喜',

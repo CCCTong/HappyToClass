@@ -159,8 +159,8 @@ Page({
         } else {
           // 保存用户相关信息，用做页面跳转之后使用
           var user = {
-            uid: app.globalData.uid,
-            name: app.globalData.username
+            teacherName: this.data.username,
+            teacherNum: this.data.uid
           }
           wx.setStorageSync('user', user)
           console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)

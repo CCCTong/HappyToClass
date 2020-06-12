@@ -23,14 +23,16 @@
   <van-field
     value="{{ teacherName }}"
     label="授课老师"
-    required
+    disabled
     border="{{ false }}"
+    bind:input="onShow"
   />
   <van-field
     value="{{ teacherNum }}"
     label="授课老师号"
-    required
+    disabled
     border="{{ false }}"
+    bind:input="onShow"
   />
 
   <van-field
