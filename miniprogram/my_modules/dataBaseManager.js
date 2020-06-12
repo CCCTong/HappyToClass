@@ -3,12 +3,10 @@ export const db = wx.cloud.database();
   数据库表单命名
   STUDENT_LIST {
     StudentNum	学号	CHAR(10)	PK
-    MajorNum	专业号码	CHAR(10)	NOT NULL
+    DeptNum	专业号码	CHAR(10)	NOT NULL
     StudentName	姓名	VARCHAR(10)	NOT NULL
     StudentSex	性别	CHAR(2)	NOT NULL 取”男”或’’女”
     StudentBirthday	生日	DATETIME	NOT NULL
-    StudentPassword	密码	VARCHAR(20)	NOT NULL
-    ClassId	行政班级编号	CHAR(8)	NOT NULL
     Phione	电话	CHAR(11)	NOT NULL
     Email	电子邮件	VARCHAR	NOT NULL
   }
@@ -33,6 +31,7 @@ export const teahcer_list = db.collection("TEACHER_LIST");
     DeptNum	院系号码	CHAR(10)	NOT NULL
     AdminName	姓名	VARCHAR(10)	NOT NULL
     AdminSex	性别	CHAR(2)	NOT NULL 取”男”或”女”
+    AdminBirthday	生日	DATETIME	NOT NULL
     Phione	电话	CHAR(11)	NOT NULL  
     Email 电子邮箱 VARCHAR(40) NOT NULL
   }
@@ -60,18 +59,71 @@ export const course_list = db.collection("COURSE_LIST");
 /*
   STUDENT_COURSE{
     StudentName	名称	CHAR(10)	PK
-    CourseName	课程名称	CHAR(10)	PK
+    CourseNum	课程号	CHAR(10)	PK
     Grade	成绩	CHAR(3)	  
   }
 */
-export const student_course = db.collection("STUDENT_COURSE")
-
-
+export const student_course = db.collection("STUDENT_COURSE");
+export const list = db.collection("list");
+var courseCollection = db.collection("COURSE_LIST");
 var _ = db.command
 
 export class DataBaseManager {
   constructor() {
 
+  }
+  // 根据教师工号，创建属于该教师的记录
+  addTeacherData(teacherNum){
+    teahcer_list.add({
+      data:{
+        TeacherNum:teacherNum,
+        DeptNum:"",
+        TeacherName:"",
+        TeacherSex:"",
+        TeacherBirthday:"",
+        TeacherTitle:"",
+        Phione:""
+      },
+    })
+  }
+  // 根据学生学号，创建属于该学生的记录
+  addStudentData(studentNum){
+    student_list.add({
+      data:{
+        StudentNum:studentNum,
+        DeptNum:"",
+        StudentName:"",
+        StudentSex:"",
+        StudentBirthday:"",
+        Phione:"",
+        Email:"",
+      },
+    })
+  }
+  /*
+  管理员列表
+  ADMIN_LIST { 
+    AdminNum	教师工号	CHAR(10)	主码
+    DeptNum	院系号码	CHAR(10)	NOT NULL
+    AdminName	姓名	VARCHAR(10)	NOT NULL
+    AdminSex	性别	CHAR(2)	NOT NULL 取”男”或”女”
+    Phione	电话	CHAR(11)	NOT NULL  
+    Email 电子邮箱 VARCHAR(40) NOT NULL
+  }
+*/
+  // 根据管理员工号，创建该管理员的记录
+  addAdminData(adminNum){
+    admin_list.add({
+      data:{
+        StudentNum:adminNum,
+        DeptNum:"",
+        AdminName:"",
+        AdminSex:"",
+        AdminBirthday:"",
+        Phione:"",
+        Email:""
+      },
+    })
   }
   async getMyCoursesName(stuName) {
     var courseName = [];

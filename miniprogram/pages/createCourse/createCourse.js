@@ -2,7 +2,7 @@
 
 const db = wx.cloud.database()
 const course_list = db.collection("COURSE_LIST")
-var user = (wx.getStorageSync('user') || [])
+var app = getApp()
 
 Page({
 
@@ -13,8 +13,8 @@ Page({
   data: {
     courseName: "",
     courseNum: "",
-    teacherName: user.username,
-    teacherNum: user.uid,
+    teacherName: "",
+    teacherNum: "",
     category: "",
     credit: "",
     preCourse: "",
@@ -118,9 +118,11 @@ Page({
     var time = this.data.time
     var location = this.location
     var num = this.data.num
+    var teacherName = this.data.teacherName
+    var teacherNum = this.data.teacherNum
     var page = this
 
-
+    console.log(page.data)
     if (page.judge(courseName, courseNum, credit, category, preCourse, num) == false) {
       course_list.where({
         courseNum: courseNum,
@@ -145,7 +147,9 @@ Page({
               PreNum: preNum,
               Time: time,
               Location: location,
-              Num: num
+              Num: num,
+              TeacherNum:teacherNum,
+              TeacherName:teacherName
             }
           })
           
