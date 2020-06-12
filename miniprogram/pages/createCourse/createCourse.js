@@ -25,7 +25,12 @@ Page({
     categoryList: ['选修课', '必修课'],
     show: false
   },
-
+  onShow(){
+    var user=(wx.getStorageSync('user')||[])
+    console.log(user.teacherName,user.teacherNum)
+    this.setData({ teacherName: user.teacherName })
+    this.setData({ teacherNum: user.teacherNum })
+  },
 
   /*** 
    * 设置课程名，课程号，种类，学分，，先修课程，人数
@@ -142,6 +147,10 @@ Page({
               Location: location,
               Num: num
             }
+          })
+          
+          wx.redirectTo({
+            url: '../createCourse/createCourse',
           })
           wx.showModal({
             title: '恭喜',
