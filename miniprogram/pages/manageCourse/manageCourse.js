@@ -1,7 +1,7 @@
 // miniprogram/pages/manageCourse/manageCourse.js
 const app = getApp();
 var db = wx.cloud.database();
-var courseCollection = db.collection("COURSE_LIST"); // 集合名修改之后此处需修改
+var course_list = db.collection("COURSE_LIST"); // 集合名修改之后此处需修改
 var s_c_List = db.collection("user"); // 在s_c数据库创建好之后将集合名称替换,相关字段可以修改
 
 Page({
@@ -33,7 +33,7 @@ Page({
       myID: myID
     })
     var p = await new Promise((resolve, reject) => {
-      courseCollection.where({
+      course_list.where({
         TeacherNum: myID
       }).get().then(res => {
         coursesName = res.data

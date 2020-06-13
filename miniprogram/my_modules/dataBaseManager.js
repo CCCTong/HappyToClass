@@ -60,7 +60,7 @@ export const course_list = db.collection("COURSE_LIST");
 /*
   STUDENT_COURSE{
     StudentName	名称	CHAR(10)	PK
-    CourseName	课程名称	CHAR(10)	PK
+    CourseName 	课程名称	CHAR(10)	PK
     Grade	成绩	CHAR(3)	  
   }
 */
@@ -73,14 +73,17 @@ export class DataBaseManager {
   constructor() {
 
   }
-  async getMyCoursesName(stuName) {
+  // 查询学生选课的课程名称
+  async GetMyCoursesName(stuName) {
     var courseName = [];
     console.log(stuName)
+    // 异步操作让进程可以继续进行下去
     var p = await new Promise((resolve, reject) => {
       student_course.where({
         StudentName: stuName
       }).get().then(res => {
         console.log(res);
+        // 选课列表为空
         if (res.data[0] == undefined) {
           wx.showModal({
             title: '提示',
@@ -94,8 +97,8 @@ export class DataBaseManager {
     })
     return courseName
   }
-
-  async getCousreInfo(coursesName) {
+  // 得到课程信息
+  async GetCousreInfo(coursesName) {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve, zreject) => {
@@ -109,9 +112,11 @@ export class DataBaseManager {
     }
     return prom;
   }
-  dropCourse(e) {
+  // 退课操作
+  DropCourse(e) {
     let courseName = e.target.id
     console.log(e);
+    // 传入课程名称和个人信息
     wx.cloud.callFunction({
       name: "dropCourse",
       data: {

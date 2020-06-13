@@ -79,6 +79,7 @@ Page({
    * 注册
    */
   handleReg: function () {
+    // 提交个人信息
     var username = this.data.username
     var uid = this.data.uid
     var password = this.data.password
@@ -86,7 +87,7 @@ Page({
     var page = this
 
     console.log(username, password)
-
+    // 检查个人信息
     if (page.judge(uid, username, password, identity) == false) {
       userCollection.where({
         uid: uid,
@@ -99,6 +100,7 @@ Page({
             content: '用户已存在',
           })
         } else {
+          // 添加个人信息到数据库中
           userCollection.add({
             data: {
               uid: uid,
@@ -127,6 +129,7 @@ Page({
     var identity = this.data.identity
     var page = this
     console.log(username, password)
+    // 检查信息是否正确
     if (page.judge(uid, username, password, identity) == false) {
       userCollection.where({
         uid: uid,
@@ -134,6 +137,7 @@ Page({
         password: password,
         identity: identity
       }).get().then(res => {
+        // 如果返回不存在这样的人的信息
         if (res.data.length == 0) {
           wx.showModal({
             title: '提示',
@@ -146,6 +150,8 @@ Page({
           }
           wx.setStorageSync('user', user)
           console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
+          // 身份检查
+          // 导航到对应的位置
           if (identity == "student") {
             wx.redirectTo({
               url: '../stuPage/stuPage',

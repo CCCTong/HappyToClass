@@ -16,32 +16,37 @@ Page({
     courses: [],
     disable: false
   },
-
+  /**
+   * 选课操作
+   */
   select: function (e) {
     let courseName = e.target.id
     var selectInfo = '';
+    // 通过找到学生名字和对应课程
     student_course.where({
       StudentName: app.globalData.username,
       CourseName: courseName
     }).count().then(res => {
+      // 找到了相同名称的课程
       if (res.total != 0) {
         wx.showModal({
           title: '提示',
           content: '不能重复选课',
         })
       } else {
+        // 检查是否还有余下的选人空间
         course_list.where({
           data: {
             CourseName: courseName
           }
         }).get().then(res => {
-          if (res.data.num == 0) {
+          if (res.data.Num == 0) {
             wx.showModal({
               title: '提示',
               content: '本课程人数已满',
             })
           } else {
-            //为“我的课程”添加课程数据
+            //在学生选课表里添加数据
             student_course.where({
               StudentName: app.globalData.username
             }).count().then(res => {
@@ -53,6 +58,7 @@ Page({
                   }
                 })
               } else {
+                // 选课成功在云函数里pull操作
                 wx.cloud.callFunction({
                   name: "addCourseNum",
                   data: {
@@ -62,6 +68,7 @@ Page({
                 })
               }
             })
+            // 修改数据库值
             wx.cloud.callFunction({
               name: "minusCourseNum",
               data: {
@@ -78,37 +85,7 @@ Page({
       }
     })
   },
-  /**
-   * 选课
-   */
-  // select:function(e){
-  //   console.log(e);
-  //   wx.cloud.callFunction({
-  //     name:"selectCourse",
-  //     data: {
-  //       globalData : app.globalData,
-  //       e : e
-  //     }
-  //   }).then(res=>{
-  //     console.log(res);
-  //     if (res.result == "重复选课"){
-  // wx.showModal({
-  //   title: '提示',
-  //   content: '不能重复选课',
-  // })
-  //     }else if (res.result == "人数已满"){
-  // wx.showModal({
-  //   title: '提示',
-  //   content: '本课程人数已满',
-  // })
-  //     }else if (res.result == "选课成功"){
-  // wx.showToast({
-  //   title: '选课成功',
-  // })
-  //       this.data.disable = true
-  //     }
-  //   })
-  // },
+
   /**
    * 跳转到课程详细页面
    */
@@ -152,7 +129,7 @@ Page({
     wx.showLoading({
       title: '请稍等',
     })
-    courseCollection.get().then(res => {
+    course_list.get().then(res => {
       this.setData({
         courses: res.data
       })

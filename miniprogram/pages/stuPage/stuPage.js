@@ -95,6 +95,7 @@ Page({
       }
     })
   },
+  // 找到城市
   loadCity: function (latitude, longitude) {
     var page = this;
     wx.request({
@@ -114,6 +115,7 @@ Page({
       }
     })
   },
+  // 加载对应的天气
   loadWeather: function (city) {
     var page = this;
     wx.request({

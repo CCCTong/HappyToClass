@@ -40,7 +40,7 @@
 }
 
 /**
-*波浪
+*顶端动画
 */
 page {
   background-color: #fff
