@@ -125,7 +125,7 @@ export class DataBaseManager {
       },
     })
   }
-  async getMyCoursesName(stuName) {
+  async GetMyCoursesName(stuName) {
     var courseName = [];
     console.log(stuName)
     // 异步操作让进程可以继续进行下去
