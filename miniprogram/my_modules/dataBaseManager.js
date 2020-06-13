@@ -50,6 +50,7 @@ export const admin_list = db.collection("ADMIN_LIST");
     Time	上课时间	DATETIME	NOT NULL
     Location	上课地点	CHAR(10)	NOT NULL
     Num	选课人数上限	CHAR(10)	NOT NULL
+    StudentNum 选课学生人数 SMALLINT NOT NULL
 
   }
 */

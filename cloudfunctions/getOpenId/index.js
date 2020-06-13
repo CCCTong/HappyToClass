@@ -1,7 +1,7 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
 cloud.init({
-  env: "my-object-xttai"
+  env: "xuanke-lkg7q"
 })
 
 // 云函数入口函数

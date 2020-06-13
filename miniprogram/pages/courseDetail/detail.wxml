@@ -1,2 +1,43 @@
-<!--miniprogram/pages/detail/detail.wxml-->
-<text>miniprogram/pages/detail/detail.wxml</text>
+<!--miniprogram/pages/manageCourse/manageCourse.wxml-->
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
+  <view class="word">课程信息</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+  </view>
+</view>
+
+<view id="titleview">
+<!-- 以下是课程名块 -->
+<view id="coursename">{{courseName}}</view>
+</view>
+
+  <view class="tabview">
+    <view class="introview">
+      <text class="introkey">课程学分：</text>
+      <text class="introvalue">{{credit}}</text>
+    </view>
+
+    <view class="introview">
+      <text class="introkey">课程编号：</text>
+      <text class="introvalue">{{courseNum}}</text>
+    </view>
+
+    <view class="introview">
+      <text class="introkey">选课人数上限：</text>
+      <text class="introvalue">{{num}}</text>
+    </view>
+
+    <view class="introview">
+      <text class="introkey">选课剩余名额：</text>
+      <text class="introvalue">{{spareNum}}</text>
+    </view>
+
+<view class="btn">
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除该课程</van-button>
+</view>
+
+</view>
+
