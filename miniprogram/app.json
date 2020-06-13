@@ -1,11 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/detail/detail",
-    "pages/stuPage/stuPage",
-    "pages/teaPage/teaPage",
+    "pages/courseDetail/detail",
+    "pages/studentPage/stuPage",
+    "pages/teacherPage/teaPage",
     "pages/myCourses/myCourses",
-    "pages/select/select",
+    "pages/selectCourse/select",
     "pages/createCourse/createCourse",
     "pages/manageCourse/manageCourse",
     "pages/adminPage/adminPage",

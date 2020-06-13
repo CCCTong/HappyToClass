@@ -148,12 +148,14 @@ Page({
     var identity = this.data.identity
     var page = this
     console.log(username, password)
+    // 检查信息是否正确
     if (page.judge(uid, username, password, identity) == false) {
       // 检查该用户是否在数据库中
       userList.where({
         uid: uid,
         password: password,
       }).get().then(res => {
+        // 如果返回不存在这样的人的信息
         if (res.data.length == 0) {
           wx.showModal({
             title: '提示',
@@ -170,12 +172,12 @@ Page({
           console.log(page.data)
           if (identity == "student") {
             wx.redirectTo({
-              url: '../stuPage/stuPage',
+              url: '../studentPage/stuPage',
             })
           }
           if (identity == "teacher") {
             wx.redirectTo({
-              url: '../teaPage/teaPage',
+              url: '../teacherPage/teaPage',
             })
           }
           if (identity == "administrator") {

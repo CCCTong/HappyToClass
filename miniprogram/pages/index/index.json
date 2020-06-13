@@ -1,6 +1,5 @@
 {
 
-
   "usingComponents": {
     "van-row": "vant-weapp/row",
     "van-col": "vant-weapp/col",
@@ -11,10 +10,9 @@
     "van-dialog": "vant-weapp/dialog",
     "van-icon": "vant-weapp/icon",
     "van-radio": "vant-weapp/radio",
-    "van-radio-group": "vant-weapp/radio-group"
+    "van-radio-group": "vant-weapp/radio-group",
+    "van-picker": "vant-weapp/picker",
+    "van-popup": "vant-weapp/popup"
   }
-
-
-
 
 }

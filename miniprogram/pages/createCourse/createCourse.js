@@ -150,10 +150,10 @@ Page({
               Location: location,
               Num: num,
               TeacherNum:teacherNum,
-              TeacherName:teacherName
+              TeacherName:teacherName,
+              StudentNum:0 // 选择该课程的学生人数
             }
           })
-          
           wx.redirectTo({
             url: '../createCourse/createCourse',
           })

@@ -50,6 +50,7 @@ export const admin_list = db.collection("ADMIN_LIST");
     Time	上课时间	DATETIME	NOT NULL
     Location	上课地点	CHAR(10)	NOT NULL
     Num	选课人数上限	CHAR(10)	NOT NULL
+    StudentNum 选课学生人数 SMALLINT NOT NULL
 
   }
 */
@@ -125,14 +126,16 @@ export class DataBaseManager {
       },
     })
   }
-  async getMyCoursesName(stuName) {
+  async GetMyCoursesName(stuName) {
     var courseName = [];
     console.log(stuName)
+    // 异步操作让进程可以继续进行下去
     var p = await new Promise((resolve, reject) => {
       student_course.where({
         StudentName: stuName
       }).get().then(res => {
         console.log(res);
+        // 选课列表为空
         if (res.data[0] == undefined) {
           wx.showModal({
             title: '提示',
@@ -146,8 +149,8 @@ export class DataBaseManager {
     })
     return courseName
   }
-
-  async getCousreInfo(coursesName) {
+  // 得到课程信息
+  async GetCousreInfo(coursesName) {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve, zreject) => {
@@ -161,9 +164,11 @@ export class DataBaseManager {
     }
     return prom;
   }
-  dropCourse(e) {
+  // 退课操作
+  DropCourse(e) {
     let courseName = e.target.id
     console.log(e);
+    // 传入课程名称和个人信息
     wx.cloud.callFunction({
       name: "dropCourse",
       data: {

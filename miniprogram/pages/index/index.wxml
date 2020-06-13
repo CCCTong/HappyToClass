@@ -1,37 +1,39 @@
 <!--index.wxml-->
+
+<!-- 背景图片 -->
 <view class="box">
   <image bindtap="bindViewTap" class = "school" src="../../images/xuexiao.jpg" ></image>
 </view>
 <view class="container">
   <van-cell-group>
-  <van-field
-    value="{{ username }}"
-    label="姓名"
-    left-icon="user-o"
-    placeholder="请输入姓名"
-    bind:input="setName"
-  />
+   <!-- 文本输入个人信息，绑定js内部数据 -->
+    <van-field
+      value="{{ username }}"
+      label="姓名"
+      left-icon="user-o"
+      placeholder="请输入姓名"
+      bind:input="setName"
+    />
 
-  
+    <van-field
+      value="{{ uid }}"
+      label="账号"
+      left-icon="user-circle-o"
+      placeholder="请输入账号"
+      bind:input="setUid"
+    />
 
-  <van-field
-    value="{{ uid }}"
-    label="账号"
-    left-icon="user-circle-o"
-    placeholder="请输入账号"
-    bind:input="setUid"
-  />
-
-  <van-field
-    value="{{ password }}"
-    type="password"
-    label="密码"
-    placeholder="请输入密码"
-    left-icon="closed-eye"
-    border="{{ false }}"
-    bind:input="setPassword"
-  />
-  <van-radio-group value="{{ identity }}" bind:change="onChange">
+    <van-field
+      value="{{ password }}"
+      type="password"
+      label="密码"
+      placeholder="请输入密码"
+      left-icon="closed-eye"
+      border="{{ false }}"
+      bind:input="setPassword"
+    />
+    <!-- 老师学生管理员身份选择 -->
+    <van-radio-group value="{{ identity }}" bind:change="onChange">
       <view style="float:left;margin-right:40rpx;margin-left:40rpx">
         <van-radio name="student" class="radio"> 学生</van-radio>
       </view>
@@ -41,14 +43,15 @@
       <view style="float:right;margin-right40rpx;margin-left:40rpx ">
         <van-radio name="administrator" class="radio"> 管理员</van-radio>
       </view>
-  </van-radio-group>
-  <view class="btn">
-    <view class="btn reg">
-      <van-button color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="handleReg">注册</van-button>
+    </van-radio-group>
+    <!-- 提交身份信息 -->
+    <view class="btn">
+      <view class="btn reg">
+        <van-button color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="handleReg">注册</van-button>
+      </view>
+      <view class="btn log">
+        <van-button color="#3b87dd" type="primary" size="large" bindclick="handleLogin">登录</van-button>
+      </view>
     </view>
-    <view class="btn log">
-      <van-button color="#3b87dd" type="primary" size="large" bindclick="handleLogin">登录</van-button>
-    </view>
-  </view>
   </van-cell-group>
 </view>
