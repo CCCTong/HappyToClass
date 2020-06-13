@@ -169,12 +169,12 @@ Page({
           console.log(page.data)
           if (identity == "student") {
             wx.redirectTo({
-              url: '../stuPage/stuPage',
+              url: '../studentPage/stuPage',
             })
           }
           if (identity == "teacher") {
             wx.redirectTo({
-              url: '../teaPage/teaPage',
+              url: '../teacherPage/teaPage',
             })
           }
           if (identity == "administrator") {

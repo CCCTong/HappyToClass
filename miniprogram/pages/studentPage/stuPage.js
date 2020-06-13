@@ -13,7 +13,7 @@ Page({
    */
   select: function () {
     wx.navigateTo({
-      url: '../select/select',
+      url: '../selectCourse/select',
     })
   },
 

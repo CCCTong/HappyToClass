@@ -20,6 +20,7 @@ App({
     identity: "",
     courses: [],
     courseName: "",
-    openid: ""
+    openid: "",
+    courseNum:""
   }
 })
