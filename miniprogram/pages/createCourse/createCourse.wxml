@@ -23,14 +23,16 @@
   <van-field
     value="{{ teacherName }}"
     label="授课老师"
-    required
+    disabled
     border="{{ false }}"
+    bind:input="onShow"
   />
   <van-field
     value="{{ teacherNum }}"
     label="授课老师号"
-    required
+    disabled
     border="{{ false }}"
+    bind:input="onShow"
   />
 
   <van-field
@@ -71,9 +73,9 @@
     bind:input="setnum"
   />
 
-  <view class="btn">
-    <view class="btn reg">
-      <van-button color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="handleReg">创建</van-button>
+  <view >
+    <view>
+      <van-button class="btn" color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="handleReg">创建</van-button>
     </view>
   </view>
   </van-cell-group>

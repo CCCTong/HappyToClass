@@ -42,20 +42,17 @@ Page({
     })
     console.log(coursesName)
 
-    // 根据列表在选课数据库中统计有多少学生选取该课程
-    // 注：此处使用user数据库，正常情况下为COURSE_LIST
+    // 根据列表中的课程号在选课数据库中统计有多少学生选取该课程
     var mycars=new Array(coursesName.length)
     console.log(mycars)
     for (var i = 0; i < coursesName.length; i++) {
       var p = await new Promise((resolve, reject) => {
         s_c_List.where({
-          uid: coursesName[i].Num
+          CourseNum: coursesName[i].CourseNum
         }).count().then(res => {
-          mycars = {
-            num: coursesName[i].Num,
-            courseName: coursesName[i].coursename,
-            cnt: res.total
-          }
+          mycars[i] = {num:coursesName[i].Num, // 选课人数上限
+                      courseName:coursesName[i].CourseName,
+                      cnt:res.total}
           resolve(res.total)
         })
       })
