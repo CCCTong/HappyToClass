@@ -14,4 +14,4 @@
 
 <van-cell size="large" is-link icon="bars" title="我的课程" bind:click="myCourse"/>
 
-<van-cell size="large" is-link icon="eye" title="其他" />
+<van-cell size="large" is-link icon="eye" title="我的信息"  bind:click="myPage"/>

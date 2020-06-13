@@ -11,12 +11,16 @@ Page({
   /**
    * 选课操作
    */
-  select: function () {
+   myPage: function () {
+    wx.navigateTo({
+      url: '../myMainPage/MainPage',
+    })
+  },
+  select: function(){
     wx.navigateTo({
       url: '../selectCourse/select',
     })
   },
-
   /**
    * 查看我的课程
    */
