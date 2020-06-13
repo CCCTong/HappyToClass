@@ -1,4 +1,3 @@
-/* miniprogram/pages/manageID/manageID.wxss */
 /* pages/select/select.wxss */
 
 
@@ -17,7 +16,7 @@
   padding: 5rpx;
   display: flex;
   margin-bottom: 50rpx;
-  margin-left: 140rpx;
+  margin-left: 40rpx;
 }
 
 .titlescore {
@@ -33,11 +32,12 @@
 
 .word {
   margin: 30rpx;
-  font-size: 45rpx;
+  font-size: 37rpx;
   font-style: bold;
   background: #0061CC;
   color: #fff;
   text-align: center;
+
 }
 
 /**

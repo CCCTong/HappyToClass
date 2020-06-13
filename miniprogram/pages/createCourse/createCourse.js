@@ -1,7 +1,8 @@
 // miniprogram/pages/createCourse/createCourse.js
 
 const db = wx.cloud.database()
-const course_list = db.collection("COURSE_LIST")
+//临时课程表
+const course_list = db.collection("COURSE_LIST_temp")
 var app = getApp()
 
 Page({

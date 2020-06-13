@@ -6,8 +6,8 @@
     "van-dialog": "vant-weapp/dialog",
     "van-cell": "vant-weapp/cell",
     "van-picker": "vant-weapp/picker",
-    "van-icon": "vant-weapp/icon",
-    "van-search":"vant-weapp/search",
-    "van-toast":"vant-weapp/toast"
-  }
+    "van-icon": "vant-weapp/icon"
+  },
+  "enablePullDownRefresh": true
+
 }

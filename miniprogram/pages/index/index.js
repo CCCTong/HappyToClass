@@ -112,8 +112,10 @@ Page({
           else {
             userList.add({
               data: {
+                userName:username,
                 uid: uid,
                 password: password,
+                userIdentity:identity
               }
             })
             // 向学生or教师or管理员数据库中添加该用户的数据
@@ -126,6 +128,7 @@ Page({
             else{
               dbClass.addAdminData(uid)
             }
+          
             wx.showModal({
               title: '恭喜',
               content: '注册成功'
