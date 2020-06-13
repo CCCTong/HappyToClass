@@ -1,5 +1,5 @@
 // miniprogram/pages/manageCourse/manageCourse.js
-const app = getApp();
+var app = getApp();
 var db = wx.cloud.database();
 var courseCollection = db.collection("COURSE_LIST"); // 集合名修改之后此处需修改
 var s_c_List = db.collection("STUDENT_COURSE"); // 在s_c数据库创建好之后将集合名称替换,相关字段可以修改
@@ -15,12 +15,16 @@ Page({
   },
 
   /**
-   * 加载该老师创建的课程 
+   * 跳转到课程详细界面
    */
-  async getCourse(myID) {
-    var page = this;
-
+  toCourseDetail: function(e) {
+    console.log(e.currentTarget.dataset.coursenum)
+    app.globalData.courseNum = e.currentTarget.dataset.coursenum;
+    wx.navigateTo({
+      url: '../detail/detail',
+    })
   },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -50,9 +54,12 @@ Page({
         s_c_List.where({
           CourseNum: coursesName[i].CourseNum
         }).count().then(res => {
-          mycars[i] = {num:coursesName[i].Num, // 选课人数上限
-                      courseName:coursesName[i].CourseName,
-                      cnt:res.total}
+          mycars[i] = {
+            num:coursesName[i].Num, // 选课人数上限
+            courseName:coursesName[i].CourseName,
+            cnt:res.total,
+            courseNum:coursesName[i].CourseNum
+          }
           resolve(res.total)
         })
       })
@@ -62,7 +69,12 @@ Page({
       courseList: mycars
     })
   },
-
+  /**
+   * 需要重新刷新课程的数据
+   */
+  changeData:function(){
+    this.onLoad();
+    },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

@@ -3,7 +3,7 @@ App({
   onLaunch: function () {
     if (wx.cloud) {
       wx.cloud.init({
-        env: "my-object-xttai",
+        env: "xuanke-lkg7q",
         traceUser: true
       })
       wx.cloud.callFunction({
@@ -20,6 +20,7 @@ App({
     identity: "",
     courses: [],
     courseName: "",
-    openid: ""
+    openid: "",
+    courseNum:""
   }
 })
