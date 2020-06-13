@@ -1,52 +1,37 @@
-// pages/manageID/manageID.js
+// pages/confirmCourse/confirmCourse.js
 var app = getApp()
 var db = wx.cloud.database()
-var userlist = db.collection("user");
+var course_list = db.collection("COURSE_LIST_temp");
+var student_course = db.collection("STUDENT_COURSE");
+var student_list = db.collection("STUDENT_LIST");
+var teacher_list = db.collection("TEACHER_LIST");
 const _ = db.command
-import Toast from '../../miniprogram_npm/vant-weapp/toast/toast'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    user: [],
+    courses: [],
     disable: false
   },
-  //搜索显示需要查询的账号
-  onSearch(e) {
-    console.log(e.detail)
-    userlist.where({
-      uid:e.detail
-    }).get().then(res=>{
-      this.setData({
-        user:res.data
-      })
-    })
-      
-  },
-  //取消显示所有用户账号
-  onCancel() {
-    userlist.get().then(res => {
-      this.setData({
-        user: res.data
-      })
-    })
-  },
+
   
-  into_userPage: function (e) {
+  
+  into_confirmPage: function (e) {
     
     wx.navigateTo({
-      url: '../userDetail/userDetail',
+      url: '../courseDetail/courseDetail',
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    userlist.get().then(res => {
+    course_list.get().then(res => {
       this.setData({
-        user: res.data
+        courses: res.data
       })
     })
   },
@@ -75,9 +60,9 @@ Page({
     })
     courseCollection.get().then(res => {
       this.setData({
-        user: res.data
+        courses: res.data
       })
-      console.log(this.data.user)
+      console.log(this.data.courses)
     })
     wx.hideLoading()
   },

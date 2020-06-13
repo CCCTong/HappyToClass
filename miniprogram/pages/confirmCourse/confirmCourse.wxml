@@ -1,5 +1,6 @@
+
 <view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
-  <view class="word">管理账号</view>
+  <view class="word">课程审核</view>
   <view class="waveWrapperInner bgTop">
     <image class="wave waveTop" src="../../images/wave-top.png"></image>
   </view>
@@ -7,33 +8,38 @@
     <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
   </view>
 </view>
-<van-search
-  value="{{ value }}"
-  placeholder="请输入需要查询的账号"
-  show-action
-  bind:search="onSearch"
-  bind:cancel="onCancel"
-/>
+
 <scroll-view scroll-y="true" class="scroll" refresher-enabled="true" bindrefresherrefresh="refresh" bindrefresherabort="refreshAbort">
-  <block wx:for="{{user}}" wx:key>
+  <block wx:for="{{courses}}" wx:key>
   <van-cell  
+    icon="label-o" 
     use-label-slot="true" 
     size="large" 
     >
+    
+    <view slot="title">
+      <view class="titleview">
+        <view>
+          <text> {{item.CourseName}} </text>
+        </view>
+      </view>
+    </view>
+
     <view slot="label" 
-      data-userName="{{item.userName}}"
+      data-courseName="{{item.CourseName}}"
       data-index="{{index}}"
       class="detail">
-      <van-icon name="user-o" size="25rpx"/>
-      <text> 姓名 : {{item.userName}}\n </text>
       <van-icon name="manager" size="25rpx"/>
-      <text> 身份 : {{item.userIdentity}}\n </text>
-      <van-icon name="user-circle-o" size="25rpx"/>
-      <text> 账号 : {{item.uid}}\n</text>
+      <text> 授课老师 : {{item.TeacherName}}\n </text>
+      <van-icon name="award" size="25rpx"/>
+      <text> 课程学分 : {{item.Credit}}\n</text>
+      <van-icon name="friends" size="25rpx"/>
+      <text> 课程名额 : {{item.Num}}</text>
     </view>
     <view class="btn">
-      <van-button id="{{item.userName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_userPage">管理</van-button>
+      <van-button id="{{item.CourseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_confirmPage">审核</van-button>
     </view>
   </van-cell>
 </block>
+
 </scroll-view>
