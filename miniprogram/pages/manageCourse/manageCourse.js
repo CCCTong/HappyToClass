@@ -19,6 +19,7 @@ Page({
    */
   toCourseDetail: function(e) {
     console.log(e.currentTarget.dataset.coursenum)
+    // 保存信息，向子页面传递
     app.globalData.courseNum = e.currentTarget.dataset.coursenum;
     wx.navigateTo({
       url: '../courseDetail/detail',
@@ -41,6 +42,7 @@ Page({
       course_list.where({
         TeacherNum: myID // 根据教师编号检索
       }).get().then(res => {
+        // 保存检索到的信息，用于展示
         page.setData({courseList: res.data})
         console.log(res.data)
         resolve(coursesName)
