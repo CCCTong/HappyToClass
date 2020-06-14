@@ -3,7 +3,7 @@ App({
   onLaunch: function () {
     if (wx.cloud) {
       wx.cloud.init({
-        env: "my-object-xttai",
+        env: "zyx-cloud-yp4i4",
         traceUser: true
       })
       wx.cloud.callFunction({

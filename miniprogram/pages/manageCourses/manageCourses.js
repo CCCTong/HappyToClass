@@ -1,48 +1,51 @@
-// pages/manageID/manageID.js
+// pages/manageCourses/manageCourses.js
+//管理员查看过审课程信息
 var app = getApp()
 var db = wx.cloud.database()
-var userlist = db.collection("user");
+var courselist = db.collection("COURSE_LIST");
 const _ = db.command
-import Toast from '../../miniprogram_npm/vant-weapp/toast/toast'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    user: [],
+    course: [],
+    identity:"",
     disable: false
   },
   //搜索显示需要查询的账号
   onSearch(e) {
     console.log(e.detail)
     var identity = this.data.identity
-    if(identity == 'uid'){
-    userlist.where({
-      uid:e.detail
+    if (identity == 'CourseNum'){
+    courselist.where({
+      CourseNum:e.detail
     }).get().then(res=>{
       this.setData({
-        user:res.data
+        course:res.data
       })
     })
   }else{
-    userlist.where({
-      userName:e.detail
+    courselist.where({
+      CourseName:e.detail
     }).get().then(res=>{
       this.setData({
-        user:res.data
+        course:res.data
       })
     })
   }
+      
   },
   //取消显示所有用户账号
   onCancel() {
-    userlist.get().then(res => {
+    courselist.get().then(res => {
       this.setData({
-        user: res.data
+        course: res.data
       })
     })
   },
+  //确定检索信息
   onChange: function (e) {
     console.log(e.detail)
     this.setData({
@@ -50,20 +53,24 @@ Page({
     })
    
   },
-  into_userPage: function (e) {
-    console.log(e.currentTarget.dataset.uid)
-    app.globalData.uid = e.currentTarget.dataset.uid;
+  into_coursePage: function (e) {
+    console.log(e.currentTarget.dataset.coursenum)
+    app.globalData.courseNum = e.currentTarget.dataset.coursenum;
     wx.navigateTo({
-      url: '../userDetail/userDetail',
+      url: '../courseDetail/coursesDetail',
     })
   },
+
+  changeData:function(){
+    this.onLoad();
+    },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    userlist.get().then(res => {
+    courselist.get().then(res => {
       this.setData({
-        user: res.data
+        course: res.data
       })
     })
   },
@@ -92,9 +99,9 @@ Page({
     })
     courseCollection.get().then(res => {
       this.setData({
-        user: res.data
+        course: res.data
       })
-      console.log(this.data.user)
+      console.log(this.data.course)
     })
     wx.hideLoading()
   },

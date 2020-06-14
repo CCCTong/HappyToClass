@@ -1,2 +1,54 @@
-<!--miniprogram/pages/userDetail/userDetail.wxml-->
-<text>miniprogram/pages/userDetail/userDetail.wxml</text>
+<!--miniprogram/pages/manageCourse/manageCourse.wxml-->
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
+  <view class="word">账号信息</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+  </view>
+</view>
+
+<view id="titleview">
+<!-- 以下是账号模块 -->
+<van-cell-group>
+
+    <van-field
+      value="{{ userName }}"
+      label="用户名"
+      disabled
+      border="{{ false }}"
+    />
+
+     <van-field
+      value="{{ uid }}"
+      label="账号"
+      disabled
+      border="{{ false }}"
+    />
+
+    <van-field
+      value="{{ userIdentity }}"
+      label="身份"
+      disabled
+      border="{{ false }}"
+    />
+
+     <van-field
+      value="{{ password }}"
+      label="密码"
+      disabled
+      border="{{ false }}"
+    />
+    
+
+    
+   
+
+<view class="btn">
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除账号</van-button>
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">修改账号</van-button>
+</view>
+</van-cell-group>
+</view>
+

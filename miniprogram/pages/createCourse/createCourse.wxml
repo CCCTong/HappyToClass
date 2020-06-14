@@ -9,17 +9,15 @@
     placeholder="请输入课程名"
     bind:input="setcourseName"
   />
-
-  
-
   <van-field
     value="{{ courseNum }}"
     required
-    label="课程号"
-    left-icon="course-circle-o"
-    placeholder="请输入课程号"
+    label="课程编号"
+    left-icon="course-o"
+    placeholder="请输入课程编号"
     bind:input="setcourseNum"
   />
+
   <van-field
     value="{{ teacherName }}"
     label="授课老师"

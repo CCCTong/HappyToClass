@@ -36,9 +36,9 @@
       <van-icon name="friends" size="25rpx"/>
       <text> 课程名额 : {{item.Num}}</text>
     </view>
-    <view class="btn">
-      <van-button id="{{item.CourseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_confirmPage">审核</van-button>
-    </view>
+   
+        <van-button  class="btn" id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="into_confirmPage" data-coursenum="{{item.CourseNum}}" data-coursename="{{item.CourseName}}" class="detail" >审核</van-button>
+
   </van-cell>
 </block>
 
