@@ -17,7 +17,7 @@ exports.main = async (event, context) => {
     CourseName:courseName
   }).update({
     data:{
-      Num:_.inc(1),
+      Num:_.inc(-1),
     }
   })
   student_course.where({
