@@ -3,6 +3,7 @@
 var app = getApp();
 var db = wx.cloud.database();
 var studentCourseList = db.collection("STUDENT_COURSE"); // 获取学生的选课信息
+var c_s_List = db.collection("COURSE_STUDENT");
 var courseList = db.collection("COURSE_LIST");
 Page({
 
@@ -39,8 +40,8 @@ Page({
           }).remove().then(res => {
             // 继续删除学生选课列表中选择该课程的数据
             // 此处需要根据课程名来检索选择该课程的学生
-            // 未完善
-            studentCourseList.where({
+
+            c_s_List.where({
               CourseNum: page.data.courseNum
             }).get().then(res=>{
               console.log(res.data)

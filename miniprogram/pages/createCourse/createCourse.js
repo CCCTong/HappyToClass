@@ -19,7 +19,7 @@ Page({
     credit: "",
     time: "",
     location: "",
-    maxNum: "", // 剩余名额
+    maxNum: "", //人数上限
     show: false
   },
   async onShow() {
@@ -172,7 +172,7 @@ Page({
               Time: "未设置",
               Location: "未设置",
               MaxNum: maxNum, // 选课人数上限
-              Num: maxNum, // 剩余名额
+              Num: maxNum, // 选课人数
               TeacherNum: teacherNum,
               TeacherName: teacherName,
             }
