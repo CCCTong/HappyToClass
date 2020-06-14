@@ -95,6 +95,7 @@ Page({
             Time: time,
             Location:location,
             MaxNum: courseData.Num,// 选择该课程的学生人数
+            Num: courseData.Num,
             TeacherNum:courseData.TeacherNum,
             TeacherName:courseData.TeacherName,
               }

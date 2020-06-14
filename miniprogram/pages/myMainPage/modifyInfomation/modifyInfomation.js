@@ -13,6 +13,9 @@ Page({
     phone: "",
     email: ""
   },
+  /** 
+   * 设置邮箱、电话、生日、性别
+  */
   setEmail: function (e) {
     this.setData({
       email: e.detail
@@ -37,8 +40,9 @@ Page({
   submit: function (e) {
     var page = this
     console.log(this.data)
+    // 调用云函数，修改个人信息
     wx.cloud.callFunction({
-      name: "modfiyStudentInfo",
+      name: "modfiyStudentInfo", // 云函数名称
       data: {
         num: app.globalData.uid,
         email: this.data.email,
