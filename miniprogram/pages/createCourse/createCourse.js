@@ -76,7 +76,7 @@ Page({
   /**
    * 检查信息是否完整
    */
-  judge: function (courseName, courseNum, credit, category, preCourse, preNum, num) {
+  judge: function (courseName, credit, category, num) {
     var flag = false
     if (courseName == "") {
       wx.showModal({
@@ -144,8 +144,6 @@ Page({
               CourseName: courseName,
               Categor: category,
               Credit: credit,
-              PreCourse: preCourse,
-              PreNum: preNum,
               Time: time,
               Location: location,
               Num: num,

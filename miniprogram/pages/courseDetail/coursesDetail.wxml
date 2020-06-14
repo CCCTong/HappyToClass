@@ -52,21 +52,20 @@
     <van-field
       value="{{ Time }}"
       label="上课时间"
-      placeholder="请输入上课时间"
-      bind:input="setTime"
+      disabled
+      border="{{ false }}"
     />
 
      <van-field
       value="{{ Location }}"
       label="上课地点"
-      placeholder="请输入上课地点"
-      bind:input="setLocation"
+      disabled
+      border="{{ false }}"
     />
    
 
 <view class="btn">
   <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除课程</van-button>
-  <van-button color="#3b87dd" type="primary" size="large" bind:click="confirmCourse" >确认课程</van-button>
 
 </view>
 </van-cell-group>

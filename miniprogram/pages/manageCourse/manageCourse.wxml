@@ -29,7 +29,6 @@
     <view slot="label" 
       data-courseName="{{item.courseName}}"
       data-index="{{index}}"
-      bindtap="into_coursePage"
       class="detail">
       <van-icon name="manager" size="25rpx"/>
       <text> 上课人数: {{item.cnt}}\n </text>

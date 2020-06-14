@@ -18,9 +18,17 @@ Page({
     })
   },
   /**
-   * 管理课程页面, 与老师的管理课程有区别，要先选定哪个老师，然后进行课程管理
+   * 管理所有过审核的课程页面
    */
   manageCourse: function () {
+    wx.navigateTo({
+      url: '../manageCourses/manageCourses',
+    })
+  },
+  /**
+   * 审核课程页面
+   */
+  confirmCourse: function () {
     wx.navigateTo({
       url: '../confirmCourse/confirmCourse',
     })

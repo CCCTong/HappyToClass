@@ -2,8 +2,7 @@
 
 var app = getApp();
 var db = wx.cloud.database();
-var CourseList = db.collection("COURSE_LIST"); //已审核课程表
-var courseList = db.collection("COURSE_LIST_temp");//未审核课程表
+var courseList = db.collection("COURSE_LIST");//已审核课程表
 Page({
 
   /**
@@ -13,10 +12,7 @@ Page({
     identity: "",
     courseNum: "",
     courseName: "",
-    categor: "",
     credit: "",
-    preCourse: "",
-    preNum: "",
     time: "",
     location: "",
     num: "",
@@ -68,51 +64,7 @@ Page({
       }
     })
   },
-  async confirmCourse(e){
-    var page = this
-    var courseNum = app.globalData.courseNum
-    var courseName = app.globalData.courseName
-    var time = this.data.Time
-    var location = this.data.Location
-    console.log(1)
-    wx.showModal({
-      title: '提示',
-      content: '确定要确认本课程吗？',
-      success(res) {
-      if (res.confirm){
-        //确认课程
-        courseList.where({
-        CourseNum: courseNum,
-        CourseName:courseName
-      }).get().then(res => {
-        var courseData = res.data[0]
-       
-        CourseList.add({
-          data: {
-            CourseNum: courseNum,
-            CourseName: courseName,
-            Credit: courseData.Credit,
-            Time: time,
-            Location:location,
-            MaxNum: courseData.Num,// 选择该课程的学生人数
-            TeacherNum:courseData.TeacherNum,
-            TeacherName:courseData.TeacherName,
-              }
-            })
-              //删除COURST_LIST_temp中数据
-              courseList.where({
-                CourseNum: page.data.courseNum
-              }).remove()
-                  // 删除成功，返回课程管理界面
-                  page.changeParentData() // 刷新管理课程界面的数据
-                  wx.navigateBack({
-                    delta: 1, // 返回上一级页面。
-                  })
-          })
-        }
-      }
-    })
-  },
+  
   
 
   /**
@@ -121,12 +73,10 @@ Page({
   async onLoad() {
     var page = this
     var courseNum = app.globalData.courseNum
-    var courseName = app.globalData.courseName
     // 根据课程号，在数据库中检索该课程相关信息
     var p = await new Promise((resolve, reject) => {
       courseList.where({
-        CourseNum: courseNum,
-        CourseName:courseName
+        CourseNum: courseNum, 
       }).get().then(res => {
         var courseData = res.data[0]
         console.log(courseData)
@@ -135,8 +85,10 @@ Page({
           courseNum: courseData.CourseNum,
           courseName: courseData.CourseName,
           Credit: courseData.Credit,
-          Num: courseData.Num,
+          Num: courseData.MaxNum,
           teacherName: courseData.TeacherName,
+          Time: courseData.Time,
+          Location:courseData.Location
         })
         resolve(courseData)
       })
