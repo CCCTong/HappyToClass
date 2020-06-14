@@ -12,6 +12,7 @@ exports.main = async (event, context) => {
   }).update({
     data:{
       CourseName: _.push(event.courseName),
+      CourseNum: _.push(event.courseNum)
     }
   })
 }
