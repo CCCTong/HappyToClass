@@ -110,6 +110,7 @@ Page({
             })
           }
           else {
+            // 向用户列表中添加数据
             userList.add({
               data: {
                 userName:username,
@@ -171,6 +172,7 @@ Page({
           wx.setStorageSync('user', user)
           console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
           console.log(page.data)
+          // 根据用户身份，跳转到相应的界面
           if (identity == "student") {
             wx.redirectTo({
               url: '../studentPage/stuPage',

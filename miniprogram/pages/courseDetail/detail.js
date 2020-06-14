@@ -39,13 +39,14 @@ Page({
             CourseNum: page.data.courseNum
           }).remove().then(res => {
             // 继续删除学生选课列表中选择该课程的数据
-            // 此处需要根据课程名来检索选择该课程的学生
-
+            // 此处需要根据课程名来检索选择该课程的学生数组
+            // 以此遍历此数组，调用函数，进行退课
             c_s_List.where({
               CourseNum: page.data.courseNum
             }).get().then(res=>{
               console.log(res.data)
             })
+            
             var flag = res.stats.removed // 是否成功删除
             if (flag) {
               // 删除成功，返回课程管理界面
