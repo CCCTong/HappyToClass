@@ -7,13 +7,25 @@
     <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
   </view>
 </view>
+<view class="container">
 <van-search
   value="{{ value }}"
-  placeholder="请输入需要查询的账号"
+  placeholder="请先选择再查询"
   show-action
   bind:search="onSearch"
   bind:cancel="onCancel"
 />
+<!-- 信息检索方式确认 -->
+<van-radio-group value="{{ identity }}" bind:change="onChange">
+      <view style="float:left;margin-right:40rpx;margin-left:40rpx">
+        <van-radio name="userName" class="radio"> 用户名</van-radio>
+      </view>
+      <view style="float:left;margin-right:40rpx;margin-left:80rpx">
+        <van-radio name="uid" class="radio"> 账号</van-radio>
+      </view>
+</van-radio-group>
+</view>
+
 <scroll-view scroll-y="true" class="scroll" refresher-enabled="true" bindrefresherrefresh="refresh" bindrefresherabort="refreshAbort">
   <block wx:for="{{user}}" wx:key>
   <van-cell  
@@ -32,7 +44,7 @@
       <text> 账号 : {{item.uid}}\n</text>
     </view>
     <view class="btn">
-      <van-button id="{{item.userName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_userPage">管理</van-button>
+      <van-button id="{{item.userName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_userPage" data-uid="{{item.uid}}">管理</van-button>
     </view>
   </van-cell>
 </block>

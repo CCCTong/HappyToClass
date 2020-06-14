@@ -27,6 +27,8 @@
     </view>
 
     <view slot="label" 
+      data-courseName="{{item.CourseName}}"
+      data-index="{{index}}"
       class="detail">
       <van-icon name="manager" size="25rpx"/>
       <text> 上课人数: {{(item.MaxNum - item.Num)}}\n </text>

@@ -1,0 +1,51 @@
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
+  <view class="word">管理课程</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+  </view>
+</view>
+<view class="container">
+<van-search
+  value="{{ value }}"
+  placeholder="请先选择再查询"
+  show-action
+  bind:search="onSearch"
+  bind:cancel="onCancel"
+/>
+<!-- 信息检索方式确认 -->
+<van-radio-group value="{{ identity }}" bind:change="onChange">
+      <view style="float:left;margin-right:40rpx;margin-left:40rpx">
+        <van-radio name="CourseNum" class="radio"> 课程编号</van-radio>
+      </view>
+      <view style="float:left;margin-right:40rpx;margin-left:80rpx">
+        <van-radio name="CourseName" class="radio"> 课程名</van-radio>
+      </view>
+</van-radio-group>
+</view>
+<!-- 信息显示 -->
+<scroll-view scroll-y="true" class="scroll" refresher-enabled="true" bindrefresherrefresh="refresh" bindrefresherabort="refreshAbort">
+  <block wx:for="{{course}}" wx:key>
+  <van-cell  
+    use-label-slot="true" 
+    size="large" 
+    >
+    <view slot="label" 
+      data-courseName="{{item.courseName}}"
+      data-index="{{index}}"
+      class="detail">
+      <van-icon name="user-circle-o" size="25rpx"/>
+      <text> 课程名 : {{item.CourseName}}\n</text>
+      <van-icon name="user-circle-o" size="25rpx"/>
+      <text> 课程编号 : {{item.CourseNum}}\n</text>
+      <van-icon name="user-o" size="25rpx"/>
+      <text> 授课老师 : {{item.TeacherName}}\n </text>
+    </view>
+    <view class="btn">
+      <van-button id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="into_coursePage" data-coursenum="{{item.CourseNum}}">管理</van-button>
+    </view>
+  </van-cell>
+</block>
+</scroll-view>

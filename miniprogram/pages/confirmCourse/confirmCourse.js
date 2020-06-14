@@ -20,7 +20,9 @@ Page({
   
   
   into_confirmPage: function (e) {
-    
+    console.log(e.currentTarget.dataset.coursenum,e.currentTarget.dataset.coursename)
+    app.globalData.courseNum = e.currentTarget.dataset.coursenum;
+    app.globalData.courseName = e.currentTarget.dataset.coursename;
     wx.navigateTo({
       url: '../courseDetail/courseDetail',
     })
@@ -28,14 +30,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
     course_list.get().then(res => {
+      console.log(res.data)
       this.setData({
         courses: res.data
       })
     })
   },
-
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -49,8 +52,10 @@ Page({
   onShow: function () {
 
   },
-
-
+  //页面数据更新
+  changeData:function(){
+    this.onLoad();
+    },
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

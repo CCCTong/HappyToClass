@@ -16,6 +16,8 @@ Page({
   //搜索显示需要查询的账号
   onSearch(e) {
     console.log(e.detail)
+    var identity = this.data.identity
+    if(identity == 'uid'){
     userlist.where({
       uid:e.detail
     }).get().then(res=>{
@@ -23,7 +25,15 @@ Page({
         user:res.data
       })
     })
-      
+  }else{
+    userlist.where({
+      userName:e.detail
+    }).get().then(res=>{
+      this.setData({
+        user:res.data
+      })
+    })
+  }
   },
   //取消显示所有用户账号
   onCancel() {
@@ -33,9 +43,16 @@ Page({
       })
     })
   },
-  
+  onChange: function (e) {
+    console.log(e.detail)
+    this.setData({
+      identity: e.detail
+    })
+   
+  },
   into_userPage: function (e) {
-    
+    console.log(e.currentTarget.dataset.uid)
+    app.globalData.uid = e.currentTarget.dataset.uid;
     wx.navigateTo({
       url: '../userDetail/userDetail',
     })

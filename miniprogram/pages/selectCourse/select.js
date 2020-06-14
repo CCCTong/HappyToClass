@@ -3,6 +3,7 @@ var app = getApp()
 var db = wx.cloud.database()
 var course_list = db.collection("COURSE_LIST");
 var student_course = db.collection("STUDENT_COURSE");
+var course_student = db.collection("COURSE_STUDENT");
 var student_list = db.collection("STUDENT_LIST");
 var teacher_list = db.collection("TEACHER_LIST");
 const _ = db.command
@@ -20,11 +21,12 @@ Page({
    * 选课操作
    */
   select: function (e) {
+    console.log(e)
     let courseName = e.target.id
-    var selectInfo = '';
+    console.log(courseName)
     // 通过找到学生名字和对应课程
     student_course.where({
-      StudentNum: app.globalData.usernid,
+      StudentNum: app.globalData.uid,
       CourseName: courseName
     }).count().then(res => {
       // 找到了相同名称的课程
@@ -36,11 +38,10 @@ Page({
       } else {
         // 检查是否还有余下的选人空间
         course_list.where({
-          data: {
-            CourseName: courseName
-          }
+          CourseName: courseName
         }).get().then(res => {
-          if (res.data.Num == 0) {
+          console.log(res.data);
+          if (res.data[0].Num === res.data[0].MaxNum) {
             wx.showModal({
               title: '提示',
               content: '本课程人数已满',
@@ -48,13 +49,14 @@ Page({
           } else {
             //在学生选课表里添加数据
             student_course.where({
-              StudentName: app.globalData.username
+              StudentNum: app.globalData.uid
             }).count().then(res => {
               if (res.total == 0) {
                 student_course.add({
                   data: {
+                    StudentName : app.globalData.username,
                     StudentNum: app.globalData.uid,
-                    CourseName: new Array(courseName)
+                    CourseName: new Array(courseName),
                   }
                 })
               } else {
@@ -62,8 +64,32 @@ Page({
                 wx.cloud.callFunction({
                   name: "addCourseNum",
                   data: {
-                    studentName: app.globalData.username,
+                    studentNum: app.globalData.uid,
                     courseName: courseName
+                  }
+                })
+              }
+            })
+            // 修改课程对应的表
+            course_student.where({
+              CourseName: courseName
+            }).count().then(res => {
+              if (res.total == 0) {
+                course_student.add({
+                  data: {
+                    StudentName: new Array(app.globalData.studentName),
+                    StudentNum: new Array(app.globalData.uid),
+                    CourseName: courseName
+                  }
+                })
+              } else {
+                // 选课成功在云函数里pull操作
+                wx.cloud.callFunction({
+                  name: "addStudentNum",
+                  data: {
+                    studentName: app.globalData.username,
+                    studentNum : app.globalData.uid,
+                    courseName: courseName,
                   }
                 })
               }

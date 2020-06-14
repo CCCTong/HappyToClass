@@ -1,2 +1,74 @@
-<!--miniprogram/pages/courseDetail/courseDetail.wxml-->
-<text>miniprogram/pages/courseDetail/courseDetail.wxml</text>
+<!--miniprogram/pages/manageCourse/manageCourse.wxml-->
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
+  <view class="word">课程信息</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+  </view>
+</view>
+
+<view id="titleview">
+<!-- 以下是课程名块 -->
+<van-cell-group>
+
+    <van-field
+      value="{{ courseName }}"
+      label="课程名称"
+      disabled
+      border="{{ false }}"
+    />
+
+     <van-field
+      value="{{ courseNum }}"
+      label="课程编号"
+      disabled
+      border="{{ false }}"
+    />
+
+    <van-field
+      value="{{ teacherName }}"
+      label="授课老师"
+      disabled
+      border="{{ false }}"
+    />
+
+     <van-field
+      value="{{ Credit }}"
+      label="学分"
+      disabled
+      border="{{ false }}"
+    />
+    
+
+    <van-field
+      value="{{ Num }}"
+      label="选课人数上限"
+      disabled
+      border="{{ false }}"
+    />
+
+    <van-field
+      value="{{ Time }}"
+      label="上课时间"
+      placeholder="请输入上课时间"
+      bind:input="setTime"
+    />
+
+     <van-field
+      value="{{ Location }}"
+      label="上课地点"
+      placeholder="请输入上课地点"
+      bind:input="setLocation"
+    />
+   
+
+<view class="btn">
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除课程</van-button>
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="confirmCourse" >确认课程</van-button>
+
+</view>
+</van-cell-group>
+</view>
+
