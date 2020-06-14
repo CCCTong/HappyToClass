@@ -33,7 +33,7 @@ Page({
         StudentNum: num
       }).get().then(res => {
         this.setData({
-          name: res.data[0].StudentName,
+          name: app.globalData.username,
           num: res.data[0].StudentNum,
           birthday: res.data[0].StudentBirthday,
           sex: res.data[0].StudentSex,
