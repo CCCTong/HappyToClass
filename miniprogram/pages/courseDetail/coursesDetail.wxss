@@ -1,5 +1,5 @@
-/* pages/select/select.wxss */
-
+/* pages/coursesDetail/coursesDetail.wxss */
+/*所有课程详细信息页面*/
 #titleview {
   width: 700rpx;
   margin-left: auto;

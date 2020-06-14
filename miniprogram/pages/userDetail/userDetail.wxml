@@ -37,17 +37,16 @@
      <van-field
       value="{{ password }}"
       label="密码"
-      disabled
       border="{{ false }}"
-    />
-    
-
+      bind:input = "setpassword"
+    >
+    </van-field>
     
    
 
 <view class="btn">
   <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除账号</van-button>
-  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">修改账号</van-button>
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="confirmModify">确认修改</van-button>
 </view>
 </van-cell-group>
 </view>

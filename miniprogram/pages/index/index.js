@@ -110,6 +110,7 @@ Page({
             })
           }
           else {
+            //添加用户信息到数据库
             userList.add({
               data: {
                 userName:username,

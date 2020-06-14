@@ -43,13 +43,18 @@ Page({
       })
     })
   },
+  //确定检索信息
   onChange: function (e) {
     console.log(e.detail)
     this.setData({
       identity: e.detail
     })
-   
   },
+  //更新页面数据
+  changeData:function(){
+    this.onLoad();
+    },
+ //进入账号详细界面
   into_userPage: function (e) {
     console.log(e.currentTarget.dataset.uid)
     app.globalData.uid = e.currentTarget.dataset.uid;

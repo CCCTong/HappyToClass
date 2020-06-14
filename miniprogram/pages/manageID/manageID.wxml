@@ -44,7 +44,7 @@
       <text> 账号 : {{item.uid}}\n</text>
     </view>
     <view class="btn">
-      <van-button id="{{item.userName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_userPage" data-uid="{{item.uid}}">管理</van-button>
+      <van-button id="{{item.userName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_userPage" data-uid="{{item.uid}}">信息修改</van-button>
     </view>
   </van-cell>
 </block>
