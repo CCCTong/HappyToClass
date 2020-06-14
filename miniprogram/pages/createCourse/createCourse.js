@@ -2,7 +2,7 @@
 
 const db = wx.cloud.database()
 //临时课程表
-const course_list = db.collection("COURSE_LIST")
+const course_list = db.collection("COURSE_LIST_temp")
 var app = getApp()
 
 Page({

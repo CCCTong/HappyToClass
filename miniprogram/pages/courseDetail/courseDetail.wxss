@@ -1,4 +1,4 @@
-/* pages/select/select.wxss */
+/* pages/courseDetail/courseDetail.wxss */
 
 #titleview {
   width: 700rpx;

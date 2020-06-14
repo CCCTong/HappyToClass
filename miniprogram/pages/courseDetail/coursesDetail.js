@@ -1,4 +1,4 @@
-// 未过审课程详细信息界面
+// 过审课程详细信息界面
 
 var app = getApp();
 var db = wx.cloud.database();

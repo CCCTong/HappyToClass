@@ -2,13 +2,14 @@
 
 var app = getApp();
 var db = wx.cloud.database();
-var userList = db.collection("user");//已审核课程表
+var userList = db.collection("user");//用户表
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    user:[],
     identity: "",
     courseNum: "",
     courseName: "",
@@ -51,7 +52,41 @@ Page({
       }
     })
   },
-  
+  //确认修改
+  confirmModify:function(){
+    var page = this
+    var uid = this.data.uid
+    var password = this.data.password
+    var username = this.data.userName
+    var identity = this.data.userIdentity
+    wx.showModal({
+      title: '提示',
+      content: '确定要修改密码吗？',
+      success(res) {
+        if (res.confirm) { // 管理员点击确认，则进修改账号数据部分        
+          userList.where({
+            uid: page.data.uid
+          }).remove().then(res => {
+            userList.add({
+              data: {
+                userName:username,
+                uid: uid,
+                password: password,
+                userIdentity:identity
+              }
+            })
+            
+              // 修改成功，返回账号管理界面
+              page.changeParentData() // 刷新管理账号界面的数据
+              wx.navigateBack({
+                delta: 1, // 返回上一级页面。
+              })
+            
+          })
+        }
+      }
+    })
+  },
   
 
   /**
@@ -60,7 +95,7 @@ Page({
   async onLoad() {
     var page = this
     var uid = app.globalData.uid
-    // 根据课程号，在数据库中检索该课程相关信息
+    // 根据账号，在数据库中检索该用户相关信息
     var p = await new Promise((resolve, reject) => {
       userList.where({
         uid: uid, 
@@ -74,7 +109,7 @@ Page({
           userIdentity:userData.userIdentity,
           password:userData.password
         })
-        resolve(courseData)
+        resolve(userData)
       })
     })
 
@@ -100,7 +135,13 @@ Page({
   onShow: function () {
 
   },
-
+  //设置密码
+  setpassword:function(e){
+    this.setData({
+      password: e.detail
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */

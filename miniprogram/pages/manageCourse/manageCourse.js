@@ -32,7 +32,7 @@ Page({
   async onLoad(options) {
     // 获取该老师创建的课程列表
     var page = this;
-    var myID = app.globalData.username;
+    var myID = app.globalData.uid;
     var coursesName;
     page.setData({
       myID: myID

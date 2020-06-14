@@ -40,7 +40,7 @@
       <text> 上课时间 : {{item.Time}}</text>
     </view>
     <view class="btn">
-      <van-button id="{{item.CourseName}}"  size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="select">选课</van-button>
+      <van-button id="{{item.CourseName}}"  size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="select" data-coursenum="{{item.CourseNum}}">选课</van-button>
     </view>
   </van-cell>
 </block>

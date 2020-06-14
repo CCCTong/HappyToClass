@@ -21,9 +21,8 @@ Page({
    * 选课操作
    */
   select: function (e) {
-    console.log(e)
     let courseName = e.target.id
-    console.log(courseName)
+    let courseNum = e.currentTarget.dataset.coursenum
     // 通过找到学生名字和对应课程
     student_course.where({
       StudentNum: app.globalData.uid,
@@ -41,7 +40,9 @@ Page({
           CourseName: courseName
         }).get().then(res => {
           console.log(res.data);
+
           if (res.data[0].Num <= 0) {
+
             wx.showModal({
               title: '提示',
               content: '本课程人数已满',
@@ -57,6 +58,7 @@ Page({
                     StudentName : app.globalData.username,
                     StudentNum: app.globalData.uid,
                     CourseName: new Array(courseName),
+                    CourseNum: new Array(courseNum),
                   }
                 })
               } else {
@@ -65,7 +67,8 @@ Page({
                   name: "addCourseNum",
                   data: {
                     studentNum: app.globalData.uid,
-                    courseName: courseName
+                    courseName: courseName,
+                    courseNum: courseNum
                   }
                 })
               }
@@ -77,9 +80,10 @@ Page({
               if (res.total == 0) {
                 course_student.add({
                   data: {
-                    StudentName: new Array(app.globalData.studentName),
+                    StudentName: new Array(app.globalData.username),
                     StudentNum: new Array(app.globalData.uid),
-                    CourseName: courseName
+                    CourseName: courseName,
+                    CourseNum: courseNum
                   }
                 })
               } else {
@@ -90,6 +94,7 @@ Page({
                     studentName: app.globalData.username,
                     studentNum : app.globalData.uid,
                     courseName: courseName,
+                    courseNum: courseNum
                   }
                 })
               }
@@ -98,7 +103,8 @@ Page({
             wx.cloud.callFunction({
               name: "minusCourseNum",
               data: {
-                courseName: courseName
+                courseName: courseName,
+                courseNum: courseNum
               }
             }).then(res => {
               wx.showToast({
