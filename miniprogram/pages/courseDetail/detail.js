@@ -93,6 +93,7 @@ Page({
           time: courseData.Time,
           location: courseData.Location,
           maxNum: courseData.MaxNum,
+          spareNum: courseData.Num,
           teacherNum: courseData.TeacherNum,
           teacherName: courseData.TeacherName,
           spareNum: courseData.Num,
