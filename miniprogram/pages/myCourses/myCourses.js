@@ -14,8 +14,10 @@ Page({
   },
 
   DropCourse(e) {
-    console.log(app.globalData.openid);
-    db.DropCourse(e);
+    let courseNum = e.currentTarget.dataset.coursenum
+    let courseName = e.target.id
+
+    db.DropCourse(courseNum, courseName);
     wx.showToast({
       title: '退选成功',
     })
