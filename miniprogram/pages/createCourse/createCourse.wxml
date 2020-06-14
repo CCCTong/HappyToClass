@@ -11,11 +11,10 @@
   />
   <van-field
     value="{{ courseNum }}"
-    required
-    label="课程编号"
-    left-icon="course-o"
-    placeholder="请输入课程编号"
-    bind:input="setcourseNum"
+    label="课程号"
+    disabled
+    border="{{ false }}"
+    bind:input="onShow"
   />
 
   <van-field
@@ -43,32 +42,16 @@
     left-icon="course-circle-o"
     bind:input="setCredit"
   />
-  <van-field
-    value="{{ category }}"
-    required
-    label="类型"
-    left-icon="course-circle-o"
-    placeholder="输入课程类型"
-    bind:input="setCategory"
-  >
-  </van-field>
 
   <van-field
-    value="{{ preCourse }}"
-    label="先修课"
-    placeholder="请输入先修课(没有则不填)"
-    left-icon="course-circle-o"
-    bind:input="setpreCourse"
-  />
-  <van-field
-    value="{{ Num }}"
+    value="{{ maxNum }}"
     v-model="Number"
     type="Number"
     required
-    label="人数"
+    label="人数上限"
     placeholder="请输入人数上限"
     left-icon="course-circle-o"
-    bind:input="setnum"
+    bind:input="setMaxNum"
   />
 
   <view >

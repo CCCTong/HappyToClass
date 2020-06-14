@@ -21,20 +21,32 @@
     <view slot="title"> 
       <view class="titleview">
         <view>
-          <text> {{item.courseName}} </text>
+          <text> {{item.CourseName}} </text>
         </view>
       </view>
     </view>
 
     <view slot="label" 
-      data-courseName="{{item.courseName}}"
+      data-courseName="{{item.CourseName}}"
       data-index="{{index}}"
       class="detail">
       <van-icon name="manager" size="25rpx"/>
-      <text> 上课人数: {{item.cnt}}\n </text>
+      <text> 上课人数: {{(item.MaxNum - item.Num)}}\n </text>
     </view>
 
-      <van-button class="btn" id="{{item.courseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="toCourseDetail" class="detail" data-courseNum="{{item.courseNum}}">管理</van-button>
+    <view slot="label" 
+      class="detail">
+      <van-icon name="location" size="25rpx"/>
+      <text> 上课地点: {{(item.Location)}}\n </text>
+    </view>
+
+    <view slot="label" 
+      class="detail">
+      <van-icon name="clock" size="25rpx"/>
+      <text> 上课时间: {{(item.Time)}}\n </text>
+    </view>
+
+      <van-button class="btn" id="{{item.CourseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="toCourseDetail" class="detail" data-courseNum="{{item.CourseNum}}">管理</van-button>
       
   </van-cell>
   </block>

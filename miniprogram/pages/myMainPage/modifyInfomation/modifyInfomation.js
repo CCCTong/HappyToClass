@@ -6,10 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    studentName: "" ,
-    studentNum: "",
-    studentBirthday: "",
-    studentSex: "",
+    name: "" ,
+    num: "",
+    birthday: "",
+    sex: "",
     phone: "",
     email: ""
   },
@@ -25,24 +25,26 @@ Page({
   },
   setBirthday: function(e){
     this.setData({
-      studentBirthday: e.detail
+      birthday: e.detail
     })
   },
   setSex: function(e){
     this.setData({
-      studentSex: e.detail
+      sex: e.detail
     })
   },
+  // 提交信息，上传数据
   submit: function(e){
     console.log(this.data)
     wx.cloud.callFunction({
       name: "modfiyStudentInfo",
       data: {
-        studentNum: app.globalData.uid,
+        num: app.globalData.uid,
         email : this.data.email,
         phone : this.data.phone,
-        studentBirthday : this.data.studentBirthday,
-        studentSex : this.data.studentSex,
+        birthday : this.data.birthday,
+        sex : this.data.sex,
+        identity : app.globalData.identity
       }
     }).then(res=>{
       wx.showModal({

@@ -104,6 +104,7 @@ Page({
               wx.showToast({
                 title: '选课成功',
               })
+              this.onLoad() // 选课成功之后刷新数据
             })
             this.data.disable = true
           }
@@ -116,10 +117,10 @@ Page({
    * 跳转到课程详细页面
    */
   into_coursePage: function (e) {
-    console.log(e.currentTarget.dataset.coursename)
-    app.globalData.courseName = e.currentTarget.dataset.coursename
+    console.log(e.currentTarget.dataset.coursenum)
+    app.globalData.courseNum = e.currentTarget.dataset.coursenum;
     wx.navigateTo({
-      url: '../courseDetail/courseDetail',
+      url: '../courseDetail/detail',
     })
   },
   /**
