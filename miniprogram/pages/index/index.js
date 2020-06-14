@@ -148,13 +148,14 @@ Page({
     var password = this.data.password
     var identity = this.data.identity
     var page = this
-    console.log(username, password)
+    console.log(username, password, identity)
     // 检查信息是否正确
     if (page.judge(uid, username, password, identity) == false) {
-      // 检查该用户是否在数据库中
+      // 检查该用户是否在数据库中,以及信息是否匹配
       userList.where({
         uid: uid,
         password: password,
+        userIdentity:identity
       }).get().then(res => {
         // 如果返回不存在这样的人的信息
         if (res.data.length == 0) {

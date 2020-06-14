@@ -21,7 +21,7 @@ Page({
     console.log(e.currentTarget.dataset.coursenum)
     app.globalData.courseNum = e.currentTarget.dataset.coursenum;
     wx.navigateTo({
-      url: '../detail/detail',
+      url: '../courseDetail/detail',
     })
   },
 
@@ -36,37 +36,15 @@ Page({
     page.setData({
       myID: myID
     })
+    // 获取该教师创建的所有课程
     var p = await new Promise((resolve, reject) => {
       course_list.where({
-        TeacherNum: myID
+        TeacherNum: myID // 根据教师编号检索
       }).get().then(res => {
-        coursesName = res.data
+        page.setData({courseList: res.data})
+        console.log(res.data)
         resolve(coursesName)
       })
-    })
-    console.log(coursesName)
-
-    // 根据列表中的课程号在选课数据库中统计有多少学生选取该课程
-    var mycars=new Array(coursesName.length)
-    console.log(mycars)
-    for (var i = 0; i < coursesName.length; i++) {
-      var p = await new Promise((resolve, reject) => {
-        s_c_List.where({
-          CourseNum: coursesName[i].CourseNum
-        }).count().then(res => {
-          mycars[i] = {
-            num:coursesName[i].Num, // 选课人数上限
-            courseName:coursesName[i].CourseName,
-            cnt:res.total,
-            courseNum:coursesName[i].CourseNum
-          }
-          resolve(res.total)
-        })
-      })
-    }
-    console.log(mycars)
-    page.setData({
-      courseList: mycars
     })
   },
   /**

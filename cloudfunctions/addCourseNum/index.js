@@ -8,10 +8,10 @@ const _ = db.command
 exports.main = async (event, context) => {
   const student_course = db.collection("STUDENT_COURSE")
   return await student_course.where({
-      StudentName: event.studentName,
+      StudentNum: event.studentNum,
   }).update({
     data:{
-      CourseName: _.push(event.courseName)
+      CourseName: _.push(event.courseName),
     }
   })
 }

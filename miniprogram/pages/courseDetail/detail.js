@@ -13,17 +13,15 @@ Page({
     identity: "",
     courseNum: "",
     courseName: "",
-    categor: "",
     credit: "",
-    preCourse: "",
-    preNum: "",
     time: "",
     location: "",
-    num: "",
+    maxNum: "",
     teacherNum: "",
     teacherName: "",
     studentData: [], // 选择该课程的学生信息
-    spareNum: 0 // 该课程剩余名额
+    spareNum: 0, // 该课程剩余名额
+    isTeacher: false // 判断身份是否为教师
   },
 
   /**
@@ -40,10 +38,13 @@ Page({
             CourseNum: page.data.courseNum
           }).remove().then(res => {
             // 继续删除学生选课列表中选择该课程的数据
+            // 此处需要根据课程名来检索选择该课程的学生
+            // 未完善
             studentCourseList.where({
-              CourseName: page.data.courseName
-            }).remove()
-
+              CourseNum: page.data.courseNum
+            }).get().then(res=>{
+              console.log(res.data)
+            })
             var flag = res.stats.removed // 是否成功删除
             if (flag) {
               // 删除成功，返回课程管理界面
@@ -83,20 +84,17 @@ Page({
         var courseData = res.data[0]
         console.log(courseData)
         // 保存检索到的信息，便于显示
-        var spareNum = courseData.Num - courseData.StudentNum
         page.setData({
           courseNum: courseData.CourseNum,
           courseName: courseData.CourseName,
-          // categor: courseData.Category, // 创建课程时未实现该部分
           credit: courseData.Credit,
-          preCourse: courseData.PreCourse,
-          // preNum: courseData.PreNum,
           time: courseData.Time,
-          // location: courseData.Location,
-          num: courseData.Num,
+          location: courseData.Location,
+          maxNum: courseData.MaxNum,
           teacherNum: courseData.TeacherNum,
           teacherName: courseData.TeacherName,
-          spareNum: spareNum
+          spareNum: courseData.Num,
+          isTeacher:(app.globalData.identity == 'teacher')
         })
         resolve(courseData)
       })

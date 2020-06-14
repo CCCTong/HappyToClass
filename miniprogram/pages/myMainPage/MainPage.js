@@ -1,17 +1,19 @@
 // miniprogram/pages/myMainPage/MainPage.js
 var app = getApp();   
 const db = wx.cloud.database();
-const student_list = db.collection("STUDENT_LIST");
+const student_list = db.collection("STUDENT_LIST")
+const teahcer_list = db.collection("TEACHER_LIST")
+const admin_list = db.collection("ADMIN_LIST")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    studentName: "" ,
-    studentNum: "",
-    studentBirthday: "",
-    studentSex: "",
+    name: "" ,
+    num: "",
+    birthday: "",
+    sex: "",
     phone: "",
     email: ""
   },
@@ -24,19 +26,50 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options){
-    var studentNum = app.globalData.uid;
-    student_list.where({
-      StudentNum: studentNum
-    }).get().then(res => {
-      this.setData({
-        studentName: res.data[0].StudentName,
-        studentNum: res.data[0].StudentNum,
-        studentBirthday: res.data[0].StudentBirthday,
-        studentSex: res.data[0].StudentSex,
-        phone: res.data[0].Phone,
-        email: res.data[0].Email
+    var num = app.globalData.uid
+    var identity = app.globalData.identity
+    if(identity == 'student') {
+      student_list.where({
+        StudentNum: num
+      }).get().then(res => {
+        this.setData({
+          name: res.data[0].StudentName,
+          num: res.data[0].StudentNum,
+          birthday: res.data[0].StudentBirthday,
+          sex: res.data[0].StudentSex,
+          phone: res.data[0].Phone,
+          email: res.data[0].Email
+        })
       })
-    })
+    }
+    else if (identity == 'teacher') {
+      teahcer_list.where({
+        TeacherNum: num
+      }).get().then(res => {
+        this.setData({
+          name: res.data[0].TeacherName,
+          num: res.data[0].TeacherNum,
+          birthday: res.data[0].TeacherBirthday,
+          sex: res.data[0].TeacherSex,
+          phone: res.data[0].Phone,
+          email: res.data[0].Email
+        })
+      })
+    }
+    else {
+      admin_list.where({
+        AdminNum: num
+      }).get().then(res => {
+        this.setData({
+          name: res.data[0].AdminName,
+          num: res.data[0].AdminNum,
+          birthday: res.data[0].AdminBirthday,
+          sex: res.data[0].AdminSex,
+          phone: res.data[0].Phone,
+          email: res.data[0].Email
+        })
+      })
+    } 
   },
 
   /**

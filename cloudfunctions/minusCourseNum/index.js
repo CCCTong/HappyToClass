@@ -11,7 +11,7 @@ exports.main = async (event, context) => {
       CourseName: event.courseName
   }).update({
     data:{
-      Num:_.inc(-1)
+      Num:_.inc(1)
     }
   })
 }
