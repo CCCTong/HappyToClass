@@ -1,4 +1,5 @@
 // pages/confirmCourse/confirmCourse.js
+//审核课程页面
 var app = getApp()
 var db = wx.cloud.database()
 var course_list = db.collection("COURSE_LIST_temp");
@@ -18,7 +19,7 @@ Page({
   },
 
   
-  
+  //进入审核课程详细信息页面
   into_confirmPage: function (e) {
     console.log(e.currentTarget.dataset.coursenum,e.currentTarget.dataset.coursename)
     app.globalData.courseNum = e.currentTarget.dataset.coursenum;
