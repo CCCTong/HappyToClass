@@ -8,14 +8,15 @@ Page({
     today: {},
     motto: 'Hello World'
   },
-  /**
-   * 选课操作
-   */
+
    myPage: function () {
     wx.navigateTo({
       url: '../myMainPage/MainPage',
     })
   },
+    /**
+   * 选课操作
+   */
   select: function(){
     wx.navigateTo({
       url: '../selectCourse/select',

@@ -2,7 +2,7 @@
 
 const db = wx.cloud.database()
 //临时课程表
-const course_list = db.collection("COURSE_LIST_temp")
+const course_list = db.collection("COURSE_LIST")
 var app = getApp()
 
 Page({
@@ -16,21 +16,58 @@ Page({
     courseNum: "",
     teacherName: "",
     teacherNum: "",
-    category: "",
     credit: "",
-    preCourse: "",
-    preNum: "",
     time: "",
     location: "",
-    num: 0,
-    categoryList: ['选修课', '必修课'],
+    maxNum: "", // 剩余名额
     show: false
   },
-  onShow(){
-    var user=(wx.getStorageSync('user')||[])
-    console.log(user.teacherName,user.teacherNum)
-    this.setData({ teacherName: user.teacherName })
-    this.setData({ teacherNum: user.teacherNum })
+  async onShow() {
+    var page = this
+    var user = (wx.getStorageSync('user') || [])
+    console.log(user.teacherName, user.teacherNum)
+    this.setData({
+      teacherName: user.teacherName
+    })
+    this.setData({
+      teacherNum: user.teacherNum
+    })
+    var isUsed = true 
+    var str
+    while(isUsed){
+      str = page.randomWord(false, 7) // 生成一个长度为5的随机字符串
+      // 检测该字符串是否已被使用
+      var p = await new Promise((resolve, reject) => {
+        course_list.where({
+          CourseNum: str // 根据课程编号检索
+        }).count().then(res => {
+          isUsed = (res.total != 0)
+          resolve(isUsed)
+        })
+      })
+    }
+    page.setData({
+      courseNum: str
+    })
+  },
+
+  /**
+   * 生成一个指定长度的随机字符串
+   */
+  randomWord: function(randomFlag, min, max) {
+    var str = "",
+      range = min,
+      arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    // 随机产生
+    if (randomFlag) {
+      range = Math.round(Math.random() * (max - min)) + min;
+    }
+    for (var i = 0; i < range; i++) {
+      var pos = Math.round(Math.random() * (arr.length - 1));
+      str += arr[pos];
+    }
+    return str;
   },
 
   /*** 
@@ -54,21 +91,15 @@ Page({
     })
 
   },
-  setCategory: function (e) {
-    this.setData({
-      category: e.detail
-    })
-
-  },
   setpreCourse: function (e) {
     this.setData({
       preCourse: e.detail
     })
 
   },
-  setnum: function (e) {
+  setMaxNum: function (e) {
     this.setData({
-      num: e.detail
+      maxNum: e.detail
     })
 
   },
@@ -76,12 +107,18 @@ Page({
   /**
    * 检查信息是否完整
    */
-  judge: function (courseName, courseNum, credit, category, preCourse, preNum, num) {
+  judge: function (courseName, courseNum, credit, maxNum) {
     var flag = false
     if (courseName == "") {
       wx.showModal({
         title: '提示',
         content: '请输入课程名',
+      })
+      flag = true
+    } else if (courseNum == "") {
+      wx.showModal({
+        title: '提示',
+        content: '请输入课程号',
       })
       flag = true
     } else if (credit == "") {
@@ -90,13 +127,7 @@ Page({
         content: '请输入课程学分',
       })
       flag = true
-    } else if (category == "") {
-      wx.showModal({
-        title: '提示',
-        content: '请输入课程类型',
-      })
-      flag = true
-    } else if (num == "") {
+    } else if (maxNum == "") {
       wx.showModal({
         title: '提示',
         content: '请输入人数上限',
@@ -113,18 +144,13 @@ Page({
     var courseName = this.data.courseName
     var courseNum = this.data.courseNum
     var credit = this.data.credit
-    var category = this.data.category
-    var preCourse = this.data.preCourse
-    var preNum = this.data.preNum
-    var time = this.data.time
-    var location = this.location
-    var num = this.data.num
+    var maxNum = this.data.maxNum
     var teacherName = this.data.teacherName
     var teacherNum = this.data.teacherNum
     var page = this
 
     console.log(page.data)
-    if (page.judge(courseName, courseNum, credit, category, preCourse, num) == false) {
+    if (page.judge(courseName, courseNum, credit, maxNum) == false) {
       course_list.where({
         courseNum: courseNum,
         courseName: courseName
@@ -136,22 +162,19 @@ Page({
             content: '课程已存在',
           })
         } else {
-          num = parseInt(num);
-          console.log(typeof num)
+          maxNum = parseInt(maxNum);
+          console.log(typeof maxNum)
           course_list.add({
             data: {
               CourseNum: courseNum,
               CourseName: courseName,
-              Categor: category,
               Credit: credit,
-              PreCourse: preCourse,
-              PreNum: preNum,
-              Time: time,
-              Location: location,
-              Num: num,
-              TeacherNum:teacherNum,
-              TeacherName:teacherName,
-              StudentNum:0 // 选择该课程的学生人数
+              Time: "未设置",
+              Location: "未设置",
+              MaxNum: maxNum, // 选课人数上限
+              Num: maxNum, // 剩余名额
+              TeacherNum: teacherNum,
+              TeacherName: teacherName,
             }
           })
           wx.redirectTo({

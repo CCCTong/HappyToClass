@@ -27,7 +27,7 @@
 
     <view class="introview">
       <text class="introkey">选课人数上限：</text>
-      <text class="introvalue">{{num}}</text>
+      <text class="introvalue">{{maxNum}}</text>
     </view>
 
     <view class="introview">
@@ -35,7 +35,17 @@
       <text class="introvalue">{{spareNum}}</text>
     </view>
 
-<view class="btn">
+    <view class="introview">
+      <text class="introkey">上课时间：</text>
+      <text class="introvalue">{{time}}</text>
+    </view>
+
+    <view class="introview">
+      <text class="introkey">上课地点：</text>
+      <text class="introvalue">{{location}}</text>
+    </view>
+
+<view class="btn" wx:if="{{isTeacher}}">
   <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除该课程</van-button>
 </view>
 

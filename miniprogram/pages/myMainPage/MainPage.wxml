@@ -13,21 +13,21 @@
   <view class="tabview">
     <view class="introview">
       <text class="introkey">姓名：</text>
-      <text class="introvalue">{{studentName}}</text>
+      <text class="introvalue">{{name}}</text>
     </view>
 
     <view class="introview">
-      <text class="introkey">学号：</text>
-      <text class="introvalue">{{studentNum}}</text>
+      <text class="introkey">编号：</text>
+      <text class="introvalue">{{num}}</text>
     </view>
 
     <view class="introview">
       <text class="introkey">生日：</text>
-      <text class="introvalue">{{studentBirthday}}</text>
+      <text class="introvalue">{{birthday}}</text>
     </view>
     <view class="introview">
       <text class="introkey">性别：</text>
-      <text class="introvalue">{{studentSex}}</text>
+      <text class="introvalue">{{sex}}</text>
     </view>
     <view class="introview">
       <text class="introkey">手机号：</text>

@@ -1,3 +1,4 @@
+var app = getApp()
 export const db = wx.cloud.database();
 /*
   数据库表单命名
@@ -49,10 +50,10 @@ export const admin_list = db.collection("ADMIN_LIST");
     PreNum	先修课程号	CHAR(10)	
     Time	上课时间	DATETIME	NOT NULL
     Location	上课地点	CHAR(10)	NOT NULL
-    Num	选课人数上限	CHAR(10)	NOT NULL
-    StudentNum 选课学生人数 SMALLINT NOT NULL
+    Num	课程剩余名额	CHAR(10)	NOT NULL
+    MaxNum 选课人数上限 SMALLINT NOT NULL
 
-  }
+  }Max
 */
 export const course_list = db.collection("COURSE_LIST");
 
@@ -79,7 +80,7 @@ export class DataBaseManager {
       data:{
         TeacherNum:teacherNum,
         DeptNum:"",
-        TeacherName:"",
+        TeacherName:app.globalData.username,
         TeacherSex:"",
         TeacherBirthday:"",
         TeacherTitle:"",
@@ -93,7 +94,7 @@ export class DataBaseManager {
       data:{
         StudentNum: studentNum,
         DeptNum:"",
-        StudentName:"",
+        StudentName: app.globalData.username,
         StudentSex:"",
         StudentBirthday:"",
         Phone:"",
@@ -116,9 +117,9 @@ export class DataBaseManager {
   addAdminData(adminNum){
     admin_list.add({
       data:{
-        StudentNum:adminNum,
+        AdminNum:adminNum,
         DeptNum:"",
-        AdminName:"",
+        AdminName:app.globalData.username,
         AdminSex:"",
         AdminBirthday:"",
         Phone:"",

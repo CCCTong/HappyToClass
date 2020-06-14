@@ -24,7 +24,7 @@ Page({
     var selectInfo = '';
     // 通过找到学生名字和对应课程
     student_course.where({
-      StudentName: app.globalData.username,
+      StudentNum: app.globalData.usernid,
       CourseName: courseName
     }).count().then(res => {
       // 找到了相同名称的课程
@@ -78,6 +78,7 @@ Page({
               wx.showToast({
                 title: '选课成功',
               })
+              this.onLoad() // 选课成功之后刷新数据
             })
             this.data.disable = true
           }
@@ -90,10 +91,10 @@ Page({
    * 跳转到课程详细页面
    */
   into_coursePage: function (e) {
-    console.log(e.currentTarget.dataset.coursename)
-    app.globalData.courseName = e.currentTarget.dataset.coursename
+    console.log(e.currentTarget.dataset.coursenum)
+    app.globalData.courseNum = e.currentTarget.dataset.coursenum;
     wx.navigateTo({
-      url: '../courseDetail/courseDetail',
+      url: '../courseDetail/detail',
     })
   },
   /**
