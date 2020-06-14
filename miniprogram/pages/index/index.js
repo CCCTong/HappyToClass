@@ -112,8 +112,10 @@ Page({
           else {
             userList.add({
               data: {
+                userName:username,
                 uid: uid,
                 password: password,
+                userIdentity:identity
               }
             })
             // 向学生or教师or管理员数据库中添加该用户的数据
@@ -126,6 +128,7 @@ Page({
             else{
               dbClass.addAdminData(uid)
             }
+          
             wx.showModal({
               title: '恭喜',
               content: '注册成功'
@@ -145,12 +148,14 @@ Page({
     var identity = this.data.identity
     var page = this
     console.log(username, password)
+    // 检查信息是否正确
     if (page.judge(uid, username, password, identity) == false) {
       // 检查该用户是否在数据库中
       userList.where({
         uid: uid,
         password: password,
       }).get().then(res => {
+        // 如果返回不存在这样的人的信息
         if (res.data.length == 0) {
           wx.showModal({
             title: '提示',
@@ -159,20 +164,20 @@ Page({
         } else {
           // 保存用户相关信息，用做页面跳转之后使用
           var user = {
-            uid: app.globalData.uid,
-            name: app.globalData.username
+            teacherName: this.data.username,
+            teacherNum: this.data.uid
           }
           wx.setStorageSync('user', user)
           console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
           console.log(page.data)
           if (identity == "student") {
             wx.redirectTo({
-              url: '../stuPage/stuPage',
+              url: '../studentPage/stuPage',
             })
           }
           if (identity == "teacher") {
             wx.redirectTo({
-              url: '../teaPage/teaPage',
+              url: '../teacherPage/teaPage',
             })
           }
           if (identity == "administrator") {

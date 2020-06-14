@@ -1,15 +1,20 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/detail/detail",
-    "pages/stuPage/stuPage",
-    "pages/teaPage/teaPage",
+    "pages/courseDetail/detail",
+    "pages/studentPage/stuPage",
+    "pages/teacherPage/teaPage",
     "pages/myCourses/myCourses",
-    "pages/select/select",
+    "pages/selectCourse/select",
     "pages/createCourse/createCourse",
     "pages/manageCourse/manageCourse",
     "pages/adminPage/adminPage",
-    "pages/manageID/manageID"
+    "pages/manageID/manageID",
+    "pages/confirmCourse/confirmCourse",
+    "pages/userDetail/userDetail",
+    "pages/courseDetail/courseDetail",
+    "pages/myMainPage/modifyInfomation/modifyInfomation",
+    "pages/myMainPage/MainPage"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -83,7 +83,7 @@ export class DataBaseManager {
         TeacherSex:"",
         TeacherBirthday:"",
         TeacherTitle:"",
-        Phione:""
+        Phone:""
       },
     })
   }
@@ -91,12 +91,12 @@ export class DataBaseManager {
   addStudentData(studentNum){
     student_list.add({
       data:{
-        StudentNum:studentNum,
+        StudentNum: studentNum,
         DeptNum:"",
         StudentName:"",
         StudentSex:"",
         StudentBirthday:"",
-        Phione:"",
+        Phone:"",
         Email:"",
       },
     })
@@ -121,19 +121,30 @@ export class DataBaseManager {
         AdminName:"",
         AdminSex:"",
         AdminBirthday:"",
-        Phione:"",
+        Phone:"",
         Email:""
       },
     })
   }
-  async getMyCoursesName(stuName) {
+  getStudentInfo(studentNum){
+    student_list.where({
+      StudentNum: studentNum
+    }).get().then(res => {
+      studentInfo = res.data[0]
+    })
+    console.log(studentInfo)
+    return studentInfo;
+  }
+  async GetMyCoursesName(stuNum) {
     var courseName = [];
-    console.log(stuName)
+    console.log(stuNum)
+    // 异步操作让进程可以继续进行下去
     var p = await new Promise((resolve, reject) => {
       student_course.where({
-        StudentName: stuName
+        StudentNum: stuNum
       }).get().then(res => {
         console.log(res);
+        // 选课列表为空
         if (res.data[0] == undefined) {
           wx.showModal({
             title: '提示',
@@ -147,8 +158,8 @@ export class DataBaseManager {
     })
     return courseName
   }
-
-  async getCousreInfo(coursesName) {
+  // 得到课程信息
+  async GetCousreInfo(coursesName) {
     var prom = []
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve, zreject) => {
@@ -162,9 +173,11 @@ export class DataBaseManager {
     }
     return prom;
   }
-  dropCourse(e) {
+  // 退课操作
+  DropCourse(e) {
     let courseName = e.target.id
     console.log(e);
+    // 传入课程名称和个人信息
     wx.cloud.callFunction({
       name: "dropCourse",
       data: {

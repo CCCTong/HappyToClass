@@ -13,9 +13,9 @@ Page({
     courses: [],
   },
 
-  dropCourse(e) {
+  DropCourse(e) {
     console.log(app.globalData.openid);
-    db.dropCourse(e);
+    db.DropCourse(e);
     wx.showToast({
       title: '退选成功',
     })
@@ -25,11 +25,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    var stuName = app.globalData.username;
-    console.log(stuName)
-    var courseName = await db.getMyCoursesName(stuName);
-    var info = await db.getCousreInfo(courseName)
-    console.log(info)
+    var stuNum = app.globalData.uid;
+    console.log(stuNum)
+    var courseName = await db.GetMyCoursesName(stuNum);
+    var info = await db.GetCousreInfo(courseName)
+    // 加载页面之后渲染课程
     Promise.all(info).then(res => {
       this.setData({
         courses: res

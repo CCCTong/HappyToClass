@@ -22,7 +22,7 @@ Page({
    */
   manageCourse: function () {
     wx.navigateTo({
-      url: '../manageCourse/manageCourse',
+      url: '../confirmCourse/confirmCourse',
     })
   },
   /**

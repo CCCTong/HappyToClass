@@ -1,7 +1,8 @@
 // miniprogram/pages/createCourse/createCourse.js
 
 const db = wx.cloud.database()
-const course_list = db.collection("COURSE_LIST")
+//临时课程表
+const course_list = db.collection("COURSE_LIST_temp")
 var app = getApp()
 
 Page({
@@ -25,9 +26,11 @@ Page({
     categoryList: ['选修课', '必修课'],
     show: false
   },
-  onLoad: function () {
-    this.setData({teacherName : app.globalData.username})
-    this.setData({teacherNum : app.globalData.uid})
+  onShow(){
+    var user=(wx.getStorageSync('user')||[])
+    console.log(user.teacherName,user.teacherNum)
+    this.setData({ teacherName: user.teacherName })
+    this.setData({ teacherNum: user.teacherNum })
   },
 
   /*** 

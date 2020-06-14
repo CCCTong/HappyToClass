@@ -7,3 +7,33 @@
     <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
   </view>
 </view>
+<van-search
+  value="{{ value }}"
+  placeholder="请输入需要查询的账号"
+  show-action
+  bind:search="onSearch"
+  bind:cancel="onCancel"
+/>
+<scroll-view scroll-y="true" class="scroll" refresher-enabled="true" bindrefresherrefresh="refresh" bindrefresherabort="refreshAbort">
+  <block wx:for="{{user}}" wx:key>
+  <van-cell  
+    use-label-slot="true" 
+    size="large" 
+    >
+    <view slot="label" 
+      data-userName="{{item.userName}}"
+      data-index="{{index}}"
+      class="detail">
+      <van-icon name="user-o" size="25rpx"/>
+      <text> 姓名 : {{item.userName}}\n </text>
+      <van-icon name="manager" size="25rpx"/>
+      <text> 身份 : {{item.userIdentity}}\n </text>
+      <van-icon name="user-circle-o" size="25rpx"/>
+      <text> 账号 : {{item.uid}}\n</text>
+    </view>
+    <view class="btn">
+      <van-button id="{{item.userName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bind:click="into_userPage">管理</van-button>
+    </view>
+  </van-cell>
+</block>
+</scroll-view>
