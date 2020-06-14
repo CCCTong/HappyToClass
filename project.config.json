@@ -22,12 +22,12 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false,
 		"compileHotReLoad": false,
 		"useIsolateContext": true
 	},
-	"appid": "wx582a01f006a18e98",
+	"appid": "wx5f57ffac184a6f71",
 	"projectname": "HappyToClass",
 	"libVersion": "2.10.2",
 	"simulatorType": "wechat",

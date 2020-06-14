@@ -83,7 +83,7 @@ export class DataBaseManager {
         TeacherSex:"",
         TeacherBirthday:"",
         TeacherTitle:"",
-        Phione:""
+        Phone:""
       },
     })
   }
@@ -91,12 +91,12 @@ export class DataBaseManager {
   addStudentData(studentNum){
     student_list.add({
       data:{
-        StudentNum:studentNum,
+        StudentNum: studentNum,
         DeptNum:"",
         StudentName:"",
         StudentSex:"",
         StudentBirthday:"",
-        Phione:"",
+        Phone:"",
         Email:"",
       },
     })
@@ -121,18 +121,27 @@ export class DataBaseManager {
         AdminName:"",
         AdminSex:"",
         AdminBirthday:"",
-        Phione:"",
+        Phone:"",
         Email:""
       },
     })
   }
-  async GetMyCoursesName(stuName) {
+  getStudentInfo(studentNum){
+    student_list.where({
+      StudentNum: studentNum
+    }).get().then(res => {
+      studentInfo = res.data[0]
+    })
+    console.log(studentInfo)
+    return studentInfo;
+  }
+  async GetMyCoursesName(stuNum) {
     var courseName = [];
-    console.log(stuName)
+    console.log(stuNum)
     // 异步操作让进程可以继续进行下去
     var p = await new Promise((resolve, reject) => {
       student_course.where({
-        StudentName: stuName
+        StudentNum: stuNum
       }).get().then(res => {
         console.log(res);
         // 选课列表为空

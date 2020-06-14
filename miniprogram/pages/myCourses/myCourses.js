@@ -25,11 +25,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options) {
-    var stuName = app.globalData.username;
-    console.log(stuName)
-    var courseName = await db.GetMyCoursesName(stuName);
+    var stuNum = app.globalData.uid;
+    console.log(stuNum)
+    var courseName = await db.GetMyCoursesName(stuNum);
     var info = await db.GetCousreInfo(courseName)
-    console.log(info)
     // 加载页面之后渲染课程
     Promise.all(info).then(res => {
       this.setData({

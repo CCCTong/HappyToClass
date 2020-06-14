@@ -1,0 +1,55 @@
+<!--createCourse.wxml-->
+<view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
+  <view class="word">个人信息</view>
+  <view class="waveWrapperInner bgTop">
+    <image class="wave waveTop" src="../../../images/wave-top.png"></image>
+  </view>
+  <view class="waveWrapperInner bgBottom">
+    <image class="wave waveBottom" src="../../../images/wave-bot.png"></image>
+  </view>
+</view>
+
+<view class="container1">
+  <van-cell-group>
+  <van-field
+    value="{{ email }}"
+    required
+    label="邮箱"
+    left-icon="course-o"
+    placeholder="请输入新邮箱名"
+    bind:input="setEmail"
+  />
+
+
+  <van-field
+    value="{{ phone }}"
+    label="新手机号"
+    required
+    border="{{ false }}"
+    placeholder="请输入新手机号"
+    bind:input="setPhoneNumber"
+  />
+   <van-field
+    value="{{ birthday }}"
+    label="生日"
+    required
+    border="{{ false }}"
+    placeholder="请输入新生日"
+    bind:input="setBirthday"
+  />
+  <van-field
+    value="{{ sex }}"
+    label="性别"
+    required
+    border="{{ false }}"
+    placeholder="请输入性别"
+    bind:input="setSex"
+  />
+  <view >
+    <view>
+      <van-button class="btn" color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="submit">提交修改</van-button>
+    </view>
+  </view>
+  </van-cell-group>
+</view>
+
