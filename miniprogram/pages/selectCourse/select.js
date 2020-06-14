@@ -21,10 +21,9 @@ Page({
    */
   select: function (e) {
     let courseName = e.target.id
-    var selectInfo = '';
     // 通过找到学生名字和对应课程
     student_course.where({
-      StudentName: app.globalData.username,
+      StudentNum: app.globalData.uid,
       CourseName: courseName
     }).count().then(res => {
       // 找到了相同名称的课程
