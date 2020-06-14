@@ -16,6 +16,10 @@ Page({
   DropCourse(e) {
     console.log(app.globalData.openid);
     db.DropCourse(e);
+    // 退课之后，界面刷新
+    wx.redirectTo({
+      url: '../myCourses/myCourses',
+    })
     wx.showToast({
       title: '退选成功',
     })

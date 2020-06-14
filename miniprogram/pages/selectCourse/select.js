@@ -41,7 +41,7 @@ Page({
           CourseName: courseName
         }).get().then(res => {
           console.log(res.data);
-          if (res.data[0].Num === res.data[0].MaxNum) {
+          if (res.data[0].Num <= 0) {
             wx.showModal({
               title: '提示',
               content: '本课程人数已满',
