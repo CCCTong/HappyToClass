@@ -56,6 +56,8 @@ Page({
     judge: function (uid, username, password, identity) {
       var flag = false
       if (username == "") {
+        //如果输入的姓名是空白的
+        // 给出提示窗口，提示输入姓名
         wx.showModal({
           title: '提示',
           content: '请输入姓名',
@@ -63,6 +65,8 @@ Page({
         flag = true
       }
       else if (uid == "") {
+        //如果输入的账号是空白的
+        // 给出提示窗口，提示输入账号
         wx.showModal({
           title: '提示',
           content: '请输入账号',
@@ -70,6 +74,8 @@ Page({
         flag = true
       }
       else if (password == "") {
+        //如果输入的密码是空白的
+        // 给出提示窗口，提示输入密码
         wx.showModal({
           title: '提示',
           content: '请输入密码',
@@ -77,6 +83,8 @@ Page({
         flag = true
       }
       else if (identity == "") {
+        //如果输入的身份是空白的
+        // 给出提示窗口，提示输入身份
         wx.showModal({
           title: '提示',
           content: '请选择身份',
@@ -88,6 +96,56 @@ Page({
     /**
      * 注册,向用户数据库中上传用户的账号、密码
      */
+    checkUserName(username){
+      for(var i=0; i<username.length; i++){
+        // 标记变量，标记检查是否合格
+        var tag = 0;
+        // 检查名称中是否有字符
+        if ('a'<=username[i] && username[i] <= 'z'){
+          tag = 1;
+        }
+        // 检查名称中是否有带大写字母
+        if ('A'<=username[i] && username[i] <= 'Z'){
+          tag = 1;
+        }
+        // 检查名称中是否有数字
+        if ('0'<=username[i] && username[i] <= '9'){
+          tag = 1;
+        }
+        if (tag === 1){
+          // 不合格情况下展示弹窗提示
+          wx.showModal({
+            title: '提示',
+            content: '请输入真实姓名',
+          })
+          return false;
+        }
+      }
+      // 全部合法返回true，否则在循环中阶段
+      return true;
+    },
+    checkUserNum(uid){
+      for(var i=0; i<uid.length; i++){
+        if (uid[i] < '0' || uid[i] > '9'){
+          wx.showModal({
+            title: '提示',
+            content: '请输入合法的学号',
+          })
+          return false;
+        }
+      }
+      return true;
+    },
+    checkPassWord(password){
+      if (password.length <= 7){
+        wx.showModal({
+          title: '提示',
+          content: '密码太短',
+        })
+        return false;
+      }
+      return true;
+    },
     handleReg: function () {
       var uid = this.data.uid
       var password = this.data.password
@@ -108,33 +166,38 @@ Page({
               title: '提示',
               content: '用户已存在',
             })
+            return;
           }
-          else {
-            // 向用户列表中添加数据
-            userList.add({
-              data: {
-                userName:username,
-                uid: uid,
-                password: password,
-                userIdentity:identity
-              }
-            })
-            // 向学生or教师or管理员数据库中添加该用户的数据
-            if(identity == "teacher"){
-              dbClass.addTeacherData(uid)
+          console.log(11111111111111)
+
+          if (!this.checkUserName(username)) return;
+          console.log(2222222222222222)
+
+          if (!this.checkUserNum(uid)) return;
+          console.log(333333333333);
+          if (!this.checkPassWord(password))return;
+          userList.add({
+            data: {
+              userName:username,
+              uid: uid,
+              password: password,
+              userIdentity:identity
             }
-            else if(identity == "student"){
-              dbClass.addStudentData(uid)
-            }
-            else{
-              dbClass.addAdminData(uid)
-            }
-          
-            wx.showModal({
-              title: '恭喜',
-              content: '注册成功'
           })
+          // 向学生or教师or管理员数据库中添加该用户的数据
+          if(identity == "teacher"){
+            dbClass.addTeacherData(uid)
           }
+          else if(identity == "student"){
+            dbClass.addStudentData(uid)
+          }
+          else{
+            dbClass.addAdminData(uid)
+          }
+          wx.showModal({
+            title: '恭喜',
+            content: '注册成功'
+          })
         })
       }
     },
@@ -148,7 +211,7 @@ Page({
     var password = this.data.password
     var identity = this.data.identity
     var page = this
-    console.log(username, password, identity)
+    console.log(username,uid, password, identity)
     // 检查信息是否正确
     if (page.judge(uid, username, password, identity) == false) {
       // 检查该用户是否在数据库中,以及信息是否匹配

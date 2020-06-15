@@ -26,7 +26,7 @@
     </view>
 
     <view slot="label" 
-      data-courseName="{{item.CourseName}}"
+      data-courseNum="{{item.CourseNum}}"
       data-index="{{index}}"
       bindtap="into_coursePage"
       class="detail">
