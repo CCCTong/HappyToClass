@@ -12,9 +12,10 @@ var teacher_list = db.collection("TEACHER_LIST");
 var _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  var globalData = event.globalData;
+  var studentName = event.studentName;
   var courseNum = event.courseNum;
   var courseName = event.courseName;
+  var studentNum = event.studentNum;
   course_list.where({
     CourseNum:courseNum
   }).update({
@@ -23,7 +24,7 @@ exports.main = async (event, context) => {
     }
   })
   student_course.where({
-    StudentNum: globalData.uid
+    StudentNum: studentNum
   }).update({
     data:{
       CourseNum:_.pull(courseNum),
@@ -34,8 +35,8 @@ exports.main = async (event, context) => {
     CourseNum: courseNum
   }).update({
     data:{
-      StudentNum:_.pull(globalData.uid),
-      StudentName: _.pull(globalData.username)
+      StudentNum:_.pull(studentNum),
+      StudentName: _.pull(studentName)
     }
   })
 }

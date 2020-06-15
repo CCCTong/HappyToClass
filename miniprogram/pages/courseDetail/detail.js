@@ -44,7 +44,20 @@ Page({
             c_s_List.where({
               CourseNum: page.data.courseNum
             }).get().then(res=>{
-              console.log(res.data)
+              var courseData = res.data[0];
+              console.log(courseData)
+              // 根据学生信息数组，逐个进行退课
+              for(var i=0; i<courseData.StudentNum.length; i++) {
+                wx.cloud.callFunction({
+                  name: "dropCourse",
+                  data: {
+                    studentNum: courseData.StudentNum[i],
+                    courseNum: courseData.CourseNum,
+                    courseName: courseData.CourseName,
+                    studentName: courseData.StudentName[i]
+                  }
+                })
+              }
             })
             
             var flag = res.stats.removed // 是否成功删除

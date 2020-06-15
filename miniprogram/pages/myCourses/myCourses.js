@@ -19,6 +19,7 @@ Page({
     let courseName = e.target.id
 
     db.DropCourse(courseNum, courseName);
+    this.onLoad();
     // 退课之后，界面刷新
     wx.redirectTo({
       url: '../myCourses/myCourses',
@@ -69,7 +70,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    this.onLoad();
   },
 
   /**
