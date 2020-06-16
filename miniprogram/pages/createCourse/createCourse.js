@@ -2,7 +2,7 @@
 
 const db = wx.cloud.database()
 //临时课程表
-const course_list = db.collection("COURSE_LIST")
+const course_list = db.collection("COURSE_LIST_temp")
 var app = getApp()
 
 Page({
@@ -19,20 +19,21 @@ Page({
     credit: "",
     time: "",
     location: "",
-    maxNum: "", // 剩余名额
+    maxNum: "", //人数上限
     show: false
   },
   async onShow() {
     var page = this
     var user = (wx.getStorageSync('user') || [])
     console.log(user.teacherName, user.teacherNum)
+    // 设置一些列值
     this.setData({
       teacherName: user.teacherName
     })
     this.setData({
       teacherNum: user.teacherNum
     })
-    var isUsed = true 
+    var isUsed = true // 判断产生的课程编号是否已使用
     var str
     while(isUsed){
       str = page.randomWord(false, 7) // 生成一个长度为5的随机字符串
@@ -46,6 +47,7 @@ Page({
         })
       })
     }
+    // 将str设置为课程编号
     page.setData({
       courseNum: str
     })
@@ -63,6 +65,7 @@ Page({
     if (randomFlag) {
       range = Math.round(Math.random() * (max - min)) + min;
     }
+    // 向随机数组中添加值
     for (var i = 0; i < range; i++) {
       var pos = Math.round(Math.random() * (arr.length - 1));
       str += arr[pos];
@@ -150,7 +153,9 @@ Page({
     var page = this
 
     console.log(page.data)
+    // 判断信息是否填写完整
     if (page.judge(courseName, courseNum, credit, maxNum) == false) {
+      // 判断课程是否已存在
       course_list.where({
         courseNum: courseNum,
         courseName: courseName
@@ -162,6 +167,7 @@ Page({
             content: '课程已存在',
           })
         } else {
+          // 向数据库中填写该课程的数据
           maxNum = parseInt(maxNum);
           console.log(typeof maxNum)
           course_list.add({
@@ -172,11 +178,12 @@ Page({
               Time: "未设置",
               Location: "未设置",
               MaxNum: maxNum, // 选课人数上限
-              Num: maxNum, // 剩余名额
+              Num: maxNum, // 选课人数
               TeacherNum: teacherNum,
               TeacherName: teacherName,
             }
           })
+          // 刷新界面
           wx.redirectTo({
             url: '../createCourse/createCourse',
           })

@@ -3,6 +3,7 @@
 var app = getApp();
 var db = wx.cloud.database();
 var studentCourseList = db.collection("STUDENT_COURSE"); // 获取学生的选课信息
+var c_s_List = db.collection("COURSE_STUDENT");
 var courseList = db.collection("COURSE_LIST");
 Page({
 
@@ -38,13 +39,27 @@ Page({
             CourseNum: page.data.courseNum
           }).remove().then(res => {
             // 继续删除学生选课列表中选择该课程的数据
-            // 此处需要根据课程名来检索选择该课程的学生
-            // 未完善
-            studentCourseList.where({
+            // 此处需要根据课程名来检索选择该课程的学生数组
+            // 以此遍历此数组，调用函数，进行退课
+            c_s_List.where({
               CourseNum: page.data.courseNum
             }).get().then(res=>{
-              console.log(res.data)
+              var courseData = res.data[0];
+              console.log(courseData)
+              // 根据学生信息数组，逐个进行退课
+              for(var i=0; i<courseData.StudentNum.length; i++) {
+                wx.cloud.callFunction({
+                  name: "dropCourse",
+                  data: {
+                    studentNum: courseData.StudentNum[i],
+                    courseNum: courseData.CourseNum,
+                    courseName: courseData.CourseName,
+                    studentName: courseData.StudentName[i]
+                  }
+                })
+              }
             })
+            
             var flag = res.stats.removed // 是否成功删除
             if (flag) {
               // 删除成功，返回课程管理界面
@@ -91,6 +106,7 @@ Page({
           time: courseData.Time,
           location: courseData.Location,
           maxNum: courseData.MaxNum,
+          spareNum: courseData.Num,
           teacherNum: courseData.TeacherNum,
           teacherName: courseData.TeacherName,
           spareNum: courseData.Num,

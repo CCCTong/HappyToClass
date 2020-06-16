@@ -175,15 +175,16 @@ export class DataBaseManager {
     return prom;
   }
   // 退课操作
-  DropCourse(e) {
-    let courseName = e.target.id
-    console.log(e);
+  DropCourse(courseNum, courseName) {
+    console.log(getApp().globalData)
     // 传入课程名称和个人信息
     wx.cloud.callFunction({
       name: "dropCourse",
       data: {
-        globalData: getApp().globalData,
-        courseName: courseName
+        studentNum: getApp().globalData.uid,
+        courseNum: courseNum,
+        courseName: courseName,
+        studentName: getApp().globalData.username
       }
     })
   }

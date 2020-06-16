@@ -86,20 +86,30 @@ Page({
   onShareAppMessage: function () {
 
   },
+  /**
+   * 加载天气信息
+   */
   loadInfo: function () {
     var page = this;
+    // 调用函数，获得用户地理位置
     wx.getLocation({
       type: 'gcj02',
       success(res) {
+        // 确定用户的经纬度
         const latitude = res.latitude
         const longitude = res.longitude
         console.log(latitude, longitude);
+        // 根据经纬度确定用户所处城市
         page.loadCity(latitude, longitude);
       }
     })
   },
+  /**
+   * 加载用户所在的城市
+   */
   loadCity: function (latitude, longitude) {
     var page = this;
+    //调用微信内置函数，确定具体位置
     wx.request({
       url: 'https://api.map.baidu.com/geocoder/v2/?ak=D6WOzHaymzVVKvgiy8UbhQEznkgeK6BD&location=' +
         latitude + ',' + longitude + '&output=json',
@@ -107,6 +117,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success: function (res) {
+        // 确定市区
         console.log(res.data)
         var city = res.data.result.addressComponent.city;
         city = city.replace("市", "");
@@ -117,6 +128,9 @@ Page({
       }
     })
   },
+  /**
+   * 加载用户所处地区的天气
+   */
   loadWeather: function (city) {
     var page = this;
     wx.request({

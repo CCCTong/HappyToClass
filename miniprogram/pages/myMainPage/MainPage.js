@@ -10,13 +10,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name: "" ,
-    num: "",
-    birthday: "",
-    sex: "",
-    phone: "",
-    email: ""
+    name: "" ,      // 用户姓名
+    num: "",        // 用户账号
+    birthday: "",   // 用户生日
+    sex: "",        // 用户性别
+    phone: "",      // 用户电话
+    email: ""       // 用户邮箱
   },
+  /**
+   * 点击修改信息按钮，进入信息修改页面
+   */
   modifyInfo: function() {
     wx.navigateTo({
       url: 'modifyInfomation/modifyInfomation',
@@ -27,13 +30,16 @@ Page({
    */
   async onLoad(options){
     var num = app.globalData.uid
+    // 加载用户身份，用于判断修改哪个数据库
     var identity = app.globalData.identity
+    
+    // 学生设置个人信息，向数据库中检索原来的个人信息
     if(identity == 'student') {
       student_list.where({
         StudentNum: num
       }).get().then(res => {
         this.setData({
-          name: res.data[0].StudentName,
+          name: app.globalData.username,
           num: res.data[0].StudentNum,
           birthday: res.data[0].StudentBirthday,
           sex: res.data[0].StudentSex,
@@ -42,6 +48,7 @@ Page({
         })
       })
     }
+    // 教师设置个人信息
     else if (identity == 'teacher') {
       teahcer_list.where({
         TeacherNum: num
@@ -56,6 +63,7 @@ Page({
         })
       })
     }
+    // 管理员设置个人信息
     else {
       admin_list.where({
         AdminNum: num
@@ -71,7 +79,10 @@ Page({
       })
     } 
   },
-
+  // 从子页面返回的时候重新加载数据
+  changeData:function(){
+    this.onLoad();
+    },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

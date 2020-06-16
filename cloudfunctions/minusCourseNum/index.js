@@ -8,10 +8,10 @@ const _ = db.command
 exports.main = async (event, context) => {
   const course_list = db.collection("COURSE_LIST")
   return await course_list.where({
-      CourseName: event.courseName
+      CourseNum: event.courseNum
   }).update({
     data:{
-      Num:_.inc(1)
+      Num:_.inc(-1)
     }
   })
 }
