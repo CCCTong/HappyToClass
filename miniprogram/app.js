@@ -3,7 +3,7 @@ App({
   onLaunch: function () {
     if (wx.cloud) {
       wx.cloud.init({
-        env: "xuanke-lkg7q",
+        env: "zyx-cloud-yp4i4",
         traceUser: true
       })
       wx.cloud.callFunction({
@@ -21,6 +21,7 @@ App({
     courses: [],
     courseName: "",
     openid: "",
-    courseNum:""
+    courseNum:"",
+    condition:""
   }
 })
