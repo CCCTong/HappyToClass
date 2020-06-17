@@ -133,7 +133,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    course_list.get().then(res => {
+    course_list.where({
+      Condition:"通过审核"
+    }).get().then(res => {
       this.setData({
         courses: res.data
       })
