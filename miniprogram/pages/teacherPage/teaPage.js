@@ -27,6 +27,11 @@ Page({
     })
   },
   myPage: function () {
+    var info = {
+      num: app.globalData.uid,
+      identity: app.globalData.identity
+    }
+    wx.setStorageSync('info', info)
     wx.navigateTo({
       url: '../myMainPage/MainPage',
     })

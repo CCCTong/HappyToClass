@@ -23,6 +23,14 @@ Page({
     disable: false
   },
   /**
+   * 找回密码，知道账号
+   */
+  findPassword: function(){
+    wx.redirectTo({
+      url: '../findPasswordPage/findPassword/findPassword',
+    })
+  },
+  /**
    * 设置姓名，账号，密码，身份
    */
   setName: function (e) {
@@ -181,7 +189,8 @@ Page({
               userName:username,
               uid: uid,
               password: password,
-              userIdentity:identity
+              userIdentity:identity,
+              email: ""
             }
           })
           // 向学生or教师or管理员数据库中添加该用户的数据
@@ -211,6 +220,7 @@ Page({
     var password = this.data.password
     var identity = this.data.identity
     var page = this
+    var email = ""
     console.log(username,uid, password, identity)
     // 检查信息是否正确
     if (page.judge(uid, username, password, identity) == false) {
@@ -235,6 +245,8 @@ Page({
           wx.setStorageSync('user', user)
           console.log(app.globalData.identity, app.globalData.uid, app.globalData.username, app.globalData.password)
           console.log(page.data)
+
+
           // 根据用户身份，跳转到相应的界面
           if (identity == "student") {
             wx.redirectTo({
@@ -251,6 +263,14 @@ Page({
               url: '../adminPage/adminPage',
             })
           }
+        
+          email = res.data[0].email
+          if(!this.checkEmail(email)) {
+            wx.showModal({
+              title: '提示',
+              content: '为防止账号丢失，请尽快设置邮箱',
+            })
+          }
         }
       }).catch(err => {
         console.log(err)
@@ -258,4 +278,9 @@ Page({
     }
   },
 
+  checkEmail: function(email) {
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    //调用正则验证test()函数
+    return email != "" & reg.test(email)
+  },
 })

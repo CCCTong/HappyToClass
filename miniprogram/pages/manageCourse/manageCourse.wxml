@@ -33,7 +33,9 @@
       <text> 审核状态: {{(item.Condition)}}\n </text>
     </view>
 
-      <van-button class="btn" id="{{item.CourseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="toCourseDetail" class="detail" data-condition="{{item.Condition}}" data-coursenum="{{item.CourseNum}}">管理</van-button>
+    <view style="display:block; height:100px; width:20px" >
+      <van-button class="btn" id="{{item.CourseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="toCourseDetail" class="detail" data-coursenum="{{item.CourseNum}}">管理</van-button>
+    </view>
       
   </van-cell>
   </block>

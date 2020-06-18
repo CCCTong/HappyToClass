@@ -17,6 +17,8 @@
     "pages/courseDetail/coursesDetail",
     "pages/myMainPage/modifyInfomation/modifyInfomation",
     "pages/myMainPage/MainPage",
+    "pages/findPasswordPage/findPassword/findPassword",
+    "pages/findPasswordPage/adminFindPassword/adminFindPassword"
     "pages/courseDetail/details"
   ],
   "window": {

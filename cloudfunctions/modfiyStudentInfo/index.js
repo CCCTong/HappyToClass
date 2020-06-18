@@ -7,6 +7,7 @@ var db = cloud.database()
 var student_list = db.collection("STUDENT_LIST")
 var teahcer_list = db.collection("TEACHER_LIST")
 var admin_list = db.collection("ADMIN_LIST")
+var user_list = db.collection("user")
 var _ = db.command;
 
 
@@ -17,6 +18,13 @@ exports.main = async (event, context) => {
   var email = event.email;
   var birthday = event.birthday;
   var sex = event.sex;
+  user_list.where({
+    uid:num
+  }).update({
+    data:{
+      email: email
+    }
+  })
   if(identity == 'student') {
     student_list.where({
       StudentNum: num
@@ -53,5 +61,4 @@ exports.main = async (event, context) => {
       }
     })
   }
-
 }

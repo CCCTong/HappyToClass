@@ -9,7 +9,7 @@
   </view>
 </view>
 
-<view class="container1">
+<view class="container1" wx:if="{{changeType == 'changeInfo'}}">
   <van-cell-group>
   <van-field
     value="{{ email }}"
@@ -23,9 +23,9 @@
 
   <van-field
     value="{{ phone }}"
-    label="新手机号"
     required
-    border="{{ false }}"
+    label="新手机号"
+    left-icon="course-o"
     placeholder="请输入新手机号"
     bind:input="setPhoneNumber"
   />
@@ -33,7 +33,7 @@
     value="{{ birthday }}"
     label="生日"
     required
-    border="{{ false }}"
+    left-icon="course-o"
     placeholder="请输入新生日"
     bind:input="setBirthday"
   />
@@ -41,7 +41,7 @@
     value="{{ sex }}"
     label="性别"
     required
-    border="{{ false }}"
+    left-icon="course-o"
     placeholder="请输入性别"
     bind:input="setSex"
   />
@@ -51,5 +51,41 @@
     </view>
   </view>
   </van-cell-group>
+
 </view>
 
+<view class="container1"
+ wx:if="{{changeType == 'changePassword'}}">
+  <van-cell-group>
+    <van-field
+    value="{{num}}"
+    label="账号"
+    disabled
+    left-icon="course-o"
+    placeholder="{{num}}"
+  />
+  
+    <van-field
+    value="{{ oldPassword }}"
+    disabled
+    label="原密码"
+    left-icon="course-o"
+    placeholder="{{oldPassword}}"
+  />
+  <van-field
+    value="{{ newPassword }}"
+    label="新密码"
+    required
+    left-icon="course-o"
+    placeholder="请输入新密码"
+    bind:input="setPassword"
+  />
+
+  <view >
+    <view>
+      <van-button class="btn" color="#3b87dd" disable="{{disable}}" type="primary" size="large" bindclick="changePassword">提交修改</van-button>
+    </view>
+  </view>
+  </van-cell-group>
+
+</view>
