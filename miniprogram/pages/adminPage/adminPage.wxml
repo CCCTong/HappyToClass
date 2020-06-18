@@ -15,3 +15,5 @@
 <van-cell size="large" is-link icon="bars" title="管理课程" bind:click="manageCourse"/>
 
 <van-cell size="large" is-link icon="eye" title="我的信息"  bind:click="myPage"/>
+
+<van-cell size="large" is-link icon="friends" title="找回密码申请"  bind:click="toFindPassword" value="{{finderNum}}" />

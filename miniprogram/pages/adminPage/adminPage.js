@@ -1,4 +1,7 @@
-// miniprogram/pages/adminPage/adminPage.js
+const db = wx.cloud.database()
+var find_list = db.collection("FIND_PASSWORD_LIST")
+var app = getApp()
+
 Page({
 
   /**
@@ -7,8 +10,17 @@ Page({
   data: {
     city: "",
     today: {},
+    finderNum: 0 // 申请找回密码的人数
   },
 
+  /**
+   * 进入找回账号的功能
+   */
+  toFindPassword: function() {
+    wx.navigateTo({
+      url: '../findPasswordPage/adminFindPassword/adminFindPassword',
+    })
+  },
   /**
    * 管理账号，这算作教务功能
    */
@@ -37,10 +49,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var page = this
     this.loadInfo()
+    find_list.count().then(res=>{
+      page.setData({finderNum: res.total})
+    })
+    console.log(app.globalData)
   },
   
   myPage: function () {
+    var info = {
+      num: app.globalData.uid,
+      identity: app.globalData.identity
+    }
+    wx.setStorageSync('info', info)
     wx.navigateTo({
       url: '../myMainPage/MainPage',
     })

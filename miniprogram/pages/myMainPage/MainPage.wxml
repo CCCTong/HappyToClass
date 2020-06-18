@@ -1,46 +1,82 @@
 <!--miniprogram/pages/manageCourse/manageCourse.wxml-->
 <view class="waveWrapper waveAnimation" style='background-color:{{evening}}'>
-  <view class="word">个人信息</view>
-  <view class="waveWrapperInner bgTop">
-    <image class="wave waveTop" src="../../images/wave-top.png"></image>
+  <view class="word" wx:if="{{isMyself}}">我的信息</view>
+  <view class="word" wx:if="{{!isMyself}}">申请者主页</view>
+    <view class="waveWrapperInner bgTop">
+      <image class="wave waveTop" src="../../images/wave-top.png"></image>
+    </view>
+    <view class="waveWrapperInner bgBottom">
+      <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+    </view>
   </view>
-  <view class="waveWrapperInner bgBottom">
-    <image class="wave waveBottom" src="../../images/wave-bot.png"></image>
+
+  <view id="titleview">
+    <!-- 以下是课程名块 -->
+    <view id="coursename">个人信息</view>
   </view>
-</view>
 
-<view class="container1">
-  <view class="tabview">
-    <view class="introview">
-      <text class="introkey">姓名：</text>
-      <text class="introvalue">{{name}}</text>
+  <view class="container1">
+    <view class="tabview">
+      <view class="introview">
+        <text class="introkey">姓名：</text>
+        <text class="introvalue">{{name}}</text>
+      </view>
+
+      <view class="introview">
+        <text class="introkey">编号：</text>
+        <text class="introvalue">{{num}}</text>
+      </view>
+
+      <view class="introview">
+        <text class="introkey">生日：</text>
+        <text class="introvalue">{{birthday}}</text>
+      </view>
+      <view class="introview">
+        <text class="introkey">性别：</text>
+        <text class="introvalue">{{sex}}</text>
+      </view>
+      <view class="introview">
+        <text class="introkey">手机号：</text>
+        <text class="introvalue">{{phone}}</text>
+      </view>
+      <view class="introview">
+        <text class="introkey">邮箱：</text>
+        <text class="introvalue">{{email}}</text>
+      </view>
+      
+    <view class="btn" wx:if="{{isMyself}}">
+      <van-button color="#3b87dd" type="primary" size="large" bind:click="modifyInfo" id="changeInfo">修改信息</van-button>
     </view>
 
-    <view class="introview">
-      <text class="introkey">编号：</text>
-      <text class="introvalue">{{num}}</text>
-    </view>
+  </view>
 
-    <view class="introview">
-      <text class="introkey">生日：</text>
-      <text class="introvalue">{{birthday}}</text>
+  <view id="titleview">
+    <view id="coursename">账号信息</view> 
+  </view>
+
+  <view class="container1">
+    <view class="tabview">
+
+      <view class="introview">
+        <text class="introkey">账号：</text>
+        <text class="introvalue">{{num}}</text>
+      </view>
+
+      <view class="introview">
+        <text class="introkey">密码：</text>
+        <text class="introvalue">{{password}}</text>
+      </view>
+
+      <view class="btn">
+        <van-button color="#3b87dd" type="primary" size="large" bind:click="modifyInfo"  id="changePassword">修改密码</van-button>
+      </view>
     </view>
-    <view class="introview">
-      <text class="introkey">性别：</text>
-      <text class="introvalue">{{sex}}</text>
-    </view>
-    <view class="introview">
-      <text class="introkey">手机号：</text>
-      <text class="introvalue">{{phone}}</text>
-    </view>
-    <view class="introview">
-      <text class="introkey">邮箱：</text>
-      <text class="introvalue">{{email}}</text>
-    </view>
-</view>
-<view class="btn">
-  <van-button color="#3b87dd" type="primary" size="large" bind:click="modifyInfo">修改信息</van-button>
-</view>
+  </view>
+
+  <view class="introview" wx:if="{{!isMyself}}">
+    <text class="introkey">申请者留言:\n</text>
+    <text class="introvalue">   {{message}}</text>
+  </view>
 
 </view>
 

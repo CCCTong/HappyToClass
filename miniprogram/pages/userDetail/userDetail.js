@@ -52,42 +52,6 @@ Page({
       }
     })
   },
-  //确认修改
-  confirmModify:function(){
-    var page = this
-    var uid = this.data.uid
-    var password = this.data.password
-    var username = this.data.userName
-    var identity = this.data.userIdentity
-    wx.showModal({
-      title: '提示',
-      content: '确定要修改密码吗？',
-      success(res) {
-        if (res.confirm) { // 管理员点击确认，则进修改账号数据部分        
-          userList.where({
-            uid: page.data.uid
-          }).remove().then(res => {
-            userList.add({
-              data: {
-                userName:username,
-                uid: uid,
-                password: password,
-                userIdentity:identity
-              }
-            })
-            
-              // 修改成功，返回账号管理界面
-              page.changeParentData() // 刷新管理账号界面的数据
-              wx.navigateBack({
-                delta: 1, // 返回上一级页面。
-              })
-            
-          })
-        }
-      }
-    })
-  },
-  
 
   /**
    * 生命周期函数--监听页面加载

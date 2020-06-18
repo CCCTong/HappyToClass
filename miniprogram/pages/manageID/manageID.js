@@ -1,9 +1,9 @@
-// pages/manageID/manageID.js
+// 用来找回密码
 var app = getApp()
 var db = wx.cloud.database()
 var userlist = db.collection("user");
-const _ = db.command
-import Toast from '../../miniprogram_npm/vant-weapp/toast/toast'
+
+const _ = db.command 
 Page({
 
   /**

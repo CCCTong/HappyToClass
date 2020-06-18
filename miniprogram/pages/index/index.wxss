@@ -22,3 +22,8 @@ image {
   width: 50%;
   padding: 40rpx;
 }
+
+.test {
+  text-align:right;
+  margin-right: 80rpx; 
+}

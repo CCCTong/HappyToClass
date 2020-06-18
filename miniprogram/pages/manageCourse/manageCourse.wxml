@@ -46,7 +46,9 @@
       <text> 上课时间: {{(item.Time)}}\n </text>
     </view>
 
+    <view style="display:block; height:100px; width:20px" >
       <van-button class="btn" id="{{item.CourseName}}" size="normal" color="#3b87dd" disabled="{{disable}}" bindtap="toCourseDetail" class="detail" data-coursenum="{{item.CourseNum}}">管理</van-button>
+    </view>
       
   </van-cell>
   </block>

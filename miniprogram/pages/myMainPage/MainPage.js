@@ -1,26 +1,35 @@
-// miniprogram/pages/myMainPage/MainPage.js
-var app = getApp();   
+// 个人相关信息修改界面：个人信息、密码
+var app = getApp();
 const db = wx.cloud.database();
 const student_list = db.collection("STUDENT_LIST")
 const teahcer_list = db.collection("TEACHER_LIST")
 const admin_list = db.collection("ADMIN_LIST")
+var find_list = db.collection("FIND_PASSWORD_LIST")
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    name: "" ,      // 用户姓名
-    num: "",        // 用户账号
-    birthday: "",   // 用户生日
-    sex: "",        // 用户性别
-    phone: "",      // 用户电话
-    email: ""       // 用户邮箱
+    name: "", // 用户姓名
+    num: "", // 用户账号
+    birthday: "", // 用户生日
+    sex: "", // 用户性别
+    phone: "", // 用户电话
+    email: "", // 用户邮箱
+    password: "", // 用户密码
+    isMyself: false, // 是否为用户自己在看
+    message: "无", // 申请者的留言 
   },
   /**
    * 点击修改信息按钮，进入信息修改页面
    */
-  modifyInfo: function() {
+  modifyInfo: function (e) {
+    // 保存用户相关信息，用做页面跳转之后使用
+    var user = {
+      changeType:e.currentTarget.id
+    }
+    wx.setStorageSync('user', user)
     wx.navigateTo({
       url: 'modifyInfomation/modifyInfomation',
     })
@@ -28,18 +37,31 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  async onLoad(options){
-    var num = app.globalData.uid
+  async onLoad(options) {
+    var info = wx.getStorageSync('info')
+    var num = info.num
     // 加载用户身份，用于判断修改哪个数据库
-    var identity = app.globalData.identity
-    
+    var identity = info.identity
+    this.setData({
+      password: app.globalData.password,
+      isMyself: (num == app.globalData.uid)
+    })
+    if(!this.data.isMyself){
+      find_list.where({
+        num:num
+      }).get().then(res=>{
+        if(res.data[0].message.length > 0) {
+          this.setData({message: res.data[0].message})
+        }
+      })
+    }
     // 学生设置个人信息，向数据库中检索原来的个人信息
-    if(identity == 'student') {
+    if (identity == 'student') {
       student_list.where({
         StudentNum: num
       }).get().then(res => {
         this.setData({
-          name: app.globalData.username,
+          name: res.data[0].StudentName,
           num: res.data[0].StudentNum,
           birthday: res.data[0].StudentBirthday,
           sex: res.data[0].StudentSex,
@@ -77,12 +99,12 @@ Page({
           email: res.data[0].Email
         })
       })
-    } 
+    }
   },
   // 从子页面返回的时候重新加载数据
-  changeData:function(){
+  changeData: function () {
     this.onLoad();
-    },
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

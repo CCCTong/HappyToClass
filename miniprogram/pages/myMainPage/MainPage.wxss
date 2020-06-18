@@ -9,7 +9,7 @@
   width: 600rpx;
   margin-left: 50rpx;
   margin-top: 20rpx;
-  font-size: 60rpx;
+  font-size: 40rpx;
 }
 #tagsview {
   margin-top: 10rpx;
@@ -63,7 +63,7 @@ height: 2rpx;*/
   margin-right: auto;
   margin-top: 10rpx;
   margin-bottom: 20rpx;
-  padding: 30rpx 0rpx;
+  padding: 20rpx 0rpx;
 }
 .introview {
   width: 550rpx;
@@ -125,7 +125,7 @@ height: 2rpx;*/
   font-style: bold;
   background: #0061CC;
   color: #fff;
-  text-align: left;
+  text-align: center;
 }
 
 /**
