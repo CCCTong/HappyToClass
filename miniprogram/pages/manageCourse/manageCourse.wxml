@@ -26,24 +26,11 @@
       </view>
     </view>
 
-    <view slot="label" 
-      data-courseName="{{item.CourseName}}"
-      data-index="{{index}}"
-      class="detail">
-      <van-icon name="manager" size="25rpx"/>
-      <text> 上课人数: {{(item.MaxNum - item.Num)}}\n </text>
-    </view>
-
-    <view slot="label" 
-      class="detail">
-      <van-icon name="location" size="25rpx"/>
-      <text> 上课地点: {{(item.Location)}}\n </text>
-    </view>
 
     <view slot="label" 
       class="detail">
       <van-icon name="clock" size="25rpx"/>
-      <text> 上课时间: {{(item.Time)}}\n </text>
+      <text> 审核状态: {{(item.Condition)}}\n </text>
     </view>
 
     <view style="display:block; height:100px; width:20px" >

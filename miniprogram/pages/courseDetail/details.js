@@ -28,50 +28,19 @@ Page({
   /**
    * 删除课程
    */
-  async removeCourse(e) {
+  async reCourse(e) {
     var page = this
     wx.showModal({
       title: '提示',
-      content: '确定要删除本课程吗？',
+      content: '确定要重新申请本课程吗？',
       success(res) {
-        if (res.confirm) { // 教师点击确认，则进删除课程数据部分
+        if (res.confirm) { // 教师点击确认，则进重新申请课程部分
           courseList.where({
             CourseNum: page.data.courseNum
           }).remove().then(res => {
-            // 继续删除学生选课列表中选择该课程的数据
-            // 此处需要根据课程名来检索选择该课程的学生数组
-            // 以此遍历此数组，调用函数，进行退课
-            c_s_List.where({
-              CourseNum: page.data.courseNum
-            }).get().then(res=>{
-              var courseData = res.data[0];
-              console.log(courseData)
-              // 根据学生信息数组，逐个进行退课
-              for(var i=0; i<courseData.StudentNum.length; i++) {
-                wx.cloud.callFunction({
-                  name: "dropCourse",
-                  data: {
-                    studentNum: courseData.StudentNum[i],
-                    courseNum: courseData.CourseNum,
-                    courseName: courseData.CourseName,
-                    studentName: courseData.StudentName[i]
-                  }
-                })
-              }
+            wx.redirectTo({
+              url: '../createCourse/createCourse',
             })
-            
-            var flag = res.stats.removed // 是否成功删除
-            if (flag) {
-              // 删除成功，返回课程管理界面
-              page.changeParentData() // 刷新管理课程界面的数据
-              wx.navigateBack({
-                delta: 1, // 返回上一级页面。
-              })
-              wx.showModal({
-                title: '提示',
-                content: '已删除课程'
-              })
-            }
           })
         }
       }

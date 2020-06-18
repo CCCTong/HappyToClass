@@ -176,13 +176,13 @@ Page({
             })
             return;
           }
-          console.log(11111111111111)
+          
 
           if (!this.checkUserName(username)) return;
-          console.log(2222222222222222)
+          
 
           if (!this.checkUserNum(uid)) return;
-          console.log(333333333333);
+          
           if (!this.checkPassWord(password))return;
           userList.add({
             data: {

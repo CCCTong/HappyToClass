@@ -2,8 +2,8 @@
 
 var app = getApp();
 var db = wx.cloud.database();
-var CourseList = db.collection("COURSE_LIST"); //已审核课程表
-var courseList = db.collection("COURSE_LIST_temp");//未审核课程表
+
+var courseList = db.collection("COURSE_LIST");//未审核课程表
 Page({
 
   /**
@@ -44,71 +44,61 @@ Page({
     var page = this
     wx.showModal({
       title: '提示',
-      content: '确定要删除本课程吗？',
+      content: '确定审核不通过吗？',
       success(res) {
-        if (res.confirm) { // 管理员点击确认，则进删除课程数据部分
+        if (res.confirm) { // 管理员点击确认，则进入审核不通过操作
           courseList.where({
             CourseNum: page.data.courseNum
-          }).remove().then(res => {
-
-            var flag = res.stats.removed // 是否成功删除
-            if (flag) {
-              // 删除成功，返回课程管理界面
+          }).update({
+            data:{
+              Condition:"未通过审核"
+            }
+          }).then(res => {
+         
+           
+              // 操作成功，返回课程管理界面
               page.changeParentData() // 刷新管理课程界面的数据
               wx.navigateBack({
                 delta: 1, // 返回上一级页面。
               })
-              wx.showModal({
+              /*wx.showModal({
                 title: '提示',
-                content: '已删除课程'
-              })
-            }
+                content: '已课程'
+              })*/
+            
           })
         }
       }
     })
   },
+
   async confirmCourse(e){
     var page = this
     var courseNum = app.globalData.courseNum
     var courseName = app.globalData.courseName
     var time = this.data.Time
     var location = this.data.Location
-    console.log(1)
     wx.showModal({
       title: '提示',
-      content: '确定要确认本课程吗？',
+      content: '要确认本课程吗？',
       success(res) {
       if (res.confirm){
         //确认课程
+        
         courseList.where({
-        CourseNum: courseNum,
-        CourseName:courseName
-      }).get().then(res => {
-        var courseData = res.data[0]
-       
-        CourseList.add({
-          data: {
-            CourseNum: courseNum,
-            CourseName: courseName,
-            Credit: courseData.Credit,
-            Time: time,
-            Location:location,
-            MaxNum: courseData.Num,// 选择该课程的学生人数
-            Num: courseData.Num,
-            TeacherNum:courseData.TeacherNum,
-            TeacherName:courseData.TeacherName,
-              }
-            })
-              //删除COURST_LIST_temp中数据
-              courseList.where({
-                CourseNum: page.data.courseNum
-              }).remove()
-                  // 删除成功，返回课程管理界面
-                  page.changeParentData() // 刷新管理课程界面的数据
-                  wx.navigateBack({
-                    delta: 1, // 返回上一级页面。
-                  })
+        CourseNum:courseNum,
+        CourseName:courseName,
+      }).update({
+        data:{
+        Condition:"通过审核",
+        Time:time,
+        Location:location
+        }
+      }).then(res => {
+          page.changeParentData() // 刷新管理课程界面的数据
+          wx.navigateBack({
+          delta: 1, // 返回上一级页面。
+           })
           })
         }
       }

@@ -2,7 +2,7 @@
 //审核课程页面
 var app = getApp()
 var db = wx.cloud.database()
-var course_list = db.collection("COURSE_LIST_temp");
+var course_list = db.collection("COURSE_LIST");
 var student_course = db.collection("STUDENT_COURSE");
 var student_list = db.collection("STUDENT_LIST");
 var teacher_list = db.collection("TEACHER_LIST");
@@ -15,6 +15,7 @@ Page({
    */
   data: {
     courses: [],
+    course:[],
     disable: false
   },
 
@@ -32,7 +33,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    course_list.get().then(res => {
+    
+    course_list.where({
+      Condition:"审核中"
+    }).get().then(res => {
       console.log(res.data)
       this.setData({
         courses: res.data
@@ -64,7 +68,9 @@ Page({
     wx.showLoading({
       title: '请稍等',
     })
-    courseCollection.get().then(res => {
+    courseCollection.where({
+
+    }).get().then(res => {
       this.setData({
         courses: res.data
       })

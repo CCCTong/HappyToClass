@@ -65,7 +65,7 @@
    
 
 <view class="btn">
-  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">删除课程</van-button>
+  <van-button color="#3b87dd" type="primary" size="large" bind:click="removeCourse">不通过课程</van-button>
   <van-button color="#3b87dd" type="primary" size="large" bind:click="confirmCourse" >确认课程</van-button>
 
 </view>

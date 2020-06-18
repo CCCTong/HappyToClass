@@ -2,7 +2,7 @@
 
 const db = wx.cloud.database()
 //临时课程表
-const course_list = db.collection("COURSE_LIST_temp")
+const course_list = db.collection("COURSE_LIST")
 var app = getApp()
 
 Page({
@@ -181,6 +181,7 @@ Page({
               Num: maxNum, // 选课人数
               TeacherNum: teacherNum,
               TeacherName: teacherName,
+              Condition: "审核中"//审核状态
             }
           })
           // 刷新界面
