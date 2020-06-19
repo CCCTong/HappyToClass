@@ -165,11 +165,13 @@ export class DataBaseManager {
     for (var i = 0; i < coursesName.length; i++) {
       var p = new Promise((resolve, zreject) => {
         course_list.where({
-          CourseName: coursesName[i]
+          CourseName: coursesName[i],
+          Condition: "通过审核"
         }).get().then(res => {
           resolve(res.data[0])
         })
       })
+      console.log(p);
       prom.push(p)
     }
     return prom;

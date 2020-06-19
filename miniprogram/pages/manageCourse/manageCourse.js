@@ -21,15 +21,15 @@ Page({
     console.log(e.currentTarget.dataset.coursenum)
     if (e.currentTarget.dataset.condition == "通过审核"){
       // 保存信息，向子页面传递
-    app.globalData.courseNum = e.currentTarget.dataset.coursenum;
-    wx.navigateTo({
-      url: '../courseDetail/detail',
-    })
+      app.globalData.courseNum = e.currentTarget.dataset.coursenum;
+      wx.navigateTo({
+        url: '../courseDetail/detail',
+      })
     }else{
       app.globalData.courseNum = e.currentTarget.dataset.coursenum;
-    wx.redirectTo({
-      url: '../courseDetail/details',
-    })
+      wx.redirectTo({
+        url: '../courseDetail/details',
+      })
     }
     
   },
